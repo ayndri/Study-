@@ -6,7 +6,10 @@
 const CID_KEY = "jalurits_cid";
 
 // Kunci progres yang disinkronkan ke cloud.
-const SYNC_KEYS = ["scores", "known", "docChecklist", "materiDone", "rubric", "essay", "simResult"];
+const SYNC_KEYS = [
+  "scores", "known", "docChecklist", "materiDone", "rubric", "essay", "simResult",
+  "flutterMateriDone", "golangMateriDone", "aiStats", "studyPlan", "studyPlanChecks",
+];
 
 function newCode(): string {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // tanpa 0/O/1/I agar mudah dibaca

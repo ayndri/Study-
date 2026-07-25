@@ -26,6 +26,8 @@ Saat ini tersedia tiga jalur belajar:
 - 📚 **Materi lengkap** (45+ pelajaran, 8 kategori) dari dasar bahasa Inggris, grammar, listening, reading, writing, kosakata, hingga strategi tes & wawancara beasiswa.
 - ✦ **Perdalam dengan AI** di setiap materi — penjelasan mendalam dari dasar untuk pemula.
 - 📝 **Latihan berlevel** (Listening, Structure, Reading) dengan filter kesulitan + pembahasan.
+- ✦ **Latihan Soal AI tak terbatas** — AI membuat soal segar per topik & tingkat kesulitan (TOEFL/Flutter/Golang) lalu **menganalisis topik terlemah** untuk difokuskan.
+- 📅 **Rencana Belajar Personal (AI)** — jadwal mingguan dari target skor + tanggal tes, dengan tugas yang terhubung ke fitur aplikasi, checklist progres, dan hitung mundur.
 - ⏱️ **Simulasi tes lengkap** berwaktu 3 bagian dengan skor konversi (310–677).
 - ✍️ **Writing** dengan **koreksi esai otomatis (AI)** + rubrik, beserta **riwayat esai**.
 - 🔤 **Vocabulary** — 110 flashcard + kuis dengan *spaced repetition*.

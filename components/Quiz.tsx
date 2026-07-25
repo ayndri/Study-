@@ -9,7 +9,17 @@ const L = ["A", "B", "C", "D", "E"];
 const LEVELS: (Level | "semua")[] = ["semua", "mudah", "sedang", "sulit"];
 const lvlOf = (q: Question): Level => q.level || "sedang";
 
-export default function Quiz({ section, questions, subject = "toefl" }: { section: string; questions: Question[]; subject?: string }) {
+export default function Quiz({
+  section,
+  questions,
+  subject = "toefl",
+  onChecked,
+}: {
+  section: string;
+  questions: Question[];
+  subject?: string;
+  onChecked?: (correct: number, total: number) => void;
+}) {
   const [picked, setPicked] = useState<Record<number, number>>({});
   const [checked, setChecked] = useState(false);
   const [filter, setFilter] = useState<Level | "semua">("semua");
@@ -27,6 +37,7 @@ export default function Quiz({ section, questions, subject = "toefl" }: { sectio
   function check() {
     setChecked(true);
     recordScore(section, correct, shown.length);
+    onChecked?.(correct, shown.length);
   }
   function reset() {
     setPicked({});

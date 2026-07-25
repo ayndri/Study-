@@ -22,6 +22,7 @@ const TOEFL_NAV: NavGroup[] = [
       { href: "/structure", label: "Structure", ic: "§" },
       { href: "/reading", label: "Reading", ic: "❏" },
       { href: "/writing", label: "Writing", ic: "✎", badge: "AI" },
+      { href: "/latihan-ai", label: "Latihan Soal AI", ic: "✦", badge: "AI" },
       { href: "/riwayat-esai", label: "Riwayat Esai", ic: "🗂" },
       { href: "/vocabulary", label: "Vocabulary", ic: "▤" },
       { href: "/simulasi", label: "Simulasi Tes", ic: "◉" },
@@ -30,6 +31,7 @@ const TOEFL_NAV: NavGroup[] = [
   {
     group: "Bantuan & Beasiswa",
     items: [
+      { href: "/rencana", label: "Rencana Belajar", ic: "📅", badge: "AI" },
       { href: "/tutor", label: "Tutor AI", ic: "✦", badge: "AI" },
       { href: "/wawancara", label: "Wawancara LPDP", ic: "🎤", badge: "AI" },
       { href: "/beasiswa", label: "Beasiswa", ic: "★" },
