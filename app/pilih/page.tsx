@@ -34,6 +34,14 @@ const TRACKS = [
     ready: true,
   },
   {
+    href: "/pm",
+    ic: "📋",
+    title: "Manajemen Proyek",
+    desc: "Jadi Project Manager andal: peran PM, siklus proyek, Waterfall/Agile/Scrum/Kanban, perencanaan & risiko, hingga sertifikasi. Materi bertahap, tutor AI, dan latihan soal AI.",
+    tags: ["Materi + AI", "Tutor AI", "Latihan Soal AI"],
+    ready: true,
+  },
+  {
     href: "#",
     ic: "✨",
     title: "Pembelajaran lain",

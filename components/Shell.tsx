@@ -75,12 +75,25 @@ const NEST_NAV: NavGroup[] = [
   },
 ];
 
+const PM_NAV: NavGroup[] = [
+  {
+    group: "Manajemen Proyek",
+    items: [
+      { href: "/pm", label: "Beranda", ic: "◈" },
+      { href: "/pm/materi", label: "Materi", ic: "▥" },
+      { href: "/pm/tutor", label: "Tutor AI", ic: "✦", badge: "AI" },
+      { href: "/latihan-ai", label: "Latihan Soal AI", ic: "◉", badge: "AI" },
+    ],
+  },
+];
+
 type Track = { key: string; mark: string; name: string; tagline: string; nav: NavGroup[] };
 
 const TRACKS: Track[] = [
   { key: "/golang", mark: "G", name: "Belajar Golang", tagline: "Backend · Bahasa Go", nav: GO_NAV },
   { key: "/flutter", mark: "F", name: "Belajar Flutter", tagline: "Mobile · Dart & Flutter", nav: FLUTTER_NAV },
   { key: "/nestjs", mark: "N", name: "Belajar NestJS", tagline: "Backend · Node & TypeScript", nav: NEST_NAV },
+  { key: "/pm", mark: "P", name: "Manajemen Proyek", tagline: "Project Management · Agile & Scrum", nav: PM_NAV },
 ];
 
 function trackFor(pathname: string): Track {

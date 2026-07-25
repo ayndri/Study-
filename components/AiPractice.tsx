@@ -5,7 +5,7 @@ import type { Question } from "@/lib/content";
 import Quiz from "@/components/Quiz";
 import { get, set } from "@/lib/store";
 
-type Subject = "toefl" | "flutter" | "golang" | "nestjs";
+type Subject = "toefl" | "flutter" | "golang" | "nestjs" | "pm";
 type Stat = { c: number; t: number };
 type Stats = Record<string, Record<string, Stat>>; // subject -> topic -> {correct,total}
 
@@ -14,6 +14,7 @@ const SUBJECTS: { key: Subject; label: string }[] = [
   { key: "flutter", label: "Flutter" },
   { key: "golang", label: "Golang" },
   { key: "nestjs", label: "NestJS" },
+  { key: "pm", label: "Manajemen Proyek" },
 ];
 
 const TOPICS: Record<Subject, string[]> = {
@@ -58,6 +59,16 @@ const TOPICS: Record<Subject, string[]> = {
     "DTO & Validasi",
     "Database (TypeORM)",
     "Guards & Autentikasi JWT",
+  ],
+  pm: [
+    "Dasar Manajemen Proyek",
+    "Siklus Hidup Proyek",
+    "Waterfall vs Agile",
+    "Scrum (Peran & Event)",
+    "User Story & Estimasi",
+    "Perencanaan & WBS",
+    "Manajemen Risiko",
+    "Stakeholder & Komunikasi",
   ],
 };
 

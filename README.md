@@ -2,12 +2,13 @@
 
 Aplikasi web **Next.js** untuk belajar mandiri yang menggabungkan beberapa jalur pembelajaran dalam satu tempat, ditenagai **AI (Gemini)** dan disimpan di **Neon Postgres**, dengan **login** dan **panel admin** untuk mengelola akun pengguna.
 
-Saat ini tersedia empat jalur belajar:
+Saat ini tersedia lima jalur belajar:
 
 - 🎓 **TOEFL ITP & Beasiswa LPDP** — persiapan tes TOEFL ITP dan seleksi beasiswa LPDP menuju S2 Teknik Informatika ITS.
 - 📱 **Mobile dengan Flutter** — belajar membangun aplikasi mobile dengan Dart & Flutter dari nol.
 - 🐹 **Golang (Go)** — belajar bahasa Go dari dasar hingga konkurensi & REST API.
 - 🐱 **NestJS** — membangun backend Node.js berbasis TypeScript dari nol hingga autentikasi & database.
+- 📋 **Manajemen Proyek** — jalur non-koding: peran Project Manager, metodologi (Waterfall/Agile/Scrum/Kanban), perencanaan, risiko, hingga sertifikasi.
 
 > Platform ini dirancang agar mudah ditambah jalur belajar baru: konten & materi terpisah, sedangkan komponen dan endpoint AI dipakai bersama (sadar-subjek).
 
@@ -115,13 +116,14 @@ app/
   flutter/           jalur Flutter (beranda, materi, tutor, latihan)
   golang/            jalur Golang (beranda, materi, tutor, latihan)
   nestjs/            jalur NestJS (beranda, materi, tutor, latihan)
+  pm/                jalur Manajemen Proyek (beranda, materi, tutor)
   pilih/             pemilih jalur pembelajaran
   login/  admin/     autentikasi & manajemen akun
   api/               endpoint: auth, admin, progress, sync, feedback,
                      tutor, perdalam, jelaskan, wawancara, review-kode
 components/          Shell (navigasi), Quiz, Materi, Tutor, Simulasi, dll.
 lib/                 content.ts (TOEFL), materi.ts, flutter.ts, golang.ts,
-                     nestjs.ts, db.ts, gemini.ts, auth.ts, auth-token.ts, store.ts
+                     nestjs.ts, pm.ts, db.ts, gemini.ts, auth.ts, auth-token.ts, store.ts
 middleware.ts        gerbang autentikasi seluruh rute
 ```
 
