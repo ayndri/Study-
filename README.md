@@ -8,7 +8,7 @@ Saat ini tersedia lima jalur belajar:
 - 📱 **Mobile dengan Flutter** — belajar membangun aplikasi mobile dengan Dart & Flutter dari nol.
 - 🐹 **Golang (Go)** — belajar bahasa Go dari dasar hingga konkurensi & REST API.
 - 🐱 **NestJS** — membangun backend Node.js berbasis TypeScript dari nol hingga autentikasi & database.
-- 📋 **Manajemen Proyek** — jalur non-koding: peran Project Manager, metodologi (Waterfall/Agile/Scrum/Kanban), perencanaan, risiko, hingga sertifikasi.
+- 📋 **Manajemen Proyek** — jalur non-koding (31 pelajaran): peran Project Manager, metodologi (Waterfall/Agile/Scrum/Kanban), perencanaan, risiko, sertifikasi, plus **Proyek & Praktik** (menyiapkan papan Trello/Jira, template dokumen siap pakai, studi kasus terpandu, ide proyek latihan).
 
 > Platform ini dirancang agar mudah ditambah jalur belajar baru: konten & materi terpisah, sedangkan komponen dan endpoint AI dipakai bersama (sadar-subjek).
 

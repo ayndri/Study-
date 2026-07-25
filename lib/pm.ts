@@ -15,6 +15,7 @@ export const PM_CATS: { key: string; label: string; ic: string }[] = [
   { key: "perencanaan", label: "Perencanaan", ic: "▦" },
   { key: "risiko", label: "Risiko & Stakeholder", ic: "⚠" },
   { key: "alat", label: "Alat & Karier", ic: "◎" },
+  { key: "proyek", label: "Proyek & Praktik", ic: "🛠" },
 ];
 
 export const PM_LESSONS: Lesson[] = [
@@ -738,6 +739,196 @@ export const PM_LESSONS: Lesson[] = [
       <div class="callout">Sertifikasi membuka pintu, tetapi yang membuatmu bertahan adalah <b>keterampilan lunak</b>: komunikasi, kepemimpinan, dan kemampuan menenangkan situasi saat proyek memanas. Bangun keduanya secara seimbang.</div>
     `,
   },
+
+  // ===================== PROYEK & PRAKTIK =====================
+  {
+    id: "pm-tools-setup",
+    cat: "proyek",
+    title: "Menyiapkan Papan Kerja (Trello / Jira / Notion)",
+    minutes: 10,
+    summary: "Panduan bertahap membangun papan Kanban atau Scrum dari nol.",
+    body: `
+      <p>Papan kerja (board) adalah tempat tim <b>melihat semua pekerjaan dalam satu layar</b>. Sebelum memilih alat, kenali dua gaya papan yang paling umum: <b>Kanban</b> (kartu mengalir melewati kolom status) dan <b>Scrum</b> (backlog dipecah menjadi sprint berjangka tetap).</p>
+      <h4>Pilih alat sesuai kebutuhan</h4>
+      <table>
+        <tr><th>Alat</th><th>Paling cocok untuk</th><th>Kelebihan</th><th>Kapan sebaiknya dihindari</th></tr>
+        <tr><td><b>Trello</b></td><td>Tim kecil, tugas pribadi, proyek sederhana</td><td>Sangat mudah, papan Kanban visual, gratis untuk kebutuhan dasar</td><td>Saat butuh laporan Agile mendalam (velocity, burndown)</td></tr>
+        <tr><td><b>Jira</b></td><td>Tim perangkat lunak yang serius memakai Scrum atau Kanban</td><td>Backlog, sprint, story point, laporan burndown &amp; velocity lengkap</td><td>Untuk tim non-teknis kecil karena terasa terlalu rumit</td></tr>
+        <tr><td><b>Notion</b></td><td>Tim yang ingin papan tugas menyatu dengan catatan &amp; dokumen</td><td>Fleksibel: database bisa jadi papan, tabel, kalender, plus wiki</td><td>Saat butuh metrik Agile otomatis yang siap pakai</td></tr>
+      </table>
+      <div class="callout">Aturan praktis: pakai <b>Trello</b> bila ingin cepat dan sederhana, <b>Jira</b> bila tim developer butuh sprint &amp; metrik, dan <b>Notion</b> bila papan tugas ingin menyatu dengan dokumentasi proyek.</div>
+      <h4>Langkah menyiapkan papan (berlaku untuk semua alat)</h4>
+      <ol>
+        <li><b>Buat akun &amp; workspace.</b> Daftar dengan email tim, lalu buat satu ruang kerja bernama proyekmu, misalnya "Aplikasi Kasir".</li>
+        <li><b>Buat board baru.</b> Beri nama jelas dan tentukan gayanya: Kanban untuk aliran tugas, atau Scrum bila akan memakai sprint.</li>
+        <li><b>Susun kolom (list).</b> Untuk Kanban gunakan <i>To Do</i>, <i>In Progress</i>, <i>Done</i>. Untuk Scrum tambahkan <i>Backlog</i> di paling kiri dan alur <i>Sprint Backlog</i> ke arah <i>Done</i>.</li>
+        <li><b>Tambahkan kartu tugas.</b> Tiap tugas jadi satu kartu. Lengkapi kartu dengan: <b>judul</b> yang jelas, <b>assignee</b> (penanggung jawab), <b>due date</b> (tenggat), <b>label</b> warna (mis. desain, backend, bug), dan <b>checklist</b> untuk subtugas.</li>
+        <li><b>Atur swimlane bila perlu.</b> Swimlane adalah baris mendatar yang mengelompokkan kartu, misalnya per fitur atau per prioritas, agar papan tetap rapi saat kartu banyak.</li>
+        <li><b>Tetapkan batas WIP.</b> Batasi jumlah kartu di kolom <i>In Progress</i> (mis. maksimal 3 per orang) agar tim tidak mengerjakan terlalu banyak sekaligus.</li>
+        <li><b>Sambungkan integrasi sederhana.</b> Hubungkan board ke notifikasi tim (mis. email atau aplikasi chat) supaya perubahan kartu langsung terlihat. Untuk Jira, sambungkan ke repositori kode; untuk Notion, tautkan halaman dokumen ke kartu.</li>
+        <li><b>Sepakati aturan main.</b> Tentukan kapan kartu boleh pindah kolom dan apa arti "Done" (rujuk Definition of Done). Tanpa kesepakatan ini, papan cepat jadi tidak akurat.</li>
+      </ol>
+      <h4>Contoh isi kartu tugas</h4>
+      <table>
+        <tr><th>Kolom kartu</th><th>Contoh isian</th></tr>
+        <tr><td>Judul</td><td>Buat halaman pembayaran</td></tr>
+        <tr><td>Assignee</td><td>Rani (backend)</td></tr>
+        <tr><td>Due date</td><td>2 hari lagi</td></tr>
+        <tr><td>Label</td><td>Backend, Prioritas tinggi</td></tr>
+        <tr><td>Checklist</td><td>Sambung API, uji transaksi, tangani gagal bayar</td></tr>
+      </table>
+      <div class="callout">Papan sebaiknya menjadi <b>satu sumber kebenaran</b>. Bila tim masih menyimpan tugas di catatan pribadi atau chat, papan akan cepat usang. Biasakan semua pekerjaan lewat papan.</div>
+    `,
+  },
+  {
+    id: "pm-templates",
+    cat: "proyek",
+    title: "Template Dokumen Proyek Siap Pakai",
+    minutes: 12,
+    summary: "Kumpulan template inti proyek beserta contoh pengisiannya.",
+    body: `
+      <p>Berikut enam dokumen inti yang bisa langsung kamu tiru. Contoh memakai proyek nyata: <b>membangun website toko online</b> dan <b>aplikasi kasir</b>. Salin strukturnya, ganti isinya dengan datamu.</p>
+      <h4>1. Project Charter</h4>
+      <p>Meresmikan proyek dan memberi wewenang PM. Isi ringkas tapi lengkap.</p>
+      <table>
+        <tr><th>Bagian</th><th>Contoh isian (website toko online)</th></tr>
+        <tr><td>Tujuan</td><td>Menaikkan penjualan UMKM 30 persen lewat toko online</td></tr>
+        <tr><td>Ruang lingkup tingkat tinggi</td><td>Katalog produk, keranjang, pembayaran, admin sederhana</td></tr>
+        <tr><td>Sponsor</td><td>Pemilik UMKM</td></tr>
+        <tr><td>PM</td><td>Dewi</td></tr>
+        <tr><td>Anggaran perkiraan</td><td>Sekitar 40 sampai 50 juta rupiah</td></tr>
+        <tr><td>Jadwal perkiraan</td><td>3 bulan</td></tr>
+      </table>
+      <h4>2. Work Breakdown Structure (WBS)</h4>
+      <p>Memecah seluruh pekerjaan menjadi bagian kecil. Ingat aturan 100 persen: semua pekerjaan harus tercakup.</p>
+      <ul>
+        <li><b>1. Desain</b> — 1.1 wireframe, 1.2 mockup, 1.3 revisi.</li>
+        <li><b>2. Frontend</b> — 2.1 halaman utama, 2.2 halaman produk, 2.3 keranjang.</li>
+        <li><b>3. Backend</b> — 3.1 basis data, 3.2 pembayaran, 3.3 panel admin.</li>
+        <li><b>4. Pengujian &amp; rilis</b> — 4.1 uji fungsi, 4.2 uji beban, 4.3 peluncuran.</li>
+      </ul>
+      <h4>3. Matriks RACI</h4>
+      <p>Memperjelas siapa berperan apa untuk tiap tugas. <b>R</b>esponsible (mengerjakan), <b>A</b>ccountable (bertanggung jawab akhir), <b>C</b>onsulted (dimintai masukan), <b>I</b>nformed (diberi kabar).</p>
+      <table>
+        <tr><th>Tugas</th><th>PM</th><th>Desainer</th><th>Programmer</th><th>Sponsor</th></tr>
+        <tr><td>Desain mockup</td><td>A</td><td>R</td><td>C</td><td>I</td></tr>
+        <tr><td>Bangun fitur pembayaran</td><td>A</td><td>I</td><td>R</td><td>C</td></tr>
+        <tr><td>Persetujuan rilis</td><td>R</td><td>I</td><td>I</td><td>A</td></tr>
+      </table>
+      <div class="callout">Aturan RACI yang sehat: tiap tugas hanya boleh punya <b>satu A</b> (satu penanggung jawab akhir). Kalau ada dua A, tanggung jawab menjadi kabur.</div>
+      <h4>4. Risk Register</h4>
+      <p>Daftar risiko beserta kemungkinan, dampak, dan rencana respons.</p>
+      <table>
+        <tr><th>Risiko</th><th>Kemungkinan</th><th>Dampak</th><th>Respons</th></tr>
+        <tr><td>Vendor pembayaran terlambat aktif</td><td>Sedang</td><td>Tinggi</td><td>Siapkan vendor cadangan (mitigate)</td></tr>
+        <tr><td>Anggota tim sakit</td><td>Rendah</td><td>Sedang</td><td>Dokumentasi tugas agar bisa digantikan (accept)</td></tr>
+        <tr><td>Perubahan permintaan klien</td><td>Tinggi</td><td>Sedang</td><td>Terapkan change control (mitigate)</td></tr>
+      </table>
+      <h4>5. Status Report Mingguan</h4>
+      <p>Laporan singkat tiap minggu agar stakeholder tahu posisi proyek.</p>
+      <table>
+        <tr><th>Bagian</th><th>Contoh isian</th></tr>
+        <tr><td>Status keseluruhan</td><td>Hijau (sesuai jalur)</td></tr>
+        <tr><td>Selesai minggu ini</td><td>Halaman produk &amp; keranjang</td></tr>
+        <tr><td>Rencana minggu depan</td><td>Integrasi pembayaran</td></tr>
+        <tr><td>Hambatan</td><td>Menunggu akun vendor pembayaran</td></tr>
+        <tr><td>Risiko baru</td><td>Belum ada</td></tr>
+      </table>
+      <div class="callout">Gunakan indikator lampu lalu lintas pada status: <b>hijau</b> sesuai jalur, <b>kuning</b> ada risiko, <b>merah</b> butuh keputusan segera. Ini membuat laporan cepat dipahami atasan.</div>
+      <h4>6. Sprint Backlog</h4>
+      <p>Daftar pekerjaan yang dipilih untuk satu sprint (aplikasi kasir), lengkap dengan estimasi dan status.</p>
+      <table>
+        <tr><th>User story</th><th>Story point</th><th>Assignee</th><th>Status</th></tr>
+        <tr><td>Sebagai kasir, saya ingin memindai barcode agar cepat input barang</td><td>5</td><td>Andi</td><td>In Progress</td></tr>
+        <tr><td>Sebagai kasir, saya ingin memberi diskon agar bisa promo</td><td>3</td><td>Budi</td><td>To Do</td></tr>
+        <tr><td>Sebagai pemilik, saya ingin laporan harian agar tahu omzet</td><td>8</td><td>Andi</td><td>To Do</td></tr>
+      </table>
+      <div class="callout">Simpan semua template ini di satu tempat (mis. folder bersama atau Notion) agar seluruh tim memakai format yang sama. Konsistensi format membuat proyek lebih mudah dilacak.</div>
+    `,
+  },
+  {
+    id: "pm-studi-kasus",
+    cat: "proyek",
+    title: "Studi Kasus Terpandu: Kelola Proyek dari Inisiasi sampai Penutupan",
+    minutes: 13,
+    summary: "Menelusuri satu proyek nyata melewati lima fase siklus hidup dengan Scrum.",
+    body: `
+      <p>Ikuti satu proyek dari awal sampai selesai: <b>membangun aplikasi mobile toko online</b> untuk sebuah UMKM. Proyek ini akan melewati lima fase siklus hidup, dengan eksekusi memakai <b>Scrum</b>.</p>
+      <h4>Fase 1 — Inisiasi</h4>
+      <p>Pemilik UMKM ingin berjualan lewat aplikasi. PM menyusun <b>business case</b>: penjualan diperkirakan naik 25 persen dalam 6 bulan. Lalu dibuat <b>project charter</b> singkat:</p>
+      <ul>
+        <li><b>Tujuan:</b> aplikasi mobile untuk pemesanan produk.</li>
+        <li><b>Sponsor:</b> pemilik UMKM. <b>PM:</b> Dewi.</li>
+        <li><b>Anggaran:</b> sekitar 80 juta rupiah. <b>Durasi:</b> 4 bulan.</li>
+      </ul>
+      <p>PM juga memetakan <b>stakeholder</b>: pemilik (pengaruh tinggi, minat tinggi, dikelola saksama), calon pembeli (pengguna akhir), dan tim pengembang (3 orang).</p>
+      <h4>Fase 2 — Perencanaan</h4>
+      <p>PM menyusun <b>WBS</b>: (1) Desain UI, (2) Fitur katalog, (3) Fitur keranjang &amp; pembayaran, (4) Notifikasi, (5) Pengujian &amp; rilis. Dari WBS lahir jadwal kasar: 8 sprint masing-masing 2 minggu.</p>
+      <table>
+        <tr><th>Rencana</th><th>Isi ringkas</th></tr>
+        <tr><td>Scope</td><td>Katalog, keranjang, pembayaran, notifikasi. Di luar lingkup: program loyalti.</td></tr>
+        <tr><td>Jadwal</td><td>8 sprint x 2 minggu = 16 minggu</td></tr>
+        <tr><td>Anggaran</td><td>Gaji tim 70 juta + lisensi 10 juta</td></tr>
+        <tr><td>Risiko utama</td><td>Integrasi pembayaran molor; disiapkan vendor cadangan</td></tr>
+      </table>
+      <h4>Fase 3 — Eksekusi (dengan Scrum)</h4>
+      <p>Tim mulai bekerja per sprint. Contoh <b>Sprint 3</b> berfokus pada fitur keranjang. Sprint backlog memuat user story seperti: <i>"Sebagai pembeli, saya ingin menyimpan barang ke keranjang agar bisa membayar sekaligus."</i></p>
+      <ul>
+        <li><b>Sprint planning:</b> tim memilih story senilai 20 story point (sesuai velocity rata-rata).</li>
+        <li><b>Daily standup:</b> tiap pagi 15 menit, tiap orang menyebut kemajuan &amp; hambatan.</li>
+        <li><b>Sprint review:</b> di akhir sprint, fitur keranjang didemokan ke pemilik UMKM.</li>
+        <li><b>Retrospective:</b> tim sepakat memperbaiki cara estimasi karena satu story ternyata lebih besar dari perkiraan.</li>
+      </ul>
+      <h4>Fase 4 — Pemantauan &amp; Pengendalian</h4>
+      <p>PM memantau <b>burndown chart</b>: di Sprint 4 garis mendatar terlalu lama, menandakan ada hambatan (integrasi pembayaran macet). PM segera mengaktifkan vendor cadangan dari risk register. Tiap minggu PM mengirim <b>status report</b>:</p>
+      <table>
+        <tr><th>Minggu</th><th>Status</th><th>Catatan</th></tr>
+        <tr><td>6</td><td>Hijau</td><td>Fitur katalog &amp; keranjang selesai</td></tr>
+        <tr><td>8</td><td>Kuning</td><td>Pembayaran tertunda, vendor cadangan diaktifkan</td></tr>
+        <tr><td>10</td><td>Hijau</td><td>Pembayaran berjalan, kembali sesuai jadwal</td></tr>
+      </table>
+      <p>Saat pemilik minta tambahan fitur ulasan produk, PM tidak langsung setuju melainkan menjalankan <b>change control</b>: menilai dampaknya (menambah 1 sprint) lalu meminta persetujuan sponsor sebelum masuk scope.</p>
+      <h4>Fase 5 — Penutupan</h4>
+      <p>Setelah Sprint 8, aplikasi dirilis ke toko aplikasi. PM melakukan <b>serah terima</b> ke tim operasional, meminta <b>sign-off</b> dari pemilik, menutup kontrak vendor, dan membebaskan tim ke proyek berikutnya. Terakhir, tim mengadakan pertemuan <b>lessons learned</b>:</p>
+      <ul>
+        <li><b>Berhasil:</b> daily standup menjaga hambatan cepat terungkap.</li>
+        <li><b>Perlu diperbaiki:</b> estimasi awal integrasi pembayaran terlalu optimis; tambahkan cadangan waktu 20 persen lain kali.</li>
+      </ul>
+      <div class="callout">Perhatikan bahwa lima fase itu <b>tidak selalu berurutan kaku</b>: eksekusi dan pemantauan berjalan bersamaan, dan Scrum mengulang siklus kecil di dalam fase eksekusi. Inilah gabungan kerangka klasik dengan praktik Agile.</div>
+    `,
+  },
+  {
+    id: "pm-latihan-ide",
+    cat: "proyek",
+    title: "Ide Proyek untuk Latihan Manajemen Proyek",
+    minutes: 8,
+    summary: "Sepuluh skenario proyek untuk melatih keterampilan PM secara nyata.",
+    body: `
+      <p>Cara terbaik belajar manajemen proyek adalah <b>mempraktikkannya</b>. Pilih salah satu skenario di bawah, lalu latih dengan membuat charter, WBS, jadwal, dan risk register-nya. Tiap skenario menantang keterampilan PM yang berbeda.</p>
+      <table>
+        <tr><th>No</th><th>Skenario proyek</th><th>Tantangan utama</th><th>Keterampilan PM yang dilatih</th></tr>
+        <tr><td>1</td><td>Menyelenggarakan seminar kampus</td><td>Banyak pihak (pembicara, sponsor, peserta) dan tenggat tanggal acara yang tak bisa mundur</td><td>Manajemen stakeholder, penjadwalan, komunikasi</td></tr>
+        <tr><td>2</td><td>Mengembangkan website organisasi</td><td>Kebutuhan sering berubah dan scope mudah melebar</td><td>Manajemen scope, mencegah scope creep, Agile</td></tr>
+        <tr><td>3</td><td>Migrasi sistem lama ke sistem baru</td><td>Risiko kehilangan data dan gangguan operasional saat peralihan</td><td>Manajemen risiko, perencanaan, change control</td></tr>
+        <tr><td>4</td><td>Peluncuran produk baru</td><td>Koordinasi lintas tim (produksi, pemasaran, penjualan) dengan tenggat pasar</td><td>Koordinasi, penjadwalan, manajemen ketergantungan</td></tr>
+        <tr><td>5</td><td>Riset dan penulisan tesis</td><td>Proyek jangka panjang seorang diri, mudah kehilangan ritme</td><td>Perencanaan, disiplin jadwal, manajemen milestone</td></tr>
+        <tr><td>6</td><td>Renovasi ruang kerja atau kos</td><td>Anggaran ketat dan banyak vendor (tukang, material)</td><td>Manajemen anggaran, estimasi biaya, vendor</td></tr>
+        <tr><td>7</td><td>Membuat aplikasi mobile sederhana</td><td>Kebutuhan tak pasti, cocok dikerjakan bertahap</td><td>Scrum, user story, estimasi, sprint</td></tr>
+        <tr><td>8</td><td>Kampanye penggalangan dana amal</td><td>Sumber daya sukarelawan terbatas dan target dana</td><td>Kepemimpinan tim, motivasi, manajemen sumber daya</td></tr>
+        <tr><td>9</td><td>Membuat konten kanal YouTube rutin</td><td>Aliran pekerjaan berulang tanpa batch tetap</td><td>Kanban, manajemen alur kerja, batas WIP</td></tr>
+        <tr><td>10</td><td>Pindahan kantor ke gedung baru</td><td>Waktu henti operasional harus sekecil mungkin</td><td>Perencanaan, penjadwalan, manajemen risiko</td></tr>
+      </table>
+      <h4>Cara melatih tiap skenario</h4>
+      <ol>
+        <li>Tulis <b>project charter</b> singkat: tujuan, sponsor, anggaran, dan tenggat.</li>
+        <li>Buat <b>WBS</b>: pecah proyek menjadi bagian-bagian kecil.</li>
+        <li>Susun <b>jadwal</b> sederhana dan tandai jalur kritisnya.</li>
+        <li>Isi <b>risk register</b>: minimal tiga risiko beserta responsnya.</li>
+        <li>Jalankan di <b>papan kerja</b> (Trello/Jira/Notion) dan pantau kemajuannya.</li>
+      </ol>
+      <div class="callout">Mulailah dari skenario kecil dan familiar, seperti menyelenggarakan seminar kampus. Setelah nyaman, naik ke proyek yang penuh ketidakpastian seperti aplikasi mobile agar terlatih beradaptasi ala Agile.</div>
+    `,
+  },
 ];
 
 export const PM_QUIZZES: Record<string, Question[]> = {
@@ -872,5 +1063,25 @@ export const PM_QUIZZES: Record<string, Question[]> = {
     { q: "Sertifikasi manajemen proyek umum yang sangat diakui dan mensyaratkan pengalaman adalah:", options: ["PMP", "Trello", "WBS", "CFD"], answer: 0, explain: "PMP dari PMI diakui global dan mensyaratkan jam pengalaman." },
     { q: "Sertifikasi yang berfokus pada peran Scrum Master antara lain:", options: ["CSM/PSM", "PMP", "CAPM", "ITIL"], answer: 0, explain: "CSM (Scrum Alliance) dan PSM (Scrum.org) berfokus pada Scrum Master." },
     { q: "Yang membuat seorang PM bertahan dalam karier terutama adalah:", options: ["Hanya sertifikat", "Keterampilan lunak seperti komunikasi dan kepemimpinan", "Jumlah alat yang dikuasai", "Kecepatan mengetik"], answer: 1, explain: "Sertifikasi membuka pintu, tetapi keterampilan lunak yang menopang karier." },
+  ],
+  "pm-tools-setup": [
+    { q: "Untuk tim kecil yang butuh papan sederhana dan cepat dipakai, alat yang paling pas adalah:", options: ["Jira", "Trello", "SAP", "Oracle"], answer: 1, explain: "Trello ringan dan mudah, cocok untuk tim kecil dan tugas sederhana." },
+    { q: "Notion paling menonjol dibanding yang lain karena:", options: ["Metrik Agile otomatis paling lengkap", "Papan tugas bisa menyatu dengan catatan dan dokumen", "Satu-satunya yang gratis", "Hanya untuk developer"], answer: 1, explain: "Notion fleksibel dan menyatukan papan tugas dengan wiki serta dokumen." },
+    { q: "Batas jumlah kartu yang boleh berada di kolom In Progress disebut:", options: ["Swimlane", "Batas WIP", "Assignee", "Due date"], answer: 1, explain: "Batas WIP mencegah tim mengerjakan terlalu banyak tugas sekaligus." },
+  ],
+  "pm-templates": [
+    { q: "Dokumen yang meresmikan proyek dan mencantumkan tujuan, sponsor, serta anggaran perkiraan adalah:", options: ["Risk register", "Project charter", "Status report", "Sprint backlog"], answer: 1, explain: "Project charter meresmikan proyek dan memuat tujuan, sponsor, anggaran, dan PM." },
+    { q: "Dalam matriks RACI, tiap tugas sebaiknya hanya memiliki satu huruf:", options: ["R", "A", "C", "I"], answer: 1, explain: "Hanya boleh ada satu Accountable (A) agar tanggung jawab akhir tidak kabur." },
+    { q: "Dokumen yang berisi daftar risiko beserta kemungkinan, dampak, dan responsnya adalah:", options: ["WBS", "Risk register", "Project charter", "Status report"], answer: 1, explain: "Risk register mencatat risiko, kemungkinan, dampak, dan rencana respons." },
+  ],
+  "pm-studi-kasus": [
+    { q: "Pada fase inisiasi studi kasus, dokumen yang meresmikan proyek aplikasi toko online adalah:", options: ["Burndown chart", "Project charter", "Sprint backlog", "Retrospective"], answer: 1, explain: "Inisiasi menghasilkan business case dan project charter." },
+    { q: "Saat pemilik meminta tambahan fitur ulasan produk di tengah proyek, PM sebaiknya:", options: ["Langsung mengerjakannya diam-diam", "Menjalankan change control lalu minta persetujuan sponsor", "Menolak semua perubahan", "Menghentikan proyek"], answer: 1, explain: "Perubahan dinilai dampaknya lewat change control sebelum disetujui masuk scope." },
+    { q: "Pada fase penutupan, kegiatan mencatat apa yang berhasil dan perlu diperbaiki disebut:", options: ["Daily standup", "Lessons learned", "Sprint planning", "WBS"], answer: 1, explain: "Lessons learned merekam pelajaran agar proyek berikutnya lebih baik." },
+  ],
+  "pm-latihan-ide": [
+    { q: "Skenario menyelenggarakan seminar kampus paling melatih keterampilan:", options: ["Menulis kode", "Manajemen stakeholder dan penjadwalan", "Desain grafis", "Akuntansi pajak"], answer: 1, explain: "Seminar melibatkan banyak pihak dan tenggat tanggal yang tak bisa mundur." },
+    { q: "Skenario migrasi sistem lama ke baru terutama melatih:", options: ["Manajemen risiko", "Kecepatan mengetik", "Desain logo", "Negosiasi gaji"], answer: 0, explain: "Migrasi berisiko kehilangan data dan gangguan operasional, sehingga melatih manajemen risiko." },
+    { q: "Skenario yang paling cocok untuk melatih Kanban dan batas WIP adalah:", options: ["Riset tesis", "Membuat konten kanal YouTube rutin", "Renovasi kos", "Peluncuran produk"], answer: 1, explain: "Konten rutin adalah aliran pekerjaan berulang tanpa batch tetap, khas Kanban." },
   ],
 };
