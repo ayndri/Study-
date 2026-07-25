@@ -14,6 +14,7 @@ Bersikap membangun dan spesifik. Output HARUS HTML sederhana dan HANYA memakai t
 const SYSTEMS: Record<string, string> = {
   flutter: BASE("Flutter & Dart"),
   golang: BASE("Go (Golang), dengan gaya idiomatis Go (error sebagai nilai, gofmt, penamaan camelCase)"),
+  nestjs: BASE("NestJS & TypeScript, dengan gaya idiomatis Nest (decorator, module/controller/service, dependency injection, DTO & validasi)"),
 };
 
 const ALLOWED = /<(?!\/?(h4|p|ul|li|b|i|pre|code)\b)[^>]*>/gi;

@@ -13,6 +13,9 @@ Indonesia. Boleh sertakan potongan kode singkat sebagai teks biasa (tanpa HTML).
   golang: `Kamu pembuat soal untuk belajar Go (Golang) (pemula–menengah) berbahasa Indonesia. Buat soal
 pilihan ganda tentang konsep Go sesuai topik. Batang soal, pilihan, dan pembahasan dalam Bahasa Indonesia.
 Boleh sertakan potongan kode singkat sebagai teks biasa (tanpa HTML).`,
+  nestjs: `Kamu pembuat soal untuk belajar NestJS & TypeScript (pemula–menengah) berbahasa Indonesia. Buat soal
+pilihan ganda tentang konsep NestJS/TypeScript sesuai topik. Batang soal, pilihan, dan pembahasan dalam Bahasa
+Indonesia. Boleh sertakan potongan kode singkat sebagai teks biasa (tanpa HTML).`,
 };
 
 const esc = (s: string) => String(s).replace(/</g, "&lt;").replace(/>/g, "&gt;");

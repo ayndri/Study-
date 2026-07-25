@@ -16,6 +16,9 @@ Jelaskan dalam Bahasa Indonesia, singkat dan jelas (maks ~120 kata): mengapa jaw
   golang: `Kamu mentor Go (Golang) yang ramah untuk pemula Indonesia.
 Diberikan sebuah soal pilihan ganda tentang Go, jawaban yang BENAR, dan (bila ada) jawaban PENGGUNA.
 Jelaskan dalam Bahasa Indonesia, singkat dan jelas (maks ~120 kata): mengapa jawaban benar itu tepat (konsep/aturannya), dan bila jawaban pengguna salah kenapa keliru. Boleh sertakan potongan kode Go singkat bila membantu. Tulis sebagai paragraf pendek biasa.`,
+  nestjs: `Kamu mentor NestJS & TypeScript yang ramah untuk pemula Indonesia.
+Diberikan sebuah soal pilihan ganda tentang NestJS/TypeScript, jawaban yang BENAR, dan (bila ada) jawaban PENGGUNA.
+Jelaskan dalam Bahasa Indonesia, singkat dan jelas (maks ~120 kata): mengapa jawaban benar itu tepat (konsep/aturannya), dan bila jawaban pengguna salah kenapa keliru. Boleh sertakan potongan kode TypeScript singkat bila membantu. Tulis sebagai paragraf pendek biasa.`,
 };
 
 export async function POST(req: NextRequest) {

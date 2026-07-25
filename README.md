@@ -2,11 +2,12 @@
 
 Aplikasi web **Next.js** untuk belajar mandiri yang menggabungkan beberapa jalur pembelajaran dalam satu tempat, ditenagai **AI (Gemini)** dan disimpan di **Neon Postgres**, dengan **login** dan **panel admin** untuk mengelola akun pengguna.
 
-Saat ini tersedia tiga jalur belajar:
+Saat ini tersedia empat jalur belajar:
 
 - 🎓 **TOEFL ITP & Beasiswa LPDP** — persiapan tes TOEFL ITP dan seleksi beasiswa LPDP menuju S2 Teknik Informatika ITS.
 - 📱 **Mobile dengan Flutter** — belajar membangun aplikasi mobile dengan Dart & Flutter dari nol.
 - 🐹 **Golang (Go)** — belajar bahasa Go dari dasar hingga konkurensi & REST API.
+- 🐱 **NestJS** — membangun backend Node.js berbasis TypeScript dari nol hingga autentikasi & database.
 
 > Platform ini dirancang agar mudah ditambah jalur belajar baru: konten & materi terpisah, sedangkan komponen dan endpoint AI dipakai bersama (sadar-subjek).
 
@@ -39,6 +40,12 @@ Saat ini tersedia tiga jalur belajar:
 - 💻 Contoh **kode Dart** di setiap materi + **mini-quiz** + **Perdalam dengan AI**.
 - ✦ **Tutor Flutter AI** — menjawab dengan contoh kode.
 - ⌨️ **Latihan koding** — tulis kode Dart, AI menilai, menemukan bug, dan memberi versi perbaikan.
+
+### Jalur NestJS
+- 📚 **Materi bertahap** dalam 7 kategori: mulai dari nol (Nest CLI, struktur), fondasi TS/Node (tipe, decorator, async, generics), konsep inti (Module, Controller, Provider, Dependency Injection), menangani request (routing, DTO & validasi, Pipes), database (TypeORM, Entity, Repository, CRUD), fitur lanjutan (Middleware, Guards & JWT, Interceptors, Exception filters, Config), serta praktik & alat (testing Jest, Swagger, deploy).
+- 💻 Contoh **kode TypeScript/NestJS** di setiap materi + **mini-quiz** + **Perdalam dengan AI**.
+- ✦ **Tutor NestJS AI** — menjawab dengan contoh kode.
+- ⌨️ **Latihan koding** — tulis kode NestJS, AI menilai, menemukan bug, dan memberi versi perbaikan.
 
 ### Jalur Golang
 - 📚 **41 pelajaran** dalam 10 kategori: mulai dari nol (setup, go mod), dasar bahasa (variabel, const/iota, operator), kontrol alur (if/switch, for), fungsi (multiple return, variadic, closure, defer), struktur data (slice, map, struct, pointer), method & interface & generics, konkurensi (goroutine, channel, select, sync, context, worker pool), pustaka standar (strings, time, json, file I/O, regexp, sort), web & modul (net/http, REST API, middleware, database/sql, package), serta praktik & alat (testing, debugging, konfigurasi flag/env, tooling idiomatis).
@@ -107,13 +114,14 @@ app/
    /writing, /vocabulary, /simulasi, /tutor, /wawancara, /beasiswa, /riwayat-esai)
   flutter/           jalur Flutter (beranda, materi, tutor, latihan)
   golang/            jalur Golang (beranda, materi, tutor, latihan)
+  nestjs/            jalur NestJS (beranda, materi, tutor, latihan)
   pilih/             pemilih jalur pembelajaran
   login/  admin/     autentikasi & manajemen akun
   api/               endpoint: auth, admin, progress, sync, feedback,
                      tutor, perdalam, jelaskan, wawancara, review-kode
 components/          Shell (navigasi), Quiz, Materi, Tutor, Simulasi, dll.
 lib/                 content.ts (TOEFL), materi.ts, flutter.ts, golang.ts,
-                     db.ts, gemini.ts, auth.ts, auth-token.ts, store.ts
+                     nestjs.ts, db.ts, gemini.ts, auth.ts, auth-token.ts, store.ts
 middleware.ts        gerbang autentikasi seluruh rute
 ```
 

@@ -26,6 +26,14 @@ const TRACKS = [
     ready: true,
   },
   {
+    href: "/nestjs",
+    ic: "🐱",
+    title: "Belajar NestJS",
+    desc: "Bangun backend modern dengan NestJS (Node.js + TypeScript): module, dependency injection, REST API, validasi, database, hingga autentikasi JWT. Materi bertahap, tutor AI, kuis, dan review kode oleh AI.",
+    tags: ["Materi + AI", "Tutor AI", "Review Kode AI"],
+    ready: true,
+  },
+  {
     href: "#",
     ic: "✨",
     title: "Pembelajaran lain",

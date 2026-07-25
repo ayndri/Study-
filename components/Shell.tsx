@@ -63,11 +63,24 @@ const GO_NAV: NavGroup[] = [
   },
 ];
 
+const NEST_NAV: NavGroup[] = [
+  {
+    group: "Belajar NestJS",
+    items: [
+      { href: "/nestjs", label: "Beranda NestJS", ic: "◈" },
+      { href: "/nestjs/materi", label: "Materi", ic: "▥" },
+      { href: "/nestjs/tutor", label: "Tutor AI", ic: "✦", badge: "AI" },
+      { href: "/nestjs/latihan", label: "Latihan Koding", ic: "⌨", badge: "AI" },
+    ],
+  },
+];
+
 type Track = { key: string; mark: string; name: string; tagline: string; nav: NavGroup[] };
 
 const TRACKS: Track[] = [
   { key: "/golang", mark: "G", name: "Belajar Golang", tagline: "Backend · Bahasa Go", nav: GO_NAV },
   { key: "/flutter", mark: "F", name: "Belajar Flutter", tagline: "Mobile · Dart & Flutter", nav: FLUTTER_NAV },
+  { key: "/nestjs", mark: "N", name: "Belajar NestJS", tagline: "Backend · Node & TypeScript", nav: NEST_NAV },
 ];
 
 function trackFor(pathname: string): Track {
