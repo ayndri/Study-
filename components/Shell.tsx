@@ -82,6 +82,7 @@ const PM_NAV: NavGroup[] = [
       { href: "/pm", label: "Beranda", ic: "◈" },
       { href: "/pm/materi", label: "Materi", ic: "▥" },
       { href: "/pm/tutor", label: "Tutor AI", ic: "✦", badge: "AI" },
+      { href: "/pm/wawancara", label: "Simulasi Wawancara", ic: "🎤", badge: "AI" },
       { href: "/latihan-ai", label: "Latihan Soal AI", ic: "◉", badge: "AI" },
     ],
   },

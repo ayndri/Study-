@@ -4,7 +4,25 @@ import { useEffect, useRef, useState } from "react";
 
 type Msg = { role: "user" | "bot"; text: string; err?: boolean };
 
-export default function InterviewSim() {
+const LPDP_TIPS = [
+  "Jawab dengan <b>spesifik dan jujur</b>, sertakan contoh konkret.",
+  "Kaitkan jawaban dengan <b>kontribusi bagi Indonesia</b> & komitmen kembali.",
+  "Di akhir, klik <b>Akhiri & minta evaluasi</b> untuk mendapat skor & saran.",
+];
+
+export default function InterviewSim({
+  mode = "lpdp",
+  eyebrow = "Latihan seleksi substansi",
+  title = "Simulasi Wawancara LPDP",
+  intro = "AI akan berperan sebagai panel pewawancara untuk kandidat S2 Teknik Informatika ITS. Ia mengajukan pertanyaan satu per satu, memberi umpan balik, lalu menggali lebih dalam. Jawablah seolah wawancara sungguhan.",
+  tips = LPDP_TIPS,
+}: {
+  mode?: string;
+  eyebrow?: string;
+  title?: string;
+  intro?: string;
+  tips?: string[];
+}) {
   const [started, setStarted] = useState(false);
   const [msgs, setMsgs] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
@@ -26,7 +44,7 @@ export default function InterviewSim() {
       const res = await fetch("/api/wawancara", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message, history }),
+        body: JSON.stringify({ message, history, mode }),
       });
       const data = await res.json();
       if (!res.ok || !data.ok) {
@@ -65,18 +83,15 @@ export default function InterviewSim() {
   if (!started) {
     return (
       <div className="card pad">
-        <div className="eyebrow">Latihan seleksi substansi</div>
+        <div className="eyebrow">{eyebrow}</div>
         <h3 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 700, margin: "6px 0 10px" }}>
-          Simulasi Wawancara LPDP
+          {title}
         </h3>
-        <p className="section-desc">
-          AI akan berperan sebagai panel pewawancara untuk kandidat S2 Teknik Informatika ITS. Ia mengajukan pertanyaan
-          satu per satu, memberi umpan balik, lalu menggali lebih dalam. Jawablah seolah wawancara sungguhan.
-        </p>
+        <p className="section-desc">{intro}</p>
         <ul className="tips" style={{ margin: "14px 0" }}>
-          <li>Jawab dengan <b>spesifik dan jujur</b>, sertakan contoh konkret.</li>
-          <li>Kaitkan jawaban dengan <b>kontribusi bagi Indonesia</b> & komitmen kembali.</li>
-          <li>Di akhir, klik <b>Akhiri & minta evaluasi</b> untuk mendapat skor & saran.</li>
+          {tips.map((t, i) => (
+            <li key={i} dangerouslySetInnerHTML={{ __html: t }} />
+          ))}
         </ul>
         <button className="btn gold" onClick={start}>🎤 Mulai wawancara</button>
         <div className="note"><span>ℹ️</span><span>Membutuhkan GEMINI_API_KEY di server.</span></div>
