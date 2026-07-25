@@ -40,5 +40,5 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
   // Jalankan pada semua rute kecuali aset statis & berkas PWA.
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|icon.svg|manifest.webmanifest|sw.js|robots.txt).*)"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|icon|apple-icon|manifest.webmanifest|sw.js|robots.txt).*)"],
 };

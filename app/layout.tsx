@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   description:
     "Aplikasi belajar TOEFL ITP dan persiapan beasiswa LPDP menuju S2 Teknik Informatika ITS.",
   appleWebApp: { capable: true, title: "Jalur ITS", statusBarStyle: "default" },
-  icons: { icon: "/icon.svg", apple: "/icon.svg" },
+  // Favicon & apple-icon di-generate via app/icon.tsx & app/apple-icon.tsx.
 };
 
 export const viewport: Viewport = {
