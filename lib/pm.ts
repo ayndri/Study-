@@ -16,6 +16,7 @@ export const PM_CATS: { key: string; label: string; ic: string }[] = [
   { key: "risiko", label: "Risiko & Stakeholder", ic: "⚠" },
   { key: "alat", label: "Alat & Karier", ic: "◎" },
   { key: "proyek", label: "Proyek & Praktik", ic: "🛠" },
+  { key: "karier", label: "Karier & Portofolio", ic: "🎯" },
 ];
 
 export const PM_LESSONS: Lesson[] = [
@@ -929,6 +930,371 @@ export const PM_LESSONS: Lesson[] = [
       <div class="callout">Mulailah dari skenario kecil dan familiar, seperti menyelenggarakan seminar kampus. Setelah nyaman, naik ke proyek yang penuh ketidakpastian seperti aplikasi mobile agar terlatih beradaptasi ala Agile.</div>
     `,
   },
+
+  // ===================== KARIER & PORTOFOLIO =====================
+  {
+    id: "pm-roadmap",
+    cat: "karier",
+    title: "Roadmap Menjadi Project Manager",
+    minutes: 12,
+    summary: "Peta jalan dari nol hingga PM senior: keterampilan, sertifikasi, pengalaman, dan jenjang jabatan.",
+    body: `
+      <p>Menjadi <b>Project Manager</b> jarang terjadi dalam semalam. Kebanyakan orang tiba di posisi PM lewat jalur bertahap: mulai dari peran pendukung, mengumpulkan pengalaman nyata, lalu naik seiring kepercayaan yang diberikan. Bagian ini memberi peta jalan yang bisa kamu ikuti meski sekarang kamu masih mahasiswa atau fresh graduate.</p>
+      <h4>Keterampilan wajib (hard skill &amp; soft skill)</h4>
+      <p>PM yang siap kerja butuh dua jenis keterampilan sekaligus. Keterampilan keras bisa dipelajari dari kursus dan latihan; keterampilan lunak diasah lewat pengalaman berinteraksi dengan orang.</p>
+      <table>
+        <tr><th>Keterampilan keras (hard skill)</th><th>Keterampilan lunak (soft skill)</th></tr>
+        <tr><td>Penjadwalan (Gantt, critical path)</td><td>Komunikasi lisan &amp; tulisan</td></tr>
+        <tr><td>Penyusunan anggaran &amp; estimasi</td><td>Kepemimpinan &amp; motivasi tim</td></tr>
+        <tr><td>Manajemen risiko &amp; risk register</td><td>Negosiasi &amp; manajemen konflik</td></tr>
+        <tr><td>Metodologi (Agile, Scrum, Waterfall)</td><td>Empati &amp; mendengar aktif</td></tr>
+        <tr><td>Alat (Jira, Trello, Notion, spreadsheet)</td><td>Manajemen waktu &amp; prioritas</td></tr>
+        <tr><td>Pelaporan &amp; analisis metrik</td><td>Pemecahan masalah &amp; pengambilan keputusan</td></tr>
+      </table>
+      <h4>Checklist keterampilan (centang yang sudah kamu kuasai)</h4>
+      <ul>
+        <li>Bisa menjelaskan perbedaan Waterfall, Agile, Scrum, dan Kanban.</li>
+        <li>Pernah membuat WBS dan memecah proyek menjadi paket kerja.</li>
+        <li>Bisa menyusun jadwal sederhana dan menemukan jalur kritis.</li>
+        <li>Pernah menulis risk register minimal lima risiko beserta responsnya.</li>
+        <li>Bisa memakai minimal satu alat papan kerja (Trello/Jira/Notion).</li>
+        <li>Pernah memimpin atau mengoordinasi tim kecil hingga selesai.</li>
+        <li>Bisa membuat laporan status yang ringkas dan jujur.</li>
+        <li>Terbiasa memfasilitasi rapat (mis. daily standup, review).</li>
+      </ul>
+      <h4>Sertifikasi bertahap</h4>
+      <p>Sertifikasi bukan syarat mutlak, tetapi memperkuat kredibilitas terutama bagi pemula yang belum punya banyak pengalaman. Ambil secara bertahap sesuai jenjangmu.</p>
+      <table>
+        <tr><th>Tahap</th><th>Sertifikasi</th><th>Cocok saat</th></tr>
+        <tr><td>Pemula</td><td>CAPM (PMI), Google Project Management Certificate</td><td>Belum atau baru sedikit pengalaman, ingin dasar kuat</td></tr>
+        <tr><td>Menengah</td><td>PSM I / CSM (Scrum Master), PSPO (Product Owner)</td><td>Sudah terlibat tim Agile, ingin peran Scrum</td></tr>
+        <tr><td>Lanjut</td><td>PMP (PMI), PMI-ACP</td><td>Sudah punya ribuan jam memimpin proyek</td></tr>
+      </table>
+      <h4>Cara mendapatkan pengalaman (meski belum jadi PM)</h4>
+      <ol>
+        <li><b>Ambil peran koordinasi</b> di organisasi kampus, komunitas, atau tempat kerja saat ini, misalnya jadi ketua panitia acara.</li>
+        <li><b>Jadi volunteer</b> mengelola proyek untuk UMKM, komunitas, atau kegiatan sosial.</li>
+        <li><b>Kerjakan proyek pribadi</b> (mis. membangun kanal konten atau aplikasi kecil) dan kelola layaknya proyek resmi: charter, WBS, sprint.</li>
+        <li><b>Tawarkan diri</b> membantu PM di kantor sebagai asisten atau notulen rapat untuk belajar langsung.</li>
+        <li><b>Dokumentasikan semuanya</b> menjadi studi kasus portofolio (lihat pelajaran portofolio).</li>
+      </ol>
+      <h4>Jenjang karier: dari entry ke senior</h4>
+      <table>
+        <tr><th>Tahap</th><th>Jabatan khas</th><th>Fokus utama</th><th>Perkiraan waktu</th></tr>
+        <tr><td>Entry</td><td>Project Coordinator, Project Administrator, Junior/Associate PM, Scrum Master junior</td><td>Membantu penjadwalan, notulensi, memelihara papan tugas, mendukung PM senior</td><td>0 sampai 2 tahun</td></tr>
+        <tr><td>Menengah</td><td>Project Manager, Scrum Master, Delivery Lead</td><td>Memimpin satu proyek penuh dari inisiasi sampai penutupan</td><td>2 sampai 5 tahun</td></tr>
+        <tr><td>Senior</td><td>Senior PM, Program Manager, Portfolio Manager, Head of PMO</td><td>Mengelola banyak proyek/program sekaligus, membina PM lain, strategi</td><td>5 tahun ke atas</td></tr>
+      </table>
+      <div class="callout">Jangan menunggu gelar "Project Manager" resmi untuk mulai berperilaku seperti PM. Recruiter mencari bukti kamu bisa membuat rencana, mengelola orang, dan menuntaskan sesuatu. Mulailah mengumpulkan bukti itu sekarang lewat proyek apa pun yang ada di sekitarmu.</div>
+    `,
+  },
+  {
+    id: "pm-cv",
+    cat: "karier",
+    title: "CV & Resume Project Manager yang Menonjol",
+    minutes: 11,
+    summary: "Menyusun CV PM yang lolos ATS dan menonjolkan pencapaian terukur dengan angka.",
+    body: `
+      <p>CV seorang PM harus membuktikan satu hal: <b>kamu bisa menuntaskan proyek dengan hasil nyata</b>. Recruiter membaca ratusan CV, jadi milikmu harus cepat menunjukkan dampak, bukan sekadar daftar tugas.</p>
+      <h4>Struktur CV PM yang ideal</h4>
+      <ol>
+        <li><b>Header</b> — nama, jabatan target (mis. "Project Coordinator"), email profesional, nomor telepon, tautan LinkedIn.</li>
+        <li><b>Ringkasan profil</b> — 2 sampai 3 kalimat yang merangkum pengalaman, spesialisasi metodologi, dan pencapaian terbesarmu.</li>
+        <li><b>Pengalaman</b> — urut dari terbaru, tiap peran diisi bullet berbasis pencapaian (bukan deskripsi tugas).</li>
+        <li><b>Keterampilan</b> — hard skill (metodologi, alat) dan soft skill utama.</li>
+        <li><b>Sertifikasi</b> — CAPM, PSM, PMP, Google PM Certificate, beserta tahun.</li>
+        <li><b>Pendidikan</b> — gelar, kampus, dan proyek relevan bila fresh graduate.</li>
+      </ol>
+      <h4>Contoh ringkasan profil</h4>
+      <p><i>"Project Coordinator dengan pengalaman mengelola 8 proyek digital memakai Scrum, konsisten menyelesaikan proyek tepat waktu dengan rata-rata kepuasan klien 4,7 dari 5. Terampil menyusun WBS, mengelola risiko, dan memfasilitasi tim lintas fungsi hingga 10 orang."</i></p>
+      <h4>Mengkuantifikasi pencapaian (kunci CV PM yang kuat)</h4>
+      <p>Angka membuat pencapaian dapat dipercaya dan mudah dibandingkan. Kapan pun bisa, sertakan angka pada: <b>anggaran yang dikelola</b>, <b>ukuran tim</b>, <b>persentase efisiensi/penghematan</b>, <b>ketepatan waktu</b>, dan <b>skala hasil</b> (jumlah pengguna, peserta, transaksi).</p>
+      <table>
+        <tr><th>Bullet lemah</th><th>Bullet kuat (terukur)</th></tr>
+        <tr><td>Bertanggung jawab mengelola proyek</td><td>Memimpin 6 proyek pengembangan web dari inisiasi sampai rilis, seluruhnya selesai tepat waktu</td></tr>
+        <tr><td>Membantu tim developer</td><td>Memfasilitasi tim lintas fungsi 8 orang memakai Scrum, menaikkan velocity 25 persen dalam 3 sprint</td></tr>
+        <tr><td>Mengurus anggaran proyek</td><td>Mengelola anggaran 150 juta rupiah dan menyelesaikan proyek 12 persen di bawah anggaran</td></tr>
+        <tr><td>Mengatur jadwal</td><td>Menyusun jadwal dan mengelola risiko sehingga proyek rilis 2 minggu lebih cepat dari target</td></tr>
+        <tr><td>Menangani acara kampus</td><td>Mengoordinasi seminar 500 peserta dengan 12 panitia, acara berjalan tepat waktu tanpa pembengkakan biaya</td></tr>
+      </table>
+      <h4>Kata kunci ATS</h4>
+      <p><b>ATS</b> (Applicant Tracking System) adalah perangkat lunak yang memindai CV sebelum sampai ke manusia. Agar lolos, sisipkan kata kunci relevan yang biasanya juga ada di iklan lowongan, misalnya: <i>project management, Agile, Scrum, Kanban, stakeholder management, risk management, budgeting, WBS, sprint planning, Jira, roadmap, cross-functional</i>. Cocokkan istilah dengan iklan lowongan yang kamu lamar.</p>
+      <h4>Kata kerja aksi yang kuat</h4>
+      <p>Mulai tiap bullet dengan kata kerja aksi: <i>memimpin, mengelola, menyusun, meluncurkan, mengoordinasi, mengoptimalkan, mempercepat, menegosiasi, menerapkan, menaikkan, menghemat</i>. Hindari frasa pasif seperti "bertanggung jawab atas" atau "membantu dalam".</p>
+      <h4>Kesalahan umum</h4>
+      <ul>
+        <li>Menuliskan daftar tugas, bukan pencapaian dengan hasil.</li>
+        <li>Tidak ada satu pun angka; semua klaim tak terbukti.</li>
+        <li>CV terlalu panjang (lebih dari 2 halaman untuk pemula).</li>
+        <li>Menjejalkan istilah teknis coding yang tidak relevan dengan peran PM.</li>
+        <li>Email tidak profesional dan tidak mencantumkan LinkedIn.</li>
+        <li>Salah ketik dan format tidak konsisten, padahal PM dinilai dari kerapiannya.</li>
+      </ul>
+      <div class="callout">Rumus bullet kuat: <b>kata kerja aksi + apa yang dilakukan + hasil terukur</b>. Contoh: "Menerapkan Kanban untuk tim support sehingga waktu respons turun 30 persen." Bila sebuah bullet tidak punya angka atau hasil, tanyakan pada dirimu: apa dampaknya?</div>
+    `,
+  },
+  {
+    id: "pm-portfolio",
+    cat: "karier",
+    title: "Membangun Portofolio Project Manager",
+    minutes: 11,
+    summary: "Isi, format studi kasus, dan cara membuat portofolio PM meski belum punya pengalaman kerja formal.",
+    body: `
+      <p>Berbeda dari desainer atau programmer, banyak orang mengira PM tidak butuh portofolio. Padahal <b>portofolio PM sangat kuat</b>: ia membuktikan cara berpikirmu dalam merencanakan, mengelola, dan menuntaskan proyek, lengkap dengan artefak nyata.</p>
+      <h4>Apa isi portofolio PM?</h4>
+      <ul>
+        <li><b>Ringkasan diri</b> — siapa kamu, spesialisasi, dan metodologi yang dikuasai.</li>
+        <li><b>2 sampai 4 studi kasus proyek</b> — inti portofolio, masing-masing menceritakan satu proyek.</li>
+        <li><b>Artefak nyata</b> — contoh project charter, WBS, jadwal/Gantt, risk register, papan Kanban, burndown chart, atau laporan status.</li>
+        <li><b>Keterampilan &amp; sertifikasi</b> — daftar ringkas.</li>
+        <li><b>Testimoni</b> — kutipan dari rekan tim, dosen, atau klien bila ada.</li>
+      </ul>
+      <h4>Format studi kasus (kerangka baku)</h4>
+      <p>Tiap studi kasus sebaiknya mengikuti alur yang sama agar mudah dibaca dan menunjukkan pola pikir terstruktur:</p>
+      <table>
+        <tr><th>Bagian</th><th>Isi</th></tr>
+        <tr><td>Konteks &amp; Masalah</td><td>Latar belakang proyek dan masalah yang harus diselesaikan</td></tr>
+        <tr><td>Peran &amp; Tanggung Jawab</td><td>Posisimu, ukuran tim, dan apa yang kamu pimpin</td></tr>
+        <tr><td>Pendekatan / Metodologi</td><td>Metodologi (Scrum/Waterfall/Kanban) dan langkah yang kamu ambil</td></tr>
+        <tr><td>Artefak</td><td>Charter, WBS, jadwal, risk register, burndown, papan tugas</td></tr>
+        <tr><td>Hasil terukur</td><td>Angka: ketepatan waktu, anggaran, kepuasan, skala hasil</td></tr>
+        <tr><td>Pembelajaran</td><td>Apa yang berhasil dan apa yang akan kamu perbaiki lain kali</td></tr>
+      </table>
+      <h4>Belum punya pengalaman kerja formal? Tidak masalah</h4>
+      <p>Kamu bisa membangun portofolio kuat dari proyek non-kerja. Yang dinilai adalah <b>cara kamu mengelola</b>, bukan apakah kamu digaji.</p>
+      <table>
+        <tr><th>Sumber proyek</th><th>Contoh</th></tr>
+        <tr><td>Proyek kuliah</td><td>Tugas akhir kelompok, penelitian, proyek mata kuliah</td></tr>
+        <tr><td>Organisasi kampus</td><td>Menjadi ketua panitia seminar, lomba, atau festival</td></tr>
+        <tr><td>Volunteer / komunitas</td><td>Mengelola kegiatan sosial, penggalangan dana</td></tr>
+        <tr><td>Proyek pribadi</td><td>Membangun kanal konten, aplikasi kecil, toko online sendiri</td></tr>
+        <tr><td>Simulasi / studi kasus</td><td>Skenario latihan (lihat kategori Proyek &amp; Praktik di app ini) yang kamu kelola dari charter sampai penutupan</td></tr>
+      </table>
+      <p>Contoh: skenario "menyelenggarakan seminar kampus" dari materi latihan bisa kamu ubah menjadi studi kasus lengkap dengan charter, WBS, jadwal, dan hasil terukur, seolah proyek nyata yang kamu pimpin.</p>
+      <h4>Media penyajian portofolio</h4>
+      <table>
+        <tr><th>Media</th><th>Kelebihan</th><th>Cocok untuk</th></tr>
+        <tr><td>Notion</td><td>Cepat dibuat, mudah dibagikan lewat tautan, bisa memuat tabel &amp; gambar</td><td>Sebagian besar orang, terutama pemula</td></tr>
+        <tr><td>PDF</td><td>Rapi, mudah dilampirkan saat melamar</td><td>Lampiran email lamaran</td></tr>
+        <tr><td>Website pribadi</td><td>Terlihat profesional dan personal</td><td>Yang ingin personal branding kuat</td></tr>
+        <tr><td>LinkedIn (bagian Projects/Featured)</td><td>Langsung terlihat recruiter</td><td>Melengkapi profil utama</td></tr>
+      </table>
+      <div class="callout">Kualitas mengalahkan kuantitas: dua studi kasus yang dalam dan jujur dengan artefak nyata jauh lebih meyakinkan daripada sepuluh proyek yang hanya disebut sekilas. Selalu sertakan angka hasil dan pembelajaran, karena itulah yang membedakan portofolio PM matang dari sekadar daftar kegiatan.</div>
+    `,
+  },
+  {
+    id: "pm-portfolio-template",
+    cat: "karier",
+    title: "Template & Contoh Studi Kasus Portofolio",
+    minutes: 12,
+    summary: "Template studi kasus siap isi plus satu contoh terisi lengkap dengan angka konkret.",
+    body: `
+      <p>Bagian ini memberi <b>template studi kasus siap isi</b> yang bisa langsung kamu salin, lalu <b>satu contoh terisi lengkap</b> sebagai acuan. Ganti isinya dengan proyekmu sendiri.</p>
+      <h4>Template studi kasus (salin lalu isi)</h4>
+      <table>
+        <tr><th>Bagian</th><th>Panduan pengisian</th></tr>
+        <tr><td>Judul proyek</td><td>Nama singkat + hasil utama, mis. "Aplikasi Kasir UMKM: rilis dalam 3 bulan"</td></tr>
+        <tr><td>Peran &amp; durasi</td><td>Jabatanmu, ukuran tim, dan lama proyek</td></tr>
+        <tr><td>Konteks &amp; masalah</td><td>Kenapa proyek ini ada? Masalah apa yang diselesaikan?</td></tr>
+        <tr><td>Tujuan &amp; sasaran</td><td>Target terukur yang ingin dicapai</td></tr>
+        <tr><td>Pendekatan / metodologi</td><td>Waterfall / Scrum / Kanban dan alasan memilihnya</td></tr>
+        <tr><td>Langkah utama</td><td>3 sampai 5 langkah penting yang kamu ambil</td></tr>
+        <tr><td>Artefak</td><td>Sebutkan charter, WBS, jadwal, risk register, papan, burndown</td></tr>
+        <tr><td>Tantangan &amp; solusi</td><td>Masalah terbesar dan cara kamu menanganinya</td></tr>
+        <tr><td>Hasil terukur</td><td>Angka: waktu, anggaran, skala, kepuasan</td></tr>
+        <tr><td>Pembelajaran</td><td>Apa yang berhasil &amp; apa yang akan kamu perbaiki</td></tr>
+      </table>
+      <h4>Contoh terisi lengkap: "Acara Seminar Kampus 500 Peserta"</h4>
+      <p><b>Peran &amp; durasi:</b> Ketua Panitia (berperan sebagai Project Manager), memimpin 12 anggota panitia, durasi persiapan 10 minggu.</p>
+      <p><b>Konteks &amp; masalah:</b> Himpunan mahasiswa ingin menyelenggarakan seminar teknologi nasional dengan target 500 peserta, tetapi belum pernah mengadakan acara sebesar itu dan anggaran terbatas 25 juta rupiah dari sponsor.</p>
+      <p><b>Tujuan &amp; sasaran:</b> 500 peserta hadir, acara berjalan tepat waktu, dan pengeluaran tidak melebihi 25 juta rupiah.</p>
+      <p><b>Pendekatan / metodologi:</b> Karena tanggal acara tetap dan tak bisa mundur, dipakai pendekatan berbasis <b>jadwal (mirip Waterfall)</b> dengan milestone jelas, ditambah papan <b>Kanban</b> di Trello untuk memantau tugas harian panitia.</p>
+      <p><b>Langkah utama:</b></p>
+      <ol>
+        <li>Menyusun <b>project charter</b>: tujuan, anggaran 25 juta, sponsor, dan tanggal acara sebagai tenggat mati.</li>
+        <li>Membuat <b>WBS</b> lima bagian: acara, pembicara, sponsor, publikasi, dan logistik.</li>
+        <li>Menyusun <b>jadwal 10 minggu</b> dengan milestone: konfirmasi pembicara (minggu ke-4), target 300 pendaftar (minggu ke-7), gladi bersih (minggu ke-10).</li>
+        <li>Mengelola <b>risk register</b> dan memantau tugas via papan Kanban dengan batas WIP per divisi.</li>
+        <li>Mengadakan <b>rapat mingguan</b> 30 menit untuk sinkronisasi dan mengangkat hambatan.</li>
+      </ol>
+      <p><b>Artefak:</b> project charter 1 halaman, WBS, jadwal dengan milestone, risk register 8 risiko, papan Kanban Trello, dan laporan anggaran akhir.</p>
+      <p><b>Tantangan &amp; solusi:</b> Dua minggu sebelum acara, satu pembicara utama mengundurkan diri (risiko yang sudah tercatat di risk register). Karena sudah disiapkan daftar pembicara cadangan, pengganti dikonfirmasi dalam 3 hari tanpa mengubah jadwal.</p>
+      <p><b>Hasil terukur:</b></p>
+      <table>
+        <tr><th>Sasaran</th><th>Target</th><th>Hasil</th></tr>
+        <tr><td>Jumlah peserta</td><td>500</td><td>520 peserta hadir</td></tr>
+        <tr><td>Ketepatan waktu</td><td>Sesuai rundown</td><td>Selesai tepat waktu, molor hanya 10 menit</td></tr>
+        <tr><td>Anggaran</td><td>Maksimal 25 juta</td><td>Terpakai 23,5 juta (hemat 6 persen)</td></tr>
+        <tr><td>Kepuasan peserta</td><td>Minimal 4,0 dari 5</td><td>4,6 dari 5 (survei 300 responden)</td></tr>
+      </table>
+      <p><b>Pembelajaran:</b> Risk register benar-benar menyelamatkan acara saat pembicara mundur. Yang akan diperbaiki: publikasi dimulai terlalu lambat sehingga 60 persen pendaftar baru masuk di dua minggu terakhir; lain kali publikasi dimulai sejak minggu pertama.</p>
+      <div class="callout">Perhatikan bahwa contoh ini bukan pengalaman kerja bergaji, melainkan kepanitiaan kampus. Justru inilah kekuatannya: dengan struktur studi kasus yang rapi dan angka konkret, proyek kampus pun tampil sekuat proyek profesional. Tiru pola ini untuk proyekmu sendiri.</div>
+    `,
+  },
+  {
+    id: "pm-interview",
+    cat: "karier",
+    title: "Persiapan Wawancara PM: Metode STAR",
+    minutes: 11,
+    summary: "Jenis pertanyaan wawancara PM dan cara menjawab terstruktur dengan kerangka STAR.",
+    body: `
+      <p>Wawancara PM menguji dua hal: <b>apakah kamu paham cara mengelola proyek</b>, dan <b>apakah kamu bisa menghadapi manusia serta situasi sulit</b>. Jawaban yang meyakinkan hampir selalu berbentuk cerita nyata yang terstruktur, bukan teori.</p>
+      <h4>Jenis pertanyaan wawancara PM</h4>
+      <table>
+        <tr><th>Jenis</th><th>Contoh</th><th>Yang diuji</th></tr>
+        <tr><td>Behavioral (perilaku masa lalu)</td><td>"Ceritakan saat kamu menangani konflik dalam tim."</td><td>Pengalaman nyata &amp; cara bertindak</td></tr>
+        <tr><td>Situational (skenario)</td><td>"Apa yang kamu lakukan jika proyek pasti terlambat?"</td><td>Cara berpikir &amp; pengambilan keputusan</td></tr>
+        <tr><td>Teknis metodologi</td><td>"Jelaskan perbedaan Scrum dan Kanban."</td><td>Penguasaan konsep manajemen proyek</td></tr>
+      </table>
+      <h4>Kerangka STAR</h4>
+      <p><b>STAR</b> adalah cara menstrukturkan jawaban pertanyaan behavioral agar runtut dan berdampak:</p>
+      <ul>
+        <li><b>S</b>ituation — jelaskan konteks singkat: proyek apa, kondisinya bagaimana.</li>
+        <li><b>T</b>ask — apa tugas atau tanggung jawabmu saat itu.</li>
+        <li><b>A</b>ction — tindakan konkret yang <b>kamu</b> ambil (fokus pada dirimu, bukan "kami").</li>
+        <li><b>R</b>esult — hasilnya, sebisa mungkin dengan angka.</li>
+      </ul>
+      <h4>Contoh jawaban STAR 1 — konflik tim</h4>
+      <p><b>Pertanyaan:</b> "Ceritakan saat kamu menghadapi konflik dalam tim."</p>
+      <ul>
+        <li><b>S:</b> Dalam proyek aplikasi kasir, dua developer berselisih soal siapa yang menyebabkan fitur pembayaran gagal saat demo.</li>
+        <li><b>T:</b> Sebagai PM, saya harus menjaga tim tetap solid dan fitur cepat diperbaiki tanpa memihak.</li>
+        <li><b>A:</b> Saya mengajak keduanya bicara empat mata, mengalihkan fokus dari "siapa salah" ke "apa akar masalahnya", lalu kami sepakat menambah code review sebagai pencegahan.</li>
+        <li><b>R:</b> Fitur diperbaiki dalam 2 hari, dan jumlah bug saat demo berikutnya turun karena review baru diterapkan.</li>
+      </ul>
+      <h4>Contoh jawaban STAR 2 — deadline mepet</h4>
+      <p><b>Pertanyaan:</b> "Bagaimana kamu menangani tenggat yang sangat ketat?"</p>
+      <ul>
+        <li><b>S:</b> Seminar kampus harus siap dalam 3 minggu padahal pendaftaran baru 40 persen dari target.</li>
+        <li><b>T:</b> Saya harus memastikan target 500 peserta tetap tercapai tepat waktu.</li>
+        <li><b>A:</b> Saya memprioritaskan ulang tugas panitia ke publikasi, memangkas kegiatan yang tidak kritis, dan menambah kanal promosi berbayar dari sisa anggaran.</li>
+        <li><b>R:</b> Pendaftaran melonjak hingga 520 peserta dan acara berjalan tepat waktu.</li>
+      </ul>
+      <h4>Contoh jawaban STAR 3 — proyek gagal</h4>
+      <p><b>Pertanyaan:</b> "Ceritakan proyek yang tidak berjalan sesuai rencana."</p>
+      <ul>
+        <li><b>S:</b> Proyek website organisasi molor 3 minggu karena kebutuhan terus berubah (scope creep).</li>
+        <li><b>T:</b> Saya harus menyelamatkan proyek dan mencegah hal serupa terulang.</li>
+        <li><b>A:</b> Saya menerapkan proses change control: setiap permintaan baru dinilai dampaknya sebelum disetujui, dan menyepakati scope beku untuk versi pertama.</li>
+        <li><b>R:</b> Versi pertama akhirnya rilis, dan proyek berikutnya tidak lagi molor karena change control sudah jadi kebiasaan. Ini pelajaran terbesar saya soal menjaga scope.</li>
+      </ul>
+      <h4>Tips menghadapi pertanyaan sulit</h4>
+      <ul>
+        <li><b>Konflik tim:</b> tunjukkan kamu netral, fokus pada masalah bukan orang, dan cari solusi bersama.</li>
+        <li><b>Proyek gagal:</b> jangan menyembunyikannya. Ceritakan jujur, lalu tekankan <b>pelajaran</b> dan perubahan yang kamu buat. Recruiter menghargai kejujuran dan pertumbuhan.</li>
+        <li><b>Deadline mepet:</b> tunjukkan cara kamu memprioritaskan, bernegosiasi soal scope, dan berkomunikasi dengan stakeholder, bukan sekadar "kerja lembur".</li>
+        <li><b>Tidak tahu jawabannya:</b> jujur, lalu jelaskan bagaimana kamu akan mencari tahu; ini lebih baik daripada mengarang.</li>
+      </ul>
+      <div class="callout">Sebelum wawancara, siapkan 5 sampai 6 cerita STAR dari pengalaman nyatamu (satu tentang konflik, satu kegagalan, satu tenggat ketat, satu kepemimpinan, satu keberhasilan). Satu cerita yang kuat sering bisa dipakai untuk beberapa pertanyaan berbeda.</div>
+    `,
+  },
+  {
+    id: "pm-interview-bank",
+    cat: "karier",
+    title: "Bank Pertanyaan Wawancara PM + Kerangka Jawaban",
+    minutes: 12,
+    summary: "Kumpulan 24 pertanyaan wawancara PM dikelompokkan beserta arahan poin kunci jawaban.",
+    body: `
+      <p>Berikut kumpulan pertanyaan yang sering muncul di wawancara Project Manager, dikelompokkan per jenis. Tiap pertanyaan diberi <b>arahan singkat</b>: apa yang sebenarnya dinilai dan poin kunci yang sebaiknya ada di jawabanmu. Latih menjawabnya dengan lantang, idealnya memakai kerangka STAR untuk yang bersifat pengalaman.</p>
+      <h4>1. Umum &amp; motivasi</h4>
+      <table>
+        <tr><th>Pertanyaan</th><th>Apa yang dinilai / poin kunci</th></tr>
+        <tr><td>Ceritakan tentang dirimu.</td><td>Ringkas relevan: pengalaman, spesialisasi, dan pencapaian terbesar. Bukan riwayat hidup lengkap.</td></tr>
+        <tr><td>Kenapa ingin menjadi Project Manager?</td><td>Tunjukkan minat pada koordinasi, penuntasan, dan bekerja dengan orang, bukan sekadar gaji.</td></tr>
+        <tr><td>Kenapa melamar di perusahaan ini?</td><td>Bukti kamu riset perusahaan dan mengaitkan nilaimu dengan kebutuhan mereka.</td></tr>
+        <tr><td>Apa kelebihan &amp; kekuranganmu?</td><td>Kelebihan relevan dengan PM; kekurangan yang jujur plus cara kamu memperbaikinya.</td></tr>
+      </table>
+      <h4>2. Behavioral (pengalaman masa lalu)</h4>
+      <table>
+        <tr><th>Pertanyaan</th><th>Apa yang dinilai / poin kunci</th></tr>
+        <tr><td>Ceritakan proyek tersukses yang pernah kamu pimpin.</td><td>Pakai STAR, tonjolkan peranmu dan hasil terukur (angka).</td></tr>
+        <tr><td>Ceritakan saat proyek gagal atau molor.</td><td>Kejujuran + pelajaran + perubahan yang kamu buat. Jangan menyalahkan orang lain.</td></tr>
+        <tr><td>Ceritakan saat menangani konflik dalam tim.</td><td>Netral, fokus pada masalah bukan orang, dan solusi bersama.</td></tr>
+        <tr><td>Ceritakan saat kamu memotivasi tim yang lesu.</td><td>Kepemimpinan, empati, dan cara membangun tujuan bersama.</td></tr>
+        <tr><td>Ceritakan saat kamu harus mengambil keputusan cepat.</td><td>Proses berpikir, data yang dipakai, dan tanggung jawab atas hasil.</td></tr>
+      </table>
+      <h4>3. Situational (skenario)</h4>
+      <table>
+        <tr><th>Pertanyaan</th><th>Apa yang dinilai / poin kunci</th></tr>
+        <tr><td>Apa yang kamu lakukan jika proyek pasti terlambat?</td><td>Analisis penyebab, opsi (tambah sumber daya, kurangi scope, geser tenggat), lalu komunikasi ke stakeholder.</td></tr>
+        <tr><td>Bagaimana jika klien terus menambah permintaan?</td><td>Change control: nilai dampak ke waktu/biaya/scope sebelum menyetujui.</td></tr>
+        <tr><td>Bagaimana menangani anggota tim yang kurang perform?</td><td>Bicara empat mata, cari akar masalah, beri dukungan, tetapkan harapan jelas.</td></tr>
+        <tr><td>Bagaimana jika dua stakeholder punya prioritas bertentangan?</td><td>Fasilitasi, kembali ke tujuan proyek, dan eskalasi ke sponsor bila perlu.</td></tr>
+        <tr><td>Bagaimana jika anggaran dipotong di tengah proyek?</td><td>Prioritas ulang scope, negosiasi, dan transparansi soal dampaknya.</td></tr>
+      </table>
+      <h4>4. Teknis metodologi (Agile &amp; Scrum)</h4>
+      <table>
+        <tr><th>Pertanyaan</th><th>Apa yang dinilai / poin kunci</th></tr>
+        <tr><td>Jelaskan perbedaan Waterfall dan Agile.</td><td>Berurutan vs iteratif; kapan masing-masing cocok dipakai.</td></tr>
+        <tr><td>Jelaskan perbedaan Scrum dan Kanban.</td><td>Sprint berjangka tetap vs aliran terus-menerus; peran &amp; metrik masing-masing.</td></tr>
+        <tr><td>Apa saja peran dan event dalam Scrum?</td><td>PO, Scrum Master, Developers; sprint, planning, daily, review, retrospective.</td></tr>
+        <tr><td>Apa itu velocity dan burndown chart?</td><td>Velocity = laju story point per sprint; burndown = sisa pekerjaan terhadap waktu.</td></tr>
+        <tr><td>Bagaimana kamu mengestimasi pekerjaan?</td><td>Story point, planning poker, ukuran relatif, dan diskusi tim.</td></tr>
+        <tr><td>Apa itu Definition of Done?</td><td>Kesepakatan tim tentang arti "selesai" agar kualitas konsisten.</td></tr>
+      </table>
+      <h4>5. Stakeholder &amp; komunikasi</h4>
+      <table>
+        <tr><th>Pertanyaan</th><th>Apa yang dinilai / poin kunci</th></tr>
+        <tr><td>Bagaimana kamu menjaga stakeholder tetap terinformasi?</td><td>Rencana komunikasi: siapa butuh info apa, format, dan frekuensinya.</td></tr>
+        <tr><td>Bagaimana menyampaikan kabar buruk ke klien?</td><td>Jujur, cepat, sertakan opsi solusi, jangan menutupi.</td></tr>
+        <tr><td>Bagaimana memprioritaskan permintaan stakeholder yang banyak?</td><td>Matriks power/interest dan penyelarasan dengan tujuan proyek.</td></tr>
+        <tr><td>Ada pertanyaan untuk kami?</td><td>Selalu siapkan pertanyaan cerdas soal tim, proses, dan ekspektasi peran.</td></tr>
+      </table>
+      <div class="callout">Jangan menghafal jawaban kata per kata. Kuasai <b>poin kuncinya</b>, lalu bungkus dengan cerita nyatamu sendiri. Pewawancara mudah membedakan jawaban hafalan dari pengalaman yang benar-benar dijalani. Siapkan juga pertanyaan balik, karena kandidat yang bertanya menunjukkan minat serius.</div>
+    `,
+  },
+  {
+    id: "pm-linkedin",
+    cat: "karier",
+    title: "LinkedIn & Personal Branding untuk PM",
+    minutes: 10,
+    summary: "Mengoptimalkan profil LinkedIn agar ditemukan recruiter dan membangun reputasi sebagai PM.",
+    body: `
+      <p>Bagi seorang PM, <b>LinkedIn</b> sering menjadi CV kedua yang aktif bekerja 24 jam: recruiter mencari kandidat lewat kata kunci, dan koneksi membuka peluang. Profil yang dioptimalkan membuatmu ditemukan tanpa harus melamar satu per satu.</p>
+      <h4>Mengoptimalkan profil, bagian demi bagian</h4>
+      <table>
+        <tr><th>Bagian</th><th>Cara mengisi</th></tr>
+        <tr><td>Foto &amp; banner</td><td>Foto profesional dan ramah; banner sederhana yang mencerminkan bidangmu</td></tr>
+        <tr><td>Headline</td><td>Jangan hanya jabatan. Sertakan peran + spesialisasi + nilai, mis. "Project Coordinator | Agile &amp; Scrum | Menuntaskan proyek digital tepat waktu"</td></tr>
+        <tr><td>About (Ringkasan)</td><td>3 sampai 5 paragraf pendek: siapa kamu, keahlian, pencapaian terukur, dan apa yang kamu cari</td></tr>
+        <tr><td>Experience</td><td>Sama seperti CV: bullet berbasis pencapaian dengan angka, bukan daftar tugas</td></tr>
+        <tr><td>Skills</td><td>Isi hingga batas maksimal dengan skill relevan; minta endorsement dari rekan</td></tr>
+        <tr><td>Licenses &amp; certifications</td><td>Cantumkan CAPM, PSM, PMP, atau Google PM Certificate</td></tr>
+        <tr><td>Featured / Projects</td><td>Sematkan tautan portofolio atau studi kasus terbaikmu</td></tr>
+      </table>
+      <h4>Contoh headline yang kuat</h4>
+      <ul>
+        <li><i>"Associate Project Manager | Scrum Master | Mengelola tim lintas fungsi hingga 10 orang"</i></li>
+        <li><i>"Project Coordinator | Agile, Jira, Stakeholder Management | Fresh Graduate siap berkontribusi"</i></li>
+      </ul>
+      <h4>Kata kunci agar ditemukan recruiter</h4>
+      <p>Recruiter memakai fitur pencarian dengan kata kunci. Sebar istilah ini secara alami di headline, About, dan pengalaman: <i>project management, Agile, Scrum, Kanban, stakeholder management, risk management, budgeting, sprint planning, Jira, roadmap, cross-functional, delivery</i>. Semakin sering kata kunci relevan muncul, semakin tinggi peluang profilmu naik di hasil pencarian.</p>
+      <h4>Strategi networking</h4>
+      <ul>
+        <li><b>Terhubung dengan tujuan</b> — kirim koneksi ke PM, recruiter, dan alumni disertai pesan singkat yang personal.</li>
+        <li><b>Ikuti komunitas</b> — grup PMI, komunitas Scrum, dan grup PM lokal.</li>
+        <li><b>Berinteraksi</b> — beri komentar bermutu pada unggahan orang lain, bukan sekadar menyukai.</li>
+        <li><b>Rawat hubungan</b> — jangan hanya menyapa saat butuh pekerjaan.</li>
+      </ul>
+      <h4>Strategi konten</h4>
+      <p>Membagikan konten membangun reputasi sebagai orang yang paham manajemen proyek. Ide konten sederhana:</p>
+      <ul>
+        <li>Ringkasan pelajaran yang kamu dapat dari sebuah proyek.</li>
+        <li>Tips singkat (mis. "3 cara mencegah scope creep").</li>
+        <li>Cerita studi kasus proyek kampus atau volunteer yang kamu pimpin.</li>
+        <li>Refleksi setelah lulus sertifikasi.</li>
+      </ul>
+      <h4>Menyiapkan referensi</h4>
+      <p>Referensi memperkuat lamaran. Persiapkan lebih awal:</p>
+      <ol>
+        <li>Pilih 2 sampai 3 orang yang mengenal kerjamu (atasan, dosen, rekan tim, klien).</li>
+        <li>Minta izin lebih dulu dan beritahu posisi yang kamu incar.</li>
+        <li>Bekali mereka ringkasan pencapaianmu agar rekomendasinya spesifik.</li>
+        <li>Minta juga <b>rekomendasi tertulis</b> di LinkedIn, karena terlihat publik dan menambah kredibilitas.</li>
+      </ol>
+      <div class="callout">Perlakukan LinkedIn sebagai aset hidup, bukan sekadar CV statis. Perbarui begitu ada pencapaian atau sertifikasi baru, dan aktif walau sedang tidak mencari kerja. Reputasi yang dibangun perlahan jauh lebih meyakinkan daripada profil yang mendadak dirapikan saat butuh pekerjaan.</div>
+    `,
+  },
 ];
 
 export const PM_QUIZZES: Record<string, Question[]> = {
@@ -1083,5 +1449,39 @@ export const PM_QUIZZES: Record<string, Question[]> = {
     { q: "Skenario menyelenggarakan seminar kampus paling melatih keterampilan:", options: ["Menulis kode", "Manajemen stakeholder dan penjadwalan", "Desain grafis", "Akuntansi pajak"], answer: 1, explain: "Seminar melibatkan banyak pihak dan tenggat tanggal yang tak bisa mundur." },
     { q: "Skenario migrasi sistem lama ke baru terutama melatih:", options: ["Manajemen risiko", "Kecepatan mengetik", "Desain logo", "Negosiasi gaji"], answer: 0, explain: "Migrasi berisiko kehilangan data dan gangguan operasional, sehingga melatih manajemen risiko." },
     { q: "Skenario yang paling cocok untuk melatih Kanban dan batas WIP adalah:", options: ["Riset tesis", "Membuat konten kanal YouTube rutin", "Renovasi kos", "Peluncuran produk"], answer: 1, explain: "Konten rutin adalah aliran pekerjaan berulang tanpa batch tetap, khas Kanban." },
+  ],
+  "pm-roadmap": [
+    { q: "Jabatan yang termasuk jenjang entry menuju PM adalah:", options: ["Portfolio Manager", "Project Coordinator", "Head of PMO", "Program Manager"], answer: 1, explain: "Project Coordinator adalah peran entry yang mendukung PM dan memelihara papan tugas." },
+    { q: "Manakah contoh keterampilan lunak (soft skill) yang wajib dimiliki PM?", options: ["Penyusunan anggaran", "Manajemen risiko", "Negosiasi dan manajemen konflik", "Membuat Gantt chart"], answer: 2, explain: "Negosiasi dan manajemen konflik adalah soft skill; sisanya hard skill." },
+    { q: "Bagi pemula tanpa banyak pengalaman, sertifikasi yang paling pas diambil lebih dulu adalah:", options: ["PMP", "CAPM atau Google Project Management Certificate", "PMI-ACP", "Tidak perlu sertifikasi apa pun"], answer: 1, explain: "CAPM dan Google PM Certificate cocok untuk pemula karena tidak menuntut jam pengalaman berat." },
+  ],
+  "pm-cv": [
+    { q: "Bullet pengalaman yang paling kuat dalam CV PM adalah yang:", options: ["Menyebut daftar tugas harian", "Mengkuantifikasi hasil dengan angka", "Sepanjang mungkin", "Penuh istilah coding"], answer: 1, explain: "Bullet kuat memuat hasil terukur seperti persentase, anggaran, atau ukuran tim." },
+    { q: "Apa fungsi ATS (Applicant Tracking System)?", options: ["Menghitung gaji", "Memindai CV dengan kata kunci sebelum sampai ke manusia", "Mengatur jadwal wawancara otomatis", "Menilai kepribadian"], answer: 1, explain: "ATS memindai CV berdasarkan kata kunci, sehingga CV perlu memuat istilah relevan." },
+    { q: "Manakah awalan bullet yang paling tepat untuk CV PM?", options: ["Bertanggung jawab atas", "Membantu dalam", "Memimpin, mengelola, meluncurkan (kata kerja aksi)", "Terlibat pada"], answer: 2, explain: "Kata kerja aksi yang kuat membuat pencapaian terasa aktif dan berdampak." },
+  ],
+  "pm-portfolio": [
+    { q: "Inti dari sebuah portofolio Project Manager adalah:", options: ["Daftar sertifikat saja", "Studi kasus proyek beserta artefak dan hasil terukur", "Foto-foto acara", "Riwayat gaji"], answer: 1, explain: "Studi kasus dengan artefak dan hasil terukur membuktikan cara berpikir dan hasil kerja PM." },
+    { q: "Jika belum punya pengalaman kerja formal, sumber proyek untuk portofolio bisa berasal dari:", options: ["Tidak ada, harus menunggu kerja", "Proyek kuliah, organisasi, volunteer, atau simulasi", "Hanya proyek berbayar", "Hanya proyek perusahaan besar"], answer: 1, explain: "Yang dinilai adalah cara mengelola, sehingga proyek kampus dan volunteer pun sah dijadikan studi kasus." },
+    { q: "Dalam kerangka studi kasus, bagian yang memuat angka seperti ketepatan waktu dan anggaran adalah:", options: ["Konteks dan Masalah", "Hasil terukur", "Peran dan Tanggung Jawab", "Pembelajaran"], answer: 1, explain: "Bagian Hasil terukur menyajikan angka konkret pencapaian proyek." },
+  ],
+  "pm-portfolio-template": [
+    { q: "Dalam contoh studi kasus seminar kampus, apa yang menyelamatkan acara saat pembicara utama mundur?", options: ["Menambah anggaran mendadak", "Risk register dengan daftar pembicara cadangan", "Membatalkan acara", "Mengganti tanggal acara"], answer: 1, explain: "Risiko sudah tercatat di risk register beserta cadangannya, sehingga pengganti cepat dikonfirmasi." },
+    { q: "Judul studi kasus yang baik sebaiknya memuat:", options: ["Hanya nama proyek", "Nama singkat ditambah hasil utama", "Daftar seluruh anggota tim", "Tanggal lengkap proyek"], answer: 1, explain: "Judul yang memuat nama plus hasil utama langsung menunjukkan dampak." },
+  ],
+  "pm-interview": [
+    { q: "Kepanjangan kerangka STAR adalah:", options: ["Situation, Task, Action, Result", "Start, Track, Assign, Review", "Scope, Time, Auto, Risk", "Strategy, Team, Action, Report"], answer: 0, explain: "STAR: Situation, Task, Action, Result." },
+    { q: "Saat ditanya tentang proyek yang gagal, sikap terbaik adalah:", options: ["Menyembunyikannya", "Menyalahkan tim", "Jujur dan menekankan pelajaran serta perubahan yang dibuat", "Mengatakan tidak pernah gagal"], answer: 2, explain: "Recruiter menghargai kejujuran dan bukti pertumbuhan dari kegagalan." },
+    { q: "Pada bagian Action dalam STAR, fokus jawaban sebaiknya pada:", options: ["Apa yang dilakukan orang lain", "Tindakan konkret yang kamu ambil sendiri", "Teori manajemen proyek", "Kondisi umum perusahaan"], answer: 1, explain: "Action menyoroti kontribusi pribadimu, bukan tim secara umum." },
+  ],
+  "pm-interview-bank": [
+    { q: "Pertanyaan 'Apa yang kamu lakukan jika klien terus menambah permintaan?' termasuk jenis:", options: ["Behavioral", "Situational", "Teknis metodologi", "Umum"], answer: 1, explain: "Ini skenario hipotetis (situational) yang menguji cara berpikir dan pengambilan keputusan." },
+    { q: "Poin kunci menjawab 'Bagaimana menyampaikan kabar buruk ke klien?' adalah:", options: ["Menutupi sampai proyek selesai", "Jujur, cepat, dan menyertakan opsi solusi", "Menyalahkan tim", "Menghindari komunikasi"], answer: 1, explain: "Kabar buruk sebaiknya disampaikan jujur dan cepat disertai opsi solusi." },
+    { q: "Saat pewawancara bertanya 'Ada pertanyaan untuk kami?', sebaiknya kamu:", options: ["Menjawab tidak ada", "Menyiapkan pertanyaan cerdas soal tim, proses, dan ekspektasi peran", "Menanyakan gaji lebih dulu", "Mengakhiri wawancara"], answer: 1, explain: "Kandidat yang bertanya menunjukkan minat serius terhadap peran dan perusahaan." },
+  ],
+  "pm-linkedin": [
+    { q: "Headline LinkedIn yang kuat untuk PM sebaiknya:", options: ["Hanya menuliskan jabatan", "Memuat peran, spesialisasi, dan nilai yang ditawarkan", "Dikosongkan", "Berisi kutipan motivasi saja"], answer: 1, explain: "Headline yang memuat peran, spesialisasi, dan nilai membuat profil lebih menonjol dan mudah ditemukan." },
+    { q: "Agar profil ditemukan recruiter, hal penting yang perlu dilakukan adalah:", options: ["Menyebar kata kunci relevan secara alami di profil", "Menghapus semua pengalaman", "Menghindari sertifikasi", "Mengunci profil"], answer: 0, explain: "Recruiter mencari lewat kata kunci, sehingga istilah relevan perlu tersebar di headline, About, dan pengalaman." },
+    { q: "Praktik menyiapkan referensi yang benar adalah:", options: ["Mencantumkan nama tanpa izin", "Meminta izin lebih dulu dan membekali mereka ringkasan pencapaianmu", "Memakai referensi palsu", "Tidak perlu referensi sama sekali"], answer: 1, explain: "Referensi sebaiknya dimintai izin dan dibekali konteks agar rekomendasinya spesifik." },
   ],
 };
