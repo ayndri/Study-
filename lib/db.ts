@@ -1,15 +1,45 @@
-import { neon } from "@neondatabase/serverless";
+import { neon, type NeonQueryFunction } from "@neondatabase/serverless";
 
-// Klien Neon dibuat lazy. Jika DATABASE_URL kosong, semua fungsi mengembalikan
-// null / no-op sehingga aplikasi tetap berjalan (fallback ke localStorage di klien).
+// Klien Neon dibuat BENAR-BENAR lazy: neon() baru dipanggil saat ada query
+// pertama (di runtime), bukan saat modul di-import. Ini penting agar proses
+// build Next.js (yang meng-import route) tidak gagal ketika DATABASE_URL kosong
+// atau salah format. Jika DATABASE_URL tidak ada/invalid, semua fungsi
+// mengembalikan null / no-op sehingga aplikasi tetap berjalan (klien memakai
+// localStorage sebagai fallback).
 
-const url = process.env.DATABASE_URL;
-export const dbEnabled = Boolean(url && url.length > 0);
+// Rapikan nilai env yang sering salah tempel: spasi/baris baru di ujung,
+// tanda kutip pembungkus, atau awalan "psql ".
+function cleanUrl(raw: string | undefined): string {
+  if (!raw) return "";
+  let u = raw.trim();
+  u = u.replace(/^psql\s+/i, "");
+  u = u.replace(/^['"]+|['"]+$/g, "");
+  return u.trim();
+}
 
-const sql = dbEnabled ? neon(url as string) : null;
+const url = cleanUrl(process.env.DATABASE_URL);
+export const dbEnabled = /^postgres(ql)?:\/\//i.test(url);
+
+// Memo klien: undefined = belum dicoba, null = tidak tersedia/gagal.
+let _sql: NeonQueryFunction<false, false> | null | undefined;
+function getSql(): NeonQueryFunction<false, false> | null {
+  if (_sql !== undefined) return _sql;
+  if (!dbEnabled) {
+    _sql = null;
+    return _sql;
+  }
+  try {
+    _sql = neon(url);
+  } catch (e) {
+    console.error("DATABASE_URL tidak valid — DB dinonaktifkan:", (e as Error).message);
+    _sql = null;
+  }
+  return _sql;
+}
 
 let schemaReady = false;
 async function ensureSchema() {
+  const sql = getSql();
   if (!sql || schemaReady) return;
   await sql`
     CREATE TABLE IF NOT EXISTS attempts (
@@ -52,6 +82,7 @@ async function ensureSchema() {
 export type UserRow = { username: string; pass_hash: string; role: string };
 
 export async function getUserByName(username: string): Promise<UserRow | null> {
+  const sql = getSql();
   if (!sql) return null;
   await ensureSchema();
   const rows = await sql`SELECT username, pass_hash, role FROM users WHERE username = ${username}`;
@@ -59,6 +90,7 @@ export async function getUserByName(username: string): Promise<UserRow | null> {
 }
 
 export async function createUser(username: string, passHash: string, role = "user") {
+  const sql = getSql();
   if (!sql) return false;
   await ensureSchema();
   await sql`
@@ -68,6 +100,7 @@ export async function createUser(username: string, passHash: string, role = "use
 }
 
 export async function createUserIfAbsent(username: string, passHash: string, role = "user") {
+  const sql = getSql();
   if (!sql) return false;
   await ensureSchema();
   await sql`
@@ -77,12 +110,14 @@ export async function createUserIfAbsent(username: string, passHash: string, rol
 }
 
 export async function listUsers() {
+  const sql = getSql();
   if (!sql) return [];
   await ensureSchema();
   return await sql`SELECT username, role, created_at FROM users ORDER BY created_at`;
 }
 
 export async function deleteUser(username: string) {
+  const sql = getSql();
   if (!sql) return false;
   await ensureSchema();
   await sql`DELETE FROM users WHERE username = ${username}`;
@@ -90,6 +125,7 @@ export async function deleteUser(username: string) {
 }
 
 export async function saveKV(clientId: string, entries: Record<string, unknown>) {
+  const sql = getSql();
   if (!sql) return false;
   await ensureSchema();
   for (const [k, v] of Object.entries(entries)) {
@@ -102,6 +138,7 @@ export async function saveKV(clientId: string, entries: Record<string, unknown>)
 }
 
 export async function loadKV(clientId: string) {
+  const sql = getSql();
   if (!sql) return null;
   await ensureSchema();
   const rows = await sql`SELECT k, val FROM progress_kv WHERE client_id = ${clientId}`;
@@ -111,6 +148,7 @@ export async function loadKV(clientId: string) {
 }
 
 export async function saveAttempt(clientId: string, section: string, score: number, total: number) {
+  const sql = getSql();
   if (!sql) return false;
   await ensureSchema();
   await sql`INSERT INTO attempts (client_id, section, score, total) VALUES (${clientId}, ${section}, ${score}, ${total})`;
@@ -118,6 +156,7 @@ export async function saveAttempt(clientId: string, section: string, score: numb
 }
 
 export async function bestScores(clientId: string) {
+  const sql = getSql();
   if (!sql) return null;
   await ensureSchema();
   const rows = await sql`
@@ -135,6 +174,7 @@ export async function saveEssay(
   overall: number | null,
   feedback: unknown
 ) {
+  const sql = getSql();
   if (!sql) return null;
   await ensureSchema();
   const rows = await sql`
@@ -145,6 +185,7 @@ export async function saveEssay(
 }
 
 export async function listEssays(clientId: string) {
+  const sql = getSql();
   if (!sql) return null;
   await ensureSchema();
   const rows = await sql`
