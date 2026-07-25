@@ -17,6 +17,7 @@ export const GO_CATS: { key: string; label: string; ic: string }[] = [
   { key: "stdlib", label: "Pustaka Standar", ic: "▤" },
   { key: "web", label: "Web & Modul", ic: "☍" },
   { key: "praktik", label: "Praktik & Alat", ic: "◎" },
+  { key: "proyek", label: "Proyek & Praktik", ic: "🛠" },
 ];
 
 export const GO_LESSONS: Lesson[] = [
@@ -1622,6 +1623,272 @@ func main() {
       <div class="callout">Di produksi, env var biasanya diatur lewat sistem deploy (Docker, systemd, atau panel hosting), bukan diketik manual tiap kali.</div>
     `,
   },
+
+  // ===================== INSTALASI LENGKAP =====================
+  {
+    id: "go-install",
+    cat: "mulai",
+    title: "Instalasi Lengkap Go (Windows, macOS, Linux)",
+    minutes: 12,
+    summary: "Panduan bertahap memasang Go di semua OS, mengatur PATH, dan menyiapkan VS Code.",
+    body: `
+      <p>Materi ini memandu memasang Go dari nol sampai siap dipakai di tiga sistem operasi utama. Ikuti bagian sesuai OS-mu, lalu lanjut ke pengaturan PATH, verifikasi, dan editor.</p>
+      <h4>Langkah 1 — Unduh installer</h4>
+      <p>Buka <b>go.dev/dl</b> di browser. Halaman itu mendeteksi OS-mu dan menampilkan berkas yang cocok. Selalu pilih versi <b>stabil terbaru</b> (mis. <code>go1.22.x</code>) dan arsitektur yang benar.</p>
+      <table>
+        <tr><th>Sistem Operasi</th><th>Berkas yang diunduh</th><th>Catatan arsitektur</th></tr>
+        <tr><td>Windows</td><td><code>goX.XX.X.windows-amd64.msi</code></td><td>Pilih <code>arm64</code> bila memakai Windows on ARM.</td></tr>
+        <tr><td>macOS</td><td><code>goX.XX.X.darwin-arm64.pkg</code></td><td><code>arm64</code> untuk chip Apple (M1/M2/M3), <code>amd64</code> untuk Mac Intel.</td></tr>
+        <tr><td>Linux</td><td><code>goX.XX.X.linux-amd64.tar.gz</code></td><td>Arsip <code>tar.gz</code>, dipasang manual (lihat Langkah 2c).</td></tr>
+      </table>
+      <h4>Langkah 2a — Pasang di Windows (.msi)</h4>
+      <ol>
+        <li>Klik dua kali berkas <code>.msi</code> yang diunduh.</li>
+        <li>Klik <b>Next</b>, setujui lisensi, biarkan lokasi bawaan <code>C:\\Program Files\\Go</code>, lalu <b>Install</b>.</li>
+        <li>Installer <b>otomatis menambahkan</b> <code>C:\\Program Files\\Go\\bin</code> ke PATH sistem.</li>
+        <li><b>Tutup lalu buka lagi</b> semua jendela terminal (PowerShell/CMD) agar PATH baru terbaca.</li>
+      </ol>
+      <h4>Langkah 2b — Pasang di macOS (.pkg)</h4>
+      <ol>
+        <li>Klik dua kali berkas <code>.pkg</code>, lalu ikuti wizard (Continue → Install).</li>
+        <li>Go terpasang di <code>/usr/local/go</code> dan <code>/usr/local/go/bin</code> otomatis masuk PATH.</li>
+        <li>Buka Terminal baru untuk memuat ulang konfigurasi shell.</li>
+      </ol>
+      <h4>Langkah 2c — Pasang di Linux (tar.gz, manual)</h4>
+      <p>Di Linux kita mengekstrak arsip ke <code>/usr/local</code> lalu menambahkan PATH secara manual.</p>
+      <pre><code># hapus instalasi lama (bila ada), lalu ekstrak yang baru
+rm -rf /usr/local/go
+tar -C /usr/local -xzf go1.22.0.linux-amd64.tar.gz
+
+# tambahkan ke PATH (untuk bash: ~/.bashrc, untuk zsh: ~/.zshrc)
+echo 'export PATH=$PATH:/usr/local/go/bin' &gt;&gt; ~/.bashrc
+source ~/.bashrc</code></pre>
+      <div class="callout">Jangan mengekstrak arsip baru <b>di atas</b> folder Go lama tanpa menghapusnya dulu — sisa berkas versi lama bisa membuat perilaku aneh. Selalu <code>rm -rf /usr/local/go</code> lebih dulu.</div>
+      <h4>Langkah 3 — Memahami PATH, GOPATH, dan GOBIN</h4>
+      <ul>
+        <li><b>PATH</b> → berisi <code>.../go/bin</code> agar perintah <code>go</code> dikenali di terminal mana pun.</li>
+        <li><b>GOPATH</b> → folder kerja Go (bawaan: <code>~/go</code> di Unix, <code>%USERPROFILE%\\go</code> di Windows). Sejak era Go Modules kamu jarang perlu mengubahnya.</li>
+        <li><b>GOBIN</b> → tempat biner hasil <code>go install</code> disimpan (bawaan: <code>$GOPATH/bin</code>). Tambahkan folder ini ke PATH agar tool yang kamu install bisa dijalankan langsung.</li>
+      </ul>
+      <p>Menambahkan <code>$GOPATH/bin</code> ke PATH (Linux/macOS):</p>
+      <pre><code>echo 'export PATH=$PATH:$(go env GOPATH)/bin' &gt;&gt; ~/.bashrc
+source ~/.bashrc</code></pre>
+      <p>Di Windows, tambahkan <code>%USERPROFILE%\\go\\bin</code> lewat <b>Settings → System → About → Advanced system settings → Environment Variables → Path → New</b>.</p>
+      <h4>Langkah 4 — Verifikasi instalasi</h4>
+      <p>Buka terminal <b>baru</b>, lalu jalankan:</p>
+      <pre><code>go version</code></pre>
+      <p>Hasil yang diharapkan kira-kira: <code>go version go1.22.0 windows/amd64</code>. Untuk melihat semua pengaturan lingkungan Go:</p>
+      <pre><code>go env</code></pre>
+      <p>Perhatikan baris <code>GOROOT</code> (lokasi instalasi Go), <code>GOPATH</code>, dan <code>GOBIN</code>. Uji cepat dengan program kecil:</p>
+      <pre><code>mkdir coba &amp;&amp; cd coba
+go mod init coba
+# buat main.go berisi Println, lalu:
+go run .</code></pre>
+      <h4>Langkah 5 — Pasang VS Code + ekstensi Go</h4>
+      <ol>
+        <li>Unduh &amp; pasang <b>VS Code</b> dari code.visualstudio.com.</li>
+        <li>Buka tab <b>Extensions</b> (Ctrl+Shift+X), cari <b>Go</b> (penerbit resmi: Go Team at Google), klik <b>Install</b>.</li>
+        <li>Buka sebuah file <code>.go</code>. VS Code akan menawarkan <b>Install All</b> untuk tools pendukung — setujui. Ini memasang antara lain <b>gopls</b> (language server), <b>dlv</b> (debugger), <b>staticcheck</b>, dan <b>goimports</b>.</li>
+        <li>Bila lewat, jalankan manual dari Command Palette (Ctrl+Shift+P): <b>Go: Install/Update Tools</b>, centang semua, lalu OK.</li>
+      </ol>
+      <p>Memasang tool secara manual dari terminal juga bisa:</p>
+      <pre><code>go install golang.org/x/tools/gopls@latest
+go install github.com/go-delve/delve/cmd/dlv@latest</code></pre>
+      <h4>Langkah 6 — Troubleshooting umum</h4>
+      <table>
+        <tr><th>Masalah</th><th>Penyebab &amp; solusi</th></tr>
+        <tr><td><code>'go' is not recognized</code> / <code>command not found</code></td><td>PATH belum memuat folder <code>go/bin</code>, atau terminal belum dibuka ulang. Tutup semua terminal lalu buka lagi; cek dengan <code>echo $PATH</code>.</td></tr>
+        <tr><td>Versi lama tetap muncul</td><td>Ada instalasi Go ganda. Cek lokasi dengan <code>go env GOROOT</code> dan hapus versi lama.</td></tr>
+        <tr><td>gopls tidak jalan di VS Code</td><td>Jalankan <b>Go: Install/Update Tools</b>, pastikan <code>$GOPATH/bin</code> ada di PATH.</td></tr>
+        <tr><td>Gagal <code>go install</code> karena proxy</td><td>Set <code>go env -w GOPROXY=https://proxy.golang.org,direct</code>, atau atur proxy jaringan kantormu.</td></tr>
+      </table>
+      <div class="callout">Belum ingin memasang apa pun? Kamu tetap bisa berlatih di <b>Go Playground</b> (go.dev/play). Tapi untuk proyek nyata (membaca file, membuat server), instalasi lokal wajib.</div>
+    `,
+  },
+
+  // ===================== PROYEK & PRAKTIK =====================
+  {
+    id: "go-proj-api",
+    cat: "proyek",
+    title: "Proyek Terpandu: REST API Daftar Buku",
+    minutes: 14,
+    summary: "Membangun REST API CRUD sederhana dari nol memakai net/http dan encoding/json.",
+    body: `
+      <p>Di proyek ini kamu membangun sebuah <b>REST API Daftar Buku</b> dari nol sampai bisa diuji dengan <code>curl</code>. Data disimpan sementara di memori (slice), jadi tak perlu database. Ikuti langkahnya berurutan.</p>
+      <h4>Langkah 1 — Siapkan folder &amp; modul</h4>
+      <p>Buat folder proyek dan inisialisasi modul Go. File <code>go.mod</code> akan tercipta.</p>
+      <pre><code>mkdir bukuapi
+cd bukuapi
+go mod init bukuapi</code></pre>
+      <h4>Langkah 2 — Definisikan struct Book</h4>
+      <p>Buat file <code>main.go</code>. Mulai dengan tipe <b>Book</b> lengkap dengan <b>struct tag</b> agar field tampil rapi saat menjadi JSON (huruf kecil).</p>
+      <pre><code>package main
+
+import (
+    "encoding/json"
+    "net/http"
+    "strconv"
+    "sync"
+)
+
+type Book struct {
+    ID     int    \`json:"id"\`
+    Judul  string \`json:"judul"\`
+    Penulis string \`json:"penulis"\`
+    Tahun  int    \`json:"tahun"\`
+}</code></pre>
+      <h4>Langkah 3 — Simpan data di slice in-memory</h4>
+      <p>Gunakan slice global sebagai "database" sementara, plus penghitung ID dan sebuah <b>Mutex</b> agar aman bila diakses banyak permintaan sekaligus.</p>
+      <pre><code>var (
+    mu     sync.Mutex
+    buku   = []Book{
+        {ID: 1, Judul: "Laskar Pelangi", Penulis: "Andrea Hirata", Tahun: 2005},
+        {ID: 2, Judul: "Bumi Manusia", Penulis: "Pramoedya", Tahun: 1980},
+    }
+    nextID = 3
+)</code></pre>
+      <h4>Langkah 4 — Handler GET (semua buku) &amp; POST (tambah)</h4>
+      <p>Satu handler untuk jalur <code>/buku</code>: bila metodenya GET kirim seluruh daftar, bila POST baca body JSON lalu tambahkan.</p>
+      <pre><code>func handlerBuku(w http.ResponseWriter, r *http.Request) {
+    w.Header().Set("Content-Type", "application/json")
+
+    switch r.Method {
+    case http.MethodGet:
+        mu.Lock()
+        defer mu.Unlock()
+        json.NewEncoder(w).Encode(buku)
+
+    case http.MethodPost:
+        var b Book
+        if err := json.NewDecoder(r.Body).Decode(&amp;b); err != nil {
+            http.Error(w, "data tidak valid", http.StatusBadRequest)
+            return
+        }
+        mu.Lock()
+        b.ID = nextID
+        nextID++
+        buku = append(buku, b)
+        mu.Unlock()
+        w.WriteHeader(http.StatusCreated)
+        json.NewEncoder(w).Encode(b)
+
+    default:
+        http.Error(w, "metode tidak didukung", http.StatusMethodNotAllowed)
+    }
+}</code></pre>
+      <h4>Langkah 5 — Handler GET by id &amp; DELETE</h4>
+      <p>Untuk jalur <code>/buku/</code> kita ambil ID dari akhir URL. GET mengembalikan satu buku, DELETE menghapusnya dari slice.</p>
+      <pre><code>func handlerBukuID(w http.ResponseWriter, r *http.Request) {
+    w.Header().Set("Content-Type", "application/json")
+
+    // ambil id dari path: /buku/2 -&gt; "2"
+    idStr := r.URL.Path[len("/buku/"):]
+    id, err := strconv.Atoi(idStr)
+    if err != nil {
+        http.Error(w, "id tidak valid", http.StatusBadRequest)
+        return
+    }
+
+    mu.Lock()
+    defer mu.Unlock()
+
+    switch r.Method {
+    case http.MethodGet:
+        for _, b := range buku {
+            if b.ID == id {
+                json.NewEncoder(w).Encode(b)
+                return
+            }
+        }
+        http.Error(w, "buku tidak ditemukan", http.StatusNotFound)
+
+    case http.MethodDelete:
+        for i, b := range buku {
+            if b.ID == id {
+                buku = append(buku[:i], buku[i+1:]...)
+                w.WriteHeader(http.StatusNoContent)
+                return
+            }
+        }
+        http.Error(w, "buku tidak ditemukan", http.StatusNotFound)
+
+    default:
+        http.Error(w, "metode tidak didukung", http.StatusMethodNotAllowed)
+    }
+}</code></pre>
+      <h4>Langkah 6 — Fungsi main &amp; routing</h4>
+      <pre><code>func main() {
+    http.HandleFunc("/buku", handlerBuku)     // GET semua, POST tambah
+    http.HandleFunc("/buku/", handlerBukuID)  // GET by id, DELETE by id
+
+    println("Server jalan di http://localhost:8080")
+    http.ListenAndServe(":8080", nil)
+}</code></pre>
+      <h4>Langkah 7 — Jalankan &amp; uji dengan curl</h4>
+      <p>Jalankan server di satu terminal:</p>
+      <pre><code>go run .</code></pre>
+      <p>Di terminal lain, coba tiap endpoint:</p>
+      <pre><code># ambil semua buku
+curl http://localhost:8080/buku
+
+# ambil satu buku (id 1)
+curl http://localhost:8080/buku/1
+
+# tambah buku baru (POST)
+curl -X POST http://localhost:8080/buku \\
+  -H "Content-Type: application/json" \\
+  -d '{"judul":"Pulang","penulis":"Tere Liye","tahun":2015}'
+
+# hapus buku id 2
+curl -X DELETE http://localhost:8080/buku/2</code></pre>
+      <ul>
+        <li><b>Slice in-memory</b> berarti data hilang saat server dimatikan — cukup untuk belajar. Langkah lanjut: ganti dengan <code>database/sql</code>.</li>
+        <li><b>Mutex</b> mencegah race condition karena tiap permintaan HTTP ditangani di goroutine terpisah.</li>
+        <li>Kode status penting: <b>201</b> (Created) untuk POST, <b>204</b> (No Content) untuk DELETE, <b>404</b> bila tidak ada.</li>
+      </ul>
+      <div class="callout">Selamat — kamu baru saja membuat CRUD API lengkap tanpa framework! Tantangan lanjutan: tambahkan endpoint <b>PUT</b> (ubah buku), validasi field kosong, dan pindahkan penyimpanan ke database.</div>
+    `,
+  },
+  {
+    id: "go-proj-ideas",
+    cat: "proyek",
+    title: "Ide Proyek Go (CLI, API, dll.)",
+    minutes: 8,
+    summary: "Sepuluh ide proyek bertingkat lengkap dengan fitur inti dan konsep Go yang dilatih.",
+    body: `
+      <p>Cara tercepat menguasai Go adalah membangun sesuatu. Berikut sepuluh ide proyek yang disusun dari <b>pemula</b> ke <b>mahir</b>. Tiap ide menyebutkan fitur inti dan konsep Go yang akan kamu latih.</p>
+      <h4>Tingkat pemula</h4>
+      <table>
+        <tr><th>Proyek</th><th>Fitur inti</th><th>Konsep Go yang dilatih</th></tr>
+        <tr><td><b>CLI To-Do List</b></td><td>Tambah, tandai selesai, hapus tugas; simpan ke file teks/JSON.</td><td>Paket <code>flag</code>/<code>os.Args</code>, slice, struct, <code>encoding/json</code>, file I/O.</td></tr>
+        <tr><td><b>Kalkulator Terminal</b></td><td>Baca ekspresi sederhana, hitung, tampilkan hasil.</td><td>Input <code>bufio</code>, <code>strconv</code>, <code>switch</code>, penanganan error.</td></tr>
+        <tr><td><b>Konverter Suhu/Satuan</b></td><td>Ubah Celsius↔Fahrenheit, km↔mil, dll.</td><td>Fungsi, <code>float64</code>, <code>flag</code>, format <code>fmt.Sprintf</code>.</td></tr>
+      </table>
+      <h4>Tingkat menengah</h4>
+      <table>
+        <tr><th>Proyek</th><th>Fitur inti</th><th>Konsep Go yang dilatih</th></tr>
+        <tr><td><b>URL Shortener</b></td><td>Ubah URL panjang jadi kode pendek, arahkan ulang saat diakses.</td><td><code>net/http</code>, map/database, redirect, pembuatan kode acak.</td></tr>
+        <tr><td><b>REST API Catatan/Buku</b></td><td>CRUD lewat JSON (GET, POST, PUT, DELETE).</td><td><code>net/http</code>, <code>encoding/json</code>, struct tag, routing, kode status.</td></tr>
+        <tr><td><b>Web Scraper</b></td><td>Ambil halaman web, ekstrak judul/link, simpan hasil.</td><td>HTTP client, parsing HTML, <code>regexp</code>/goquery, <code>context</code> timeout.</td></tr>
+        <tr><td><b>Markdown ke HTML</b></td><td>Baca file <code>.md</code>, hasilkan file <code>.html</code>.</td><td>File I/O, <code>strings</code>, <code>regexp</code>, template.</td></tr>
+      </table>
+      <h4>Tingkat mahir</h4>
+      <table>
+        <tr><th>Proyek</th><th>Fitur inti</th><th>Konsep Go yang dilatih</th></tr>
+        <tr><td><b>Chat Real-time (WebSocket)</b></td><td>Banyak klien mengirim pesan yang disiarkan ke semua.</td><td>Goroutine, channel, WebSocket (gorilla/ws), <code>sync</code>.</td></tr>
+        <tr><td><b>Port Scanner Sederhana</b></td><td>Cek port mana yang terbuka pada sebuah host secara paralel.</td><td>Goroutine, worker pool, <code>net.Dial</code>, <code>context</code> timeout, <code>WaitGroup</code>.</td></tr>
+        <tr><td><b>Key-Value Store Mini</b></td><td>Simpan/ambil data lewat API dengan penyimpanan aman-konkuren.</td><td><code>sync.RWMutex</code>, map, <code>net/http</code>, persistensi ke disk.</td></tr>
+      </table>
+      <h4>Tips memilih &amp; mengerjakan</h4>
+      <ul>
+        <li>Mulai kecil: buat versi paling sederhana yang <b>jalan</b> dulu, baru tambah fitur.</li>
+        <li>Gunakan <code>git</code> sejak awal agar mudah kembali bila salah.</li>
+        <li>Tulis <b>test</b> untuk logika inti (materi <i>Testing</i>) — ini sangat idiomatis di Go.</li>
+        <li>Untuk proyek konkuren (chat, scanner), latih <b>goroutine + channel + worker pool</b>.</li>
+      </ul>
+      <div class="callout">Pilih satu proyek yang benar-benar kamu butuhkan atau minati. Motivasi menyelesaikan sesuatu yang berguna jauh lebih kuat daripada sekadar latihan. Setelah selesai, unggah ke GitHub sebagai portofolio.</div>
+    `,
+  },
 ];
 
 export const GO_QUIZZES: Record<string, Question[]> = {
@@ -1809,5 +2076,19 @@ export const GO_QUIZZES: Record<string, Question[]> = {
     { q: "Membaca argumen baris perintah seperti -nama=Dewi memakai paket:", options: ["os", "flag", "args", "cli"], answer: 1, explain: "Paket flag membaca argumen CLI." },
     { q: "flag.String mengembalikan sebuah:", options: ["string", "pointer ke string", "error", "bool"], answer: 1, explain: "Ambil nilainya dengan * setelah flag.Parse()." },
     { q: "Membaca environment variable memakai:", options: ["os.Getenv", "flag.Env", "env.Read", "os.Args"], answer: 0, explain: "os.Getenv(nama); os.LookupEnv untuk cek keberadaan." },
+  ],
+  "go-install": [
+    { q: "Berkas installer Go untuk Windows berekstensi:", options: [".tar.gz", ".msi", ".deb", ".exe.zip"], answer: 1, explain: "Windows memakai installer .msi dari go.dev/dl." },
+    { q: "Setelah memasang Go, perintah untuk memverifikasi versinya adalah:", options: ["go check", "go version", "go info", "go --v"], answer: 1, explain: "go version menampilkan versi & OS/arsitektur." },
+    { q: "Di Linux, Go dari arsip tar.gz biasanya diekstrak ke:", options: ["/home/go", "/usr/local", "/opt/bin", "/etc/go"], answer: 1, explain: "tar -C /usr/local -xzf ... lalu tambahkan /usr/local/go/bin ke PATH." },
+  ],
+  "go-proj-api": [
+    { q: "Data buku pada proyek ini disimpan di:", options: ["file SQL", "slice in-memory", "Redis", "cookie browser"], answer: 1, explain: "Slice global sebagai penyimpanan sementara — hilang saat server mati." },
+    { q: "Membaca body JSON dari permintaan POST memakai:", options: ["json.Unmarshal(r)", "json.NewDecoder(r.Body).Decode", "r.ReadJSON", "fmt.Scan"], answer: 1, explain: "Decoder membaca JSON dari r.Body menjadi struct." },
+    { q: "Kode status HTTP yang tepat setelah berhasil menambah data (POST) adalah:", options: ["200 OK", "201 Created", "204 No Content", "404 Not Found"], answer: 1, explain: "201 Created menandakan sumber daya baru berhasil dibuat." },
+  ],
+  "go-proj-ideas": [
+    { q: "Konsep Go yang paling dilatih saat membuat Port Scanner paralel adalah:", options: ["struct tag JSON", "goroutine & worker pool", "regexp", "generics"], answer: 1, explain: "Pemindaian paralel memakai goroutine, worker pool, dan timeout context." },
+    { q: "Proyek yang paling cocok untuk pemula yang baru mulai adalah:", options: ["Chat real-time WebSocket", "CLI To-Do List", "Key-Value Store konkuren", "Port Scanner"], answer: 1, explain: "CLI To-Do melatih dasar: slice, struct, file I/O, dan flag." },
   ],
 };

@@ -11,6 +11,7 @@ export const FLUTTER_CATS: { key: string; label: string; ic: string }[] = [
   { key: "state", label: "State & Interaksi", ic: "⚡" },
   { key: "data", label: "Navigasi & Data", ic: "☍" },
   { key: "praktik", label: "Praktik & Alat", ic: "◎" },
+  { key: "proyek", label: "Proyek & Praktik", ic: "🛠" },
 ];
 
 export const FLUTTER_LESSONS: Lesson[] = [
@@ -1141,6 +1142,334 @@ final penghitungProvider =
       <div class="callout">Riverpod vs Provider: keduanya baik. Riverpod lebih modern, tidak bergantung pada BuildContext, dan lebih mudah diuji. Mulailah dari <b>setState</b>, naik ke <b>Provider/Riverpod</b> saat aplikasi membesar.</div>
     `,
   },
+
+  // ===================== INSTALASI & PROYEK =====================
+  {
+    id: "fl-install",
+    cat: "mulai",
+    title: "Instalasi Lengkap Flutter (Windows, macOS, Linux)",
+    minutes: 14,
+    summary: "Panduan bertahap memasang Flutter SDK, Android Studio, VS Code, dan mengatasi masalah flutter doctor.",
+    body: `
+      <p>Materi ini menuntunmu memasang Flutter dari nol sampai siap membuat aplikasi, lengkap untuk <b>Windows, macOS, dan Linux</b>. Ikuti setiap langkah berurutan.</p>
+
+      <h4>Langkah 1 — Unduh Flutter SDK</h4>
+      <p>Buka <b>flutter.dev</b> lalu masuk ke menu <i>Get Started &rarr; Install</i> dan pilih sistem operasimu. Unduh berkas SDK (berupa <code>.zip</code> untuk Windows, <code>.zip</code> untuk macOS, atau <code>.tar.xz</code> untuk Linux).</p>
+
+      <h4>Langkah 2 — Ekstrak SDK ke folder tetap</h4>
+      <p>Ekstrak isinya ke lokasi yang <b>tidak akan dipindah</b> dan <b>tanpa spasi/tanda khusus</b> pada path. Hindari folder yang butuh izin admin (mis. <code>C:\\Program Files</code>).</p>
+      <table>
+        <tr><th>OS</th><th>Lokasi yang disarankan</th></tr>
+        <tr><td>Windows</td><td><code>C:\\src\\flutter</code></td></tr>
+        <tr><td>macOS</td><td><code>~/development/flutter</code></td></tr>
+        <tr><td>Linux</td><td><code>~/development/flutter</code></td></tr>
+      </table>
+      <p>Untuk macOS/Linux, kamu bisa mengekstrak lewat terminal:</p>
+      <pre><code>cd ~/development
+tar xf ~/Downloads/flutter_linux_*.tar.xz</code></pre>
+
+      <h4>Langkah 3 — Tambahkan Flutter ke PATH</h4>
+      <p>Agar perintah <code>flutter</code> dikenali di mana saja, folder <code>flutter/bin</code> harus dimasukkan ke variabel <b>PATH</b>. Caranya berbeda per OS:</p>
+      <table>
+        <tr><th>OS</th><th>Cara menambah PATH</th></tr>
+        <tr><td>Windows</td><td>Buka <b>Edit environment variables for your account</b> &rarr; pilih <b>Path</b> &rarr; <b>New</b> &rarr; isi <code>C:\\src\\flutter\\bin</code> &rarr; OK. Tutup lalu buka ulang terminal.</td></tr>
+        <tr><td>macOS (zsh)</td><td>Tambahkan baris berikut ke <code>~/.zshrc</code>: <code>export PATH="$HOME/development/flutter/bin:$PATH"</code></td></tr>
+        <tr><td>Linux (bash)</td><td>Tambahkan baris berikut ke <code>~/.bashrc</code>: <code>export PATH="$HOME/development/flutter/bin:$PATH"</code></td></tr>
+      </table>
+      <p>Pada macOS/Linux, muat ulang konfigurasi lalu cek versinya:</p>
+      <pre><code>source ~/.zshrc      # atau: source ~/.bashrc
+flutter --version</code></pre>
+
+      <h4>Langkah 4 — Pasang Android Studio + Android SDK</h4>
+      <p>Unduh <b>Android Studio</b> dari developer.android.com. Saat pertama dijalankan, ikuti wizard dan pastikan komponen berikut ikut terpasang:</p>
+      <ul>
+        <li><b>Android SDK</b> — perpustakaan inti Android.</li>
+        <li><b>Android SDK Command-line Tools</b> — wajib agar lisensi bisa disetujui.</li>
+        <li><b>Android SDK Build-Tools</b> dan <b>Android SDK Platform-Tools</b>.</li>
+      </ul>
+      <p>Cek/aktifkan lewat menu <b>Settings &rarr; Languages &amp; Frameworks &rarr; Android SDK &rarr; SDK Tools</b>, lalu centang <b>Android SDK Command-line Tools (latest)</b>.</p>
+
+      <h4>Langkah 5 — Buat emulator (AVD)</h4>
+      <p>Emulator adalah ponsel virtual untuk menjalankan aplikasi di komputer.</p>
+      <ol>
+        <li>Di Android Studio, buka <b>Device Manager</b> (ikon ponsel di kanan atas).</li>
+        <li>Klik <b>Create Device</b>, pilih model (mis. Pixel 7).</li>
+        <li>Pilih <b>system image</b> (mis. Android 14). Unduh bila diminta.</li>
+        <li>Klik <b>Finish</b>, lalu tekan tombol <b>Play</b> untuk menyalakan emulator.</li>
+      </ol>
+
+      <h4>Langkah 6 — Pasang VS Code + ekstensi</h4>
+      <p>Banyak orang menulis kode di <b>VS Code</b> karena ringan. Setelah memasangnya:</p>
+      <ol>
+        <li>Buka panel <b>Extensions</b> (Ctrl+Shift+X).</li>
+        <li>Pasang ekstensi <b>Flutter</b> (otomatis ikut memasang ekstensi <b>Dart</b>).</li>
+        <li>Buka <b>Command Palette</b> (Ctrl+Shift+P) &rarr; ketik <code>Flutter: New Project</code> untuk membuat proyek.</li>
+      </ol>
+
+      <h4>Langkah 7 — Jalankan flutter doctor</h4>
+      <p>Perintah ini memeriksa apakah semua alat sudah terpasang benar:</p>
+      <pre><code>flutter doctor</code></pre>
+      <p>Tanda centang (&#10003;) berarti beres; tanda silang (&#10007;) atau seru (!) berarti ada yang perlu diperbaiki. Jalankan versi rinci untuk melihat penyebabnya:</p>
+      <pre><code>flutter doctor -v</code></pre>
+
+      <h4>Langkah 8 — Mengatasi masalah umum</h4>
+      <table>
+        <tr><th>Pesan</th><th>Solusi</th></tr>
+        <tr><td>"Android license status unknown"</td><td>Setujui semua lisensi Android.</td></tr>
+        <tr><td>"cmdline-tools component is missing"</td><td>Pasang <b>Android SDK Command-line Tools</b> lewat SDK Tools di Android Studio.</td></tr>
+        <tr><td>"Unable to find bundled Java"</td><td>Buka Android Studio minimal sekali agar JDK bawaannya terpasang.</td></tr>
+      </table>
+      <p>Menyetujui lisensi Android:</p>
+      <pre><code>flutter doctor --android-licenses</code></pre>
+      <p>Ketik <code>y</code> untuk tiap pertanyaan hingga semua lisensi disetujui, lalu jalankan <code>flutter doctor</code> lagi.</p>
+
+      <h4>Langkah 9 — Menjalankan di HP fisik (USB debugging)</h4>
+      <p>Selain emulator, kamu bisa menjalankan aplikasi langsung di ponsel Android asli:</p>
+      <ol>
+        <li>Di ponsel, buka <b>Settings &rarr; About phone</b>, ketuk <b>Build number</b> 7 kali untuk membuka <b>Developer options</b>.</li>
+        <li>Masuk ke <b>Developer options</b>, aktifkan <b>USB debugging</b>.</li>
+        <li>Sambungkan ponsel ke komputer dengan kabel USB, lalu setujui dialog "Allow USB debugging".</li>
+        <li>Cek apakah perangkat terbaca:</li>
+      </ol>
+      <pre><code>flutter devices</code></pre>
+      <p>Bila ponselmu muncul di daftar, jalankan aplikasi ke perangkat itu:</p>
+      <pre><code>flutter run</code></pre>
+      <div class="callout">Belum ingin repot instalasi? Coba dulu <b>DartPad</b> (dartpad.dev) di browser. Namun untuk membangun aplikasi nyata dengan emulator/HP, instalasi lengkap di atas tetap diperlukan. Klik <b>Perdalam dengan AI</b> jika ada langkah yang macet.</div>
+    `,
+  },
+  {
+    id: "fl-proj-todo",
+    cat: "proyek",
+    title: "Proyek Terpandu: Aplikasi To-Do List",
+    minutes: 14,
+    summary: "Membangun aplikasi daftar tugas dari nol hingga jadi: tambah, hapus, centang selesai, dan simpan permanen.",
+    body: `
+      <p>Di proyek ini kamu membangun <b>aplikasi To-Do List</b> lengkap dari nol. Ikuti langkah 1 sampai 6 secara berurutan; tiap langkah menambah satu fitur dengan kode utuh.</p>
+
+      <h4>Langkah 1 — Buat proyek baru</h4>
+      <pre><code>flutter create todo_app
+cd todo_app
+flutter run</code></pre>
+      <p>Hapus isi bawaan <code>lib/main.dart</code>, kita akan menulis ulang dari awal.</p>
+
+      <h4>Langkah 2 — Kerangka aplikasi &amp; StatefulWidget</h4>
+      <p>Karena daftar tugas bisa <b>berubah</b> (bertambah/berkurang), halaman utama harus berupa <b>StatefulWidget</b>.</p>
+      <pre><code>import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const TodoApp());
+}
+
+class TodoApp extends StatelessWidget {
+  const TodoApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'To-Do List',
+      theme: ThemeData(colorSchemeSeed: Colors.indigo, useMaterial3: true),
+      home: const HalamanTodo(),
+    );
+  }
+}
+
+class HalamanTodo extends StatefulWidget {
+  const HalamanTodo({super.key});
+  @override
+  State&lt;HalamanTodo&gt; createState() =&gt; _HalamanTodoState();
+}
+
+class _HalamanTodoState extends State&lt;HalamanTodo&gt; {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('To-Do List')),
+      body: const Center(child: Text('Belum ada tugas')),
+    );
+  }
+}</code></pre>
+
+      <h4>Langkah 3 — Menyimpan daftar tugas (List) &amp; TextField</h4>
+      <p>Kita simpan tiap tugas sebagai <code>Map</code> berisi teks dan status selesai. Tambahkan pula <b>controller</b> untuk membaca isi TextField.</p>
+      <pre><code>class _HalamanTodoState extends State&lt;HalamanTodo&gt; {
+  final _controller = TextEditingController();
+  final List&lt;Map&lt;String, dynamic&gt;&gt; _tugas = [];
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _tambahTugas() {
+    final teks = _controller.text.trim();
+    if (teks.isEmpty) return;          // abaikan input kosong
+    setState(() {
+      _tugas.add({'judul': teks, 'selesai': false});
+      _controller.clear();             // kosongkan kolom ketik
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('To-Do List')),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _controller,
+                    decoration: const InputDecoration(
+                      labelText: 'Tugas baru',
+                      border: OutlineInputBorder(),
+                    ),
+                    onSubmitted: (_) =&gt; _tambahTugas(),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                ElevatedButton(
+                  onPressed: _tambahTugas,
+                  child: const Text('Tambah'),
+                ),
+              ],
+            ),
+          ),
+          const Expanded(child: Center(child: Text('Daftar tampil di langkah 4'))),
+        ],
+      ),
+    );
+  }
+}</code></pre>
+
+      <h4>Langkah 4 — Menampilkan daftar dengan ListView.builder</h4>
+      <p>Ganti bagian <code>Expanded</code> di bawah TextField dengan <b>ListView.builder</b> agar semua tugas tampil dan bisa di-scroll. Tiap baris memakai <b>CheckboxListTile</b> untuk mencentang selesai dan tombol hapus.</p>
+      <pre><code>Expanded(
+  child: _tugas.isEmpty
+      ? const Center(child: Text('Belum ada tugas'))
+      : ListView.builder(
+          itemCount: _tugas.length,
+          itemBuilder: (context, i) {
+            final item = _tugas[i];
+            return CheckboxListTile(
+              value: item['selesai'] as bool,
+              onChanged: (_) =&gt; _toggleSelesai(i),
+              title: Text(
+                item['judul'] as String,
+                style: TextStyle(
+                  decoration: item['selesai'] as bool
+                      ? TextDecoration.lineThrough
+                      : TextDecoration.none,
+                ),
+              ),
+              secondary: IconButton(
+                icon: const Icon(Icons.delete, color: Colors.red),
+                onPressed: () =&gt; _hapusTugas(i),
+              ),
+            );
+          },
+        ),
+),</code></pre>
+
+      <h4>Langkah 5 — Fungsi centang selesai &amp; hapus</h4>
+      <p>Tambahkan dua method ini di dalam <code>_HalamanTodoState</code>. Keduanya membungkus perubahan data dalam <b>setState</b> agar layar ikut diperbarui.</p>
+      <pre><code>void _toggleSelesai(int i) {
+  setState(() {
+    _tugas[i]['selesai'] = !(_tugas[i]['selesai'] as bool);
+  });
+}
+
+void _hapusTugas(int i) {
+  setState(() {
+    _tugas.removeAt(i);
+  });
+}</code></pre>
+      <p>Sampai sini aplikasi sudah berfungsi penuh — namun daftar akan <b>hilang</b> saat aplikasi ditutup. Langkah 6 memperbaikinya.</p>
+
+      <h4>Langkah 6 — Simpan permanen dengan shared_preferences</h4>
+      <p>Agar daftar tetap ada setelah aplikasi ditutup, simpan ke penyimpanan lokal. Kita ubah List menjadi teks JSON lalu menyimpannya.</p>
+      <pre><code>flutter pub add shared_preferences</code></pre>
+      <pre><code>import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+
+// panggil setiap kali daftar berubah
+Future&lt;void&gt; _simpan() async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setString('tugas', jsonEncode(_tugas));
+}
+
+// panggil sekali saat aplikasi dibuka
+Future&lt;void&gt; _muat() async {
+  final prefs = await SharedPreferences.getInstance();
+  final data = prefs.getString('tugas');
+  if (data != null) {
+    final List&lt;dynamic&gt; list = jsonDecode(data);
+    setState(() {
+      _tugas
+        ..clear()
+        ..addAll(list.cast&lt;Map&lt;String, dynamic&gt;&gt;());
+    });
+  }
+}</code></pre>
+      <p>Panggil <code>_muat()</code> di <b>initState</b>, dan panggil <code>_simpan()</code> di akhir tiap fungsi <code>_tambahTugas</code>, <code>_toggleSelesai</code>, dan <code>_hapusTugas</code>:</p>
+      <pre><code>@override
+void initState() {
+  super.initState();
+  _muat();
+}
+
+// contoh di _tambahTugas, setelah setState(...):
+//   _simpan();</code></pre>
+      <div class="callout">Selamat! Kamu baru saja membuat aplikasi CRUD sederhana yang datanya tersimpan permanen. Tantangan lanjutan: tambahkan fitur <b>edit</b> tugas dan <b>filter</b> (semua / belum selesai). Klik <b>Perdalam dengan AI</b> untuk memandu tantangannya.</div>
+    `,
+  },
+  {
+    id: "fl-proj-ideas",
+    cat: "proyek",
+    title: "Ide Proyek Flutter (Pemula → Mahir)",
+    minutes: 8,
+    summary: "Sepuluh ide proyek bertingkat beserta fitur inti dan konsep Flutter yang dilatih di tiap proyek.",
+    body: `
+      <p>Cara tercepat menguasai Flutter adalah <b>membangun proyek nyata</b>. Berikut ide proyek yang disusun dari mudah ke sulit. Kerjakan berurutan; tiap proyek melatih konsep baru yang menumpuk di atas proyek sebelumnya.</p>
+
+      <h4>Tingkat Pemula</h4>
+      <table>
+        <tr><th>Proyek</th><th>Fitur inti</th><th>Konsep yang dilatih</th></tr>
+        <tr><td>Kalkulator</td><td>Operasi +, -, &times;, &divide;; tampilan hasil</td><td>Layout (Row/Column/GridView), setState, tata tombol</td></tr>
+        <tr><td>Aplikasi Catatan</td><td>Tambah, lihat, hapus catatan</td><td>ListView.builder, TextField + controller, State</td></tr>
+        <tr><td>Konverter Satuan</td><td>Ubah suhu/mata uang/panjang</td><td>Input pengguna, dropdown, logika Dart</td></tr>
+        <tr><td>Profil Kartu (Business Card)</td><td>Tampilan statis foto + info diri</td><td>StatelessWidget, Container, styling &amp; tema</td></tr>
+      </table>
+
+      <h4>Tingkat Menengah</h4>
+      <table>
+        <tr><th>Proyek</th><th>Fitur inti</th><th>Konsep yang dilatih</th></tr>
+        <tr><td>Aplikasi Cuaca (via API)</td><td>Cari kota, tampilkan suhu &amp; kondisi</td><td>http, async/await, JSON, FutureBuilder</td></tr>
+        <tr><td>Daftar Film (via API)</td><td>Daftar film + halaman detail</td><td>Model + fromJson, ListView, Navigator, Image.network</td></tr>
+        <tr><td>Aplikasi Kuis</td><td>Soal pilihan ganda, skor, hasil akhir</td><td>State kompleks, navigasi antar soal, kondisi</td></tr>
+        <tr><td>To-Do List + Penyimpanan</td><td>Tambah/centang/hapus, data permanen</td><td>shared_preferences, JSON, siklus hidup widget</td></tr>
+      </table>
+
+      <h4>Tingkat Mahir</h4>
+      <table>
+        <tr><th>Proyek</th><th>Fitur inti</th><th>Konsep yang dilatih</th></tr>
+        <tr><td>Tampilan Chat (Chat UI)</td><td>Gelembung pesan, input, auto-scroll</td><td>ListView terbalik, layout kompleks, animasi</td></tr>
+        <tr><td>Tampilan E-Commerce</td><td>Katalog grid, keranjang, halaman produk</td><td>GridView, manajemen state (Provider/Riverpod), navigasi berlapis</td></tr>
+      </table>
+
+      <h4>Tips memilih &amp; mengerjakan</h4>
+      <ul>
+        <li>Mulai dari proyek yang <b>sedikit di atas</b> kemampuanmu sekarang — cukup menantang tapi tidak bikin menyerah.</li>
+        <li>Pecah proyek menjadi <b>fitur kecil</b>, kerjakan satu per satu (persis pola langkah 1..N pada proyek To-Do List).</li>
+        <li>Untuk proyek berbasis API, cari <b>API gratis</b> seperti OpenWeather (cuaca) atau TMDB (film).</li>
+        <li>Selesaikan versi <b>paling sederhana</b> dulu, baru tambahkan fitur (tema gelap, animasi, penyimpanan).</li>
+      </ul>
+      <div class="callout">Bingung mulai dari mana? Pilih satu ide di atas, lalu klik <b>Perdalam dengan AI</b> untuk memecahnya menjadi daftar langkah yang bisa kamu ikuti seperti proyek terpandu.</div>
+    `,
+  },
 ];
 
 export const FLUTTER_QUIZZES: Record<string, Question[]> = {
@@ -1268,5 +1597,20 @@ export const FLUTTER_QUIZZES: Record<string, Question[]> = {
     { q: "Widget yang wajib membungkus aplikasi agar Riverpod berfungsi adalah:", options: ["MaterialApp", "ProviderScope", "Consumer", "ChangeNotifier"], answer: 1, explain: "ProviderScope di main()." },
     { q: "Untuk MENDENGARKAN nilai provider dan rebuild saat berubah, pakai:", options: ["ref.read", "ref.watch", "ref.get", "ref.listen"], answer: 1, explain: "ref.watch mendengarkan perubahan." },
     { q: "Untuk memanggil aksi (mengubah state) tanpa mendengarkan, pakai:", options: ["ref.watch", "ref.read(...notifier)", "setState", "notifyListeners"], answer: 1, explain: "ref.read pada .notifier untuk memicu aksi." },
+  ],
+  "fl-install": [
+    { q: "Perintah untuk memeriksa apakah semua alat Flutter sudah terpasang benar adalah:", options: ["flutter check", "flutter doctor", "flutter test", "flutter info"], answer: 1, explain: "flutter doctor memeriksa kelengkapan instalasi." },
+    { q: "Menyetujui seluruh lisensi Android dilakukan dengan perintah:", options: ["flutter doctor --android-licenses", "flutter accept", "flutter pub get", "flutter licenses"], answer: 0, explain: "flutter doctor --android-licenses lalu ketik y untuk tiap lisensi." },
+    { q: "Agar HP Android fisik bisa dipakai menjalankan aplikasi, kamu harus mengaktifkan:", options: ["Mode pesawat", "USB debugging di Developer options", "Bluetooth", "Hotspot"], answer: 1, explain: "USB debugging diaktifkan setelah membuka Developer options." },
+  ],
+  "fl-proj-todo": [
+    { q: "Halaman yang daftar tugasnya bisa bertambah/berkurang sebaiknya berupa:", options: ["StatelessWidget", "StatefulWidget", "MaterialApp", "Scaffold"], answer: 1, explain: "Tampilan yang berubah butuh StatefulWidget + setState." },
+    { q: "Menampilkan seluruh tugas yang bisa di-scroll paling tepat memakai:", options: ["Row", "ListView.builder", "Container", "Text"], answer: 1, explain: "ListView.builder efisien untuk daftar dinamis." },
+    { q: "Agar daftar tugas tetap ada setelah aplikasi ditutup, dipakai paket:", options: ["http", "shared_preferences", "provider", "intl"], answer: 1, explain: "shared_preferences menyimpan data secara permanen (mis. sebagai JSON)." },
+  ],
+  "fl-proj-ideas": [
+    { q: "Proyek yang paling cocok untuk PEMULA adalah:", options: ["Tampilan E-Commerce", "Aplikasi Kalkulator", "Aplikasi Chat", "Daftar Film via API"], answer: 1, explain: "Kalkulator melatih layout dan setState tanpa API." },
+    { q: "Konsep utama yang dilatih saat membuat Aplikasi Cuaca via API adalah:", options: ["Hanya styling", "http, async/await, dan JSON", "Animasi", "Grid"], answer: 1, explain: "Proyek berbasis API melatih pengambilan data online." },
+    { q: "Tips terbaik saat mengerjakan sebuah ide proyek adalah:", options: ["Kerjakan semua fitur sekaligus", "Pecah menjadi fitur kecil dan kerjakan satu per satu", "Salin proyek orang lain utuh", "Hindari versi sederhana"], answer: 1, explain: "Memecah proyek menjadi langkah kecil membuatnya lebih mudah diselesaikan." },
   ],
 };

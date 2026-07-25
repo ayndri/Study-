@@ -15,6 +15,7 @@ export const NEST_CATS: { key: string; label: string; ic: string }[] = [
   { key: "data", label: "Database", ic: "▦" },
   { key: "lanjutan", label: "Fitur Lanjutan", ic: "⚡" },
   { key: "praktik", label: "Praktik & Alat", ic: "◎" },
+  { key: "proyek", label: "Proyek & Praktik", ic: "🛠" },
 ];
 
 export const NEST_LESSONS: Lesson[] = [
@@ -1170,6 +1171,330 @@ CMD ["node", "dist/main"]</code></pre>
       <div class="callout">Checklist sebelum rilis: variabel environment terpasang, migration dijalankan, logging &amp; exception filter aktif, dan CORS dikonfigurasi sesuai domain frontend. Selamat, kamu sudah menguasai fondasi NestJS!</div>
     `,
   },
+
+  // ===================== PROYEK & PRAKTIK =====================
+  {
+    id: "nest-install",
+    cat: "mulai",
+    title: "Instalasi Lengkap (Node.js, nvm, Nest CLI)",
+    minutes: 12,
+    summary: "Panduan bertahap memasang Node.js, Nest CLI, dan menjalankan proyek pertama di setiap sistem operasi.",
+    body: `
+      <p>Sebelum menulis satu baris kode Nest, kita perlu menyiapkan <b>lingkungan kerja</b>. Materi ini memandu instalasi dari nol, langkah demi langkah, untuk <b>Windows, macOS, dan Linux</b>.</p>
+      <h4>Langkah 1 — Pahami apa yang dipasang</h4>
+      <ul>
+        <li><b>Node.js</b> — mesin yang menjalankan JavaScript/TypeScript di luar browser. Wajib.</li>
+        <li><b>npm</b> — pengelola paket, otomatis ikut saat memasang Node.js.</li>
+        <li><b>nvm</b> — <i>Node Version Manager</i>, alat opsional tapi <b>sangat disarankan</b> agar bisa berpindah versi Node dengan mudah.</li>
+        <li><b>Nest CLI</b> — alat baris perintah untuk membuat &amp; mengelola proyek Nest.</li>
+      </ul>
+      <h4>Langkah 2 — Pasang Node.js sesuai sistem operasi</h4>
+      <p>Disarankan memakai versi <b>LTS</b> (Long Term Support). Cara paling stabil untuk macOS/Linux adalah lewat <b>nvm</b>; di Windows bisa pakai <b>nvm-windows</b> atau installer resmi.</p>
+      <table>
+        <tr><th>OS</th><th>Cara disarankan</th><th>Perintah / langkah</th></tr>
+        <tr>
+          <td><b>macOS</b></td>
+          <td>nvm (via Homebrew atau skrip resmi)</td>
+          <td><code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash</code> lalu <code>nvm install --lts</code></td>
+        </tr>
+        <tr>
+          <td><b>Linux</b></td>
+          <td>nvm (skrip resmi)</td>
+          <td><code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash</code> lalu <code>nvm install --lts</code></td>
+        </tr>
+        <tr>
+          <td><b>Windows</b></td>
+          <td>nvm-windows atau installer .msi</td>
+          <td>Unduh <b>nvm-setup.exe</b> dari repo <i>coreybutler/nvm-windows</i>, lalu <code>nvm install lts</code> dan <code>nvm use lts</code>. Alternatif: installer dari <b>nodejs.org</b>.</td>
+        </tr>
+      </table>
+      <p>Contoh alur lengkap dengan nvm (macOS/Linux) — jalankan baris demi baris di terminal:</p>
+      <pre><code># pasang nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+
+# tutup lalu buka ulang terminal, kemudian:
+nvm install --lts     # pasang Node.js versi LTS terbaru
+nvm use --lts         # pakai versi tersebut
+nvm alias default lts/*  # jadikan default</code></pre>
+      <div class="callout">Kenapa nvm? Proyek berbeda kadang butuh versi Node berbeda. Dengan nvm kamu cukup <code>nvm use 20</code> atau <code>nvm use 18</code> tanpa memasang ulang apa pun. Di Windows, gunakan <b>nvm-windows</b> (proyek terpisah, perintahnya sedikit berbeda dari nvm untuk Unix).</div>
+      <h4>Langkah 3 — Verifikasi instalasi</h4>
+      <p>Buka terminal (Command Prompt/PowerShell di Windows, Terminal di macOS/Linux) lalu cek versinya. Jika muncul angka versi, berarti berhasil.</p>
+      <pre><code>node -v      # contoh keluaran: v20.11.1
+npm -v       # contoh keluaran: 10.2.4</code></pre>
+      <p>Bila perintah tidak dikenali, tutup lalu buka ulang terminal (atau restart komputer) agar <code>PATH</code> diperbarui.</p>
+      <h4>Langkah 4 — Pasang Nest CLI secara global</h4>
+      <p>Nest CLI dipasang sekali saja untuk seluruh sistem dengan bendera <code>-g</code> (global).</p>
+      <pre><code>npm i -g @nestjs/cli
+nest --version    # verifikasi, mis. 10.x.x</code></pre>
+      <div class="callout">Di macOS/Linux tanpa nvm, pemasangan global kadang perlu izin (<code>sudo</code>). Bila kamu memakai nvm, <b>jangan</b> pakai <code>sudo</code> — nvm sudah menaruh Node di folder milikmu sehingga bebas izin.</div>
+      <h4>Langkah 5 — Buat proyek pertama</h4>
+      <pre><code>nest new proyek-pertama
+# CLI akan bertanya package manager: pilih npm (atau yarn/pnpm)
+cd proyek-pertama</code></pre>
+      <p>Perintah <code>nest new</code> mengunduh dependensi dan menyiapkan struktur lengkap secara otomatis.</p>
+      <h4>Langkah 6 — Jalankan dalam mode pengembangan</h4>
+      <pre><code>npm run start:dev</code></pre>
+      <p>Mode <code>start:dev</code> menyalakan <b>hot-reload</b>: setiap kali kamu menyimpan perubahan, server otomatis restart.</p>
+      <h4>Langkah 7 — Buka di browser</h4>
+      <p>Kunjungi <b>http://localhost:3000</b>. Bila tampil tulisan <i>"Hello World!"</i>, instalasimu sudah sempurna.</p>
+      <h4>Langkah 8 — Pasang editor &amp; ekstensi</h4>
+      <ul>
+        <li>Pasang <b>VS Code</b> dari <b>code.visualstudio.com</b>.</li>
+        <li>Ekstensi yang membantu: <b>ESLint</b>, <b>Prettier</b>, dan <b>NestJS Snippets</b>.</li>
+        <li>Buka folder proyek lewat menu <i>File &gt; Open Folder</i> agar autocomplete TypeScript aktif penuh.</li>
+      </ul>
+      <div class="callout">Ringkasan urutan: pasang Node.js (lewat nvm bila bisa) &rarr; cek <code>node -v</code> &amp; <code>npm -v</code> &rarr; <code>npm i -g @nestjs/cli</code> &rarr; <code>nest new</code> &rarr; <code>npm run start:dev</code> &rarr; buka http://localhost:3000. Setelah ini kamu siap membangun proyek nyata.</div>
+    `,
+  },
+  {
+    id: "nest-proj-crud",
+    cat: "proyek",
+    title: "Proyek Terpandu: REST API Catatan (CRUD)",
+    minutes: 14,
+    summary: "Membangun REST API catatan lengkap dari nol sampai jalan, dengan validasi dan penyimpanan in-memory.",
+    body: `
+      <p>Sekarang kita gabungkan teori menjadi <b>satu proyek utuh</b>: sebuah REST API untuk mengelola <b>catatan (notes)</b>. Data disimpan sementara di <b>array in-memory</b> agar kita fokus pada pola Nest tanpa memasang database. Ikuti langkah demi langkah.</p>
+      <h4>Langkah 1 — Buat proyek baru</h4>
+      <pre><code>nest new api-catatan
+cd api-catatan</code></pre>
+      <h4>Langkah 2 — Generate kerangka fitur</h4>
+      <p>Cara cepat: satu perintah <code>nest g resource</code> membuat module, controller, service, dan DTO sekaligus. Pilih <b>REST API</b> dan jawab <b>No</b> saat ditanya generate entry point CRUD (kita tulis logika sendiri).</p>
+      <pre><code>nest g resource notes
+# pilih: REST API
+# Generate CRUD entry points? No</code></pre>
+      <p>Alternatif manual (bila ingin memahami tiap bagian):</p>
+      <pre><code>nest g module notes
+nest g controller notes
+nest g service notes</code></pre>
+      <h4>Langkah 3 — Pasang paket validasi</h4>
+      <pre><code>npm install class-validator class-transformer</code></pre>
+      <h4>Langkah 4 — Buat DTO dengan aturan validasi</h4>
+      <p>Buat file <code>src/notes/dto/create-note.dto.ts</code>. DTO ini mendeskripsikan bentuk data yang boleh masuk sekaligus aturannya.</p>
+      <pre><code>import { IsString, IsNotEmpty } from 'class-validator';
+
+export class CreateNoteDto {
+  @IsString()
+  @IsNotEmpty()
+  judul: string;
+
+  @IsString()
+  @IsNotEmpty()
+  isi: string;
+}</code></pre>
+      <p>Untuk update, semua field boleh opsional. Buat <code>src/notes/dto/update-note.dto.ts</code>:</p>
+      <pre><code>import { PartialType } from '@nestjs/mapped-types';
+import { CreateNoteDto } from './create-note.dto';
+
+export class UpdateNoteDto extends PartialType(CreateNoteDto) {}</code></pre>
+      <h4>Langkah 5 — Aktifkan ValidationPipe global</h4>
+      <p>Buka <code>src/main.ts</code> dan pasang <code>ValidationPipe</code> agar setiap DTO otomatis divalidasi.</p>
+      <pre><code>import { NestFactory } from '@nestjs/core';
+import { ValidationPipe } from '@nestjs/common';
+import { AppModule } from './app.module';
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,            // buang field yang tak dideklarasikan
+      forbidNonWhitelisted: true, // tolak bila ada field asing
+    }),
+  );
+  await app.listen(3000);
+}
+bootstrap();</code></pre>
+      <h4>Langkah 6 — Tulis logika di service (penyimpanan in-memory)</h4>
+      <p>Buka <code>src/notes/notes.service.ts</code>. Kita simpan catatan dalam array dan beri id yang bertambah.</p>
+      <pre><code>import { Injectable, NotFoundException } from '@nestjs/common';
+import { CreateNoteDto } from './dto/create-note.dto';
+import { UpdateNoteDto } from './dto/update-note.dto';
+
+export interface Note {
+  id: number;
+  judul: string;
+  isi: string;
+}
+
+@Injectable()
+export class NotesService {
+  private notes: Note[] = [];
+  private nextId = 1;
+
+  create(dto: CreateNoteDto): Note {
+    const note: Note = { id: this.nextId++, ...dto };
+    this.notes.push(note);
+    return note;
+  }
+
+  findAll(): Note[] {
+    return this.notes;
+  }
+
+  findOne(id: number): Note {
+    const note = this.notes.find((n) =&gt; n.id === id);
+    if (!note) {
+      throw new NotFoundException(\`Catatan id \${id} tidak ditemukan\`);
+    }
+    return note;
+  }
+
+  update(id: number, dto: UpdateNoteDto): Note {
+    const note = this.findOne(id);   // otomatis 404 bila tak ada
+    Object.assign(note, dto);
+    return note;
+  }
+
+  remove(id: number): { pesan: string } {
+    const note = this.findOne(id);
+    this.notes = this.notes.filter((n) =&gt; n.id !== note.id);
+    return { pesan: \`Catatan id \${id} dihapus\` };
+  }
+}</code></pre>
+      <h4>Langkah 7 — Petakan endpoint di controller</h4>
+      <p>Buka <code>src/notes/notes.controller.ts</code>. Controller hanya memetakan rute ke method service.</p>
+      <pre><code>import {
+  Controller, Get, Post, Patch, Delete,
+  Param, Body, ParseIntPipe,
+} from '@nestjs/common';
+import { NotesService } from './notes.service';
+import { CreateNoteDto } from './dto/create-note.dto';
+import { UpdateNoteDto } from './dto/update-note.dto';
+
+@Controller('notes')
+export class NotesController {
+  constructor(private readonly service: NotesService) {}
+
+  @Post()
+  create(@Body() dto: CreateNoteDto) {
+    return this.service.create(dto);
+  }
+
+  @Get()
+  findAll() {
+    return this.service.findAll();
+  }
+
+  @Get(':id')
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.service.findOne(id);
+  }
+
+  @Patch(':id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: UpdateNoteDto,
+  ) {
+    return this.service.update(id, dto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.service.remove(id);
+  }
+}</code></pre>
+      <p>Pastikan <code>src/notes/notes.module.ts</code> mendaftarkan keduanya (CLI biasanya sudah otomatis):</p>
+      <pre><code>@Module({
+  controllers: [NotesController],
+  providers: [NotesService],
+})
+export class NotesModule {}</code></pre>
+      <h4>Langkah 8 — Jalankan &amp; uji dengan curl</h4>
+      <pre><code>npm run start:dev</code></pre>
+      <p>Di terminal lain, coba setiap endpoint:</p>
+      <pre><code># CREATE
+curl -X POST http://localhost:3000/notes \\
+  -H "Content-Type: application/json" \\
+  -d '{"judul":"Belajar Nest","isi":"Membuat CRUD"}'
+
+# READ semua
+curl http://localhost:3000/notes
+
+# READ satu
+curl http://localhost:3000/notes/1
+
+# UPDATE
+curl -X PATCH http://localhost:3000/notes/1 \\
+  -H "Content-Type: application/json" \\
+  -d '{"isi":"Isi diperbarui"}'
+
+# DELETE
+curl -X DELETE http://localhost:3000/notes/1</code></pre>
+      <p>Coba juga kirim body kosong ke <code>POST</code> — Nest otomatis membalas <b>400 Bad Request</b> berkat <code>ValidationPipe</code> dan aturan <code>@IsNotEmpty()</code>.</p>
+      <div class="callout">Selamat! Kamu baru saja membangun REST API CRUD lengkap. Data hilang saat server restart karena in-memory — langkah lanjutannya adalah mengganti array dengan database (TypeORM/Prisma) tanpa mengubah controller sama sekali, karena logikanya sudah terpisah rapi di service.</div>
+    `,
+  },
+  {
+    id: "nest-proj-ideas",
+    cat: "proyek",
+    title: "Ide Proyek NestJS",
+    minutes: 8,
+    summary: "Kumpulan ide proyek bertingkat untuk melatih beragam konsep NestJS secara nyata.",
+    body: `
+      <p>Cara tercepat menguasai NestJS adalah <b>membangun sesuatu</b>. Berikut ide proyek dari yang paling mudah hingga menantang. Tiap ide menyebutkan <b>fitur inti</b> dan <b>konsep Nest</b> yang dilatih. Pilih satu yang menarik dan mulai!</p>
+      <table>
+        <tr><th>#</th><th>Proyek</th><th>Tingkat</th><th>Fitur inti</th><th>Konsep Nest yang dilatih</th></tr>
+        <tr>
+          <td>1</td><td><b>API To-Do List</b></td><td>Pemula</td>
+          <td>Tambah, lihat, tandai selesai, hapus tugas.</td>
+          <td>Controller, Service, DTO, CRUD dasar, in-memory lalu database.</td>
+        </tr>
+        <tr>
+          <td>2</td><td><b>URL Shortener</b></td><td>Pemula</td>
+          <td>Ubah URL panjang jadi kode pendek, redirect saat diakses.</td>
+          <td>Routing dinamis, <code>@Redirect()</code>, penyimpanan sederhana, Pipe.</td>
+        </tr>
+        <tr>
+          <td>3</td><td><b>API Buku Tamu / Komentar</b></td><td>Pemula</td>
+          <td>Kirim &amp; baca komentar dengan validasi teks.</td>
+          <td>ValidationPipe, class-validator, exception handling.</td>
+        </tr>
+        <tr>
+          <td>4</td><td><b>Blog API + Auth JWT</b></td><td>Menengah</td>
+          <td>Register/login, buat &amp; kelola artikel milik sendiri.</td>
+          <td>Guards, JWT, Passport, otorisasi kepemilikan, relasi database.</td>
+        </tr>
+        <tr>
+          <td>5</td><td><b>API File Upload</b></td><td>Menengah</td>
+          <td>Unggah gambar/dokumen, simpan metadata, unduh kembali.</td>
+          <td>Interceptor <code>FileInterceptor</code>, Multer, streaming response.</td>
+        </tr>
+        <tr>
+          <td>6</td><td><b>API Cuaca / Proxy Pihak Ketiga</b></td><td>Menengah</td>
+          <td>Ambil data dari API luar lalu olah &amp; cache.</td>
+          <td>HttpModule, async/await, caching, ConfigModule untuk API key.</td>
+        </tr>
+        <tr>
+          <td>7</td><td><b>E-commerce API</b></td><td>Lanjutan</td>
+          <td>Produk, keranjang, pesanan, peran admin vs pembeli.</td>
+          <td>Relasi kompleks, role-based Guards, transaksi database, DTO berlapis.</td>
+        </tr>
+        <tr>
+          <td>8</td><td><b>Chat Real-time</b></td><td>Lanjutan</td>
+          <td>Kirim pesan langsung antar pengguna dalam ruang obrolan.</td>
+          <td>WebSocket Gateway (<code>@WebSocketGateway</code>), event, koneksi socket.</td>
+        </tr>
+        <tr>
+          <td>9</td><td><b>API Manajemen Tugas Tim (Kanban)</b></td><td>Lanjutan</td>
+          <td>Proyek, papan, kolom, kartu, anggota, izin.</td>
+          <td>Modularisasi besar, Guards + custom decorator, relasi many-to-many.</td>
+        </tr>
+        <tr>
+          <td>10</td><td><b>API Notifikasi Terjadwal</b></td><td>Lanjutan</td>
+          <td>Kirim email/push pada waktu tertentu atau berkala.</td>
+          <td><code>@nestjs/schedule</code> (cron), Queue (Bull), Microservice.</td>
+        </tr>
+      </table>
+      <h4>Tips memilih &amp; mengerjakan</h4>
+      <ul>
+        <li>Mulai dari <b>tingkat pemula</b> agar cepat merasakan alur Controller &rarr; Service.</li>
+        <li>Bangun bertahap: buat CRUD dulu dengan in-memory, baru ganti ke database.</li>
+        <li>Tambahkan <b>auth JWT</b> begitu kamu nyaman dengan CRUD — ini keterampilan wajib backend.</li>
+        <li>Selalu tulis <b>DTO + validasi</b> sejak awal; ini kebiasaan yang membedakan proyek rapi.</li>
+        <li>Dokumentasikan dengan <b>Swagger</b> agar mudah diuji &amp; dipamerkan di portofolio.</li>
+      </ul>
+      <div class="callout">Saran alur belajar: kerjakan proyek <b>#1 (To-Do)</b> lalu <b>#4 (Blog + JWT)</b>. Kombinasi keduanya sudah mencakup mayoritas konsep inti Nest yang dicari saat melamar kerja backend.</div>
+    `,
+  },
 ];
 
 export const NEST_QUIZZES: Record<string, Question[]> = {
@@ -1302,5 +1627,20 @@ export const NEST_QUIZZES: Record<string, Question[]> = {
     { q: "Prinsip yang benar tentang controller dan service adalah:", options: ["controller tebal, service tipis", "controller tipis, service tebal", "semua di controller", "semua di module"], answer: 1, explain: "Logika di service; controller hanya memetakan rute." },
     { q: "Membangun aplikasi untuk produksi memakai perintah:", options: ["npm run start:dev", "npm run build lalu start:prod", "npm test", "nest new"], answer: 1, explain: "build mengompilasi TS, start:prod menjalankan hasilnya." },
     { q: "Di produksi, opsi TypeORM synchronize sebaiknya:", options: ["dinyalakan", "dimatikan, gunakan migration", "diabaikan", "diacak"], answer: 1, explain: "Matikan synchronize; pakai migration agar data aman." },
+  ],
+  "nest-install": [
+    { q: "Alat yang disarankan untuk mengelola banyak versi Node.js adalah:", options: ["npm", "nvm", "nest", "npx"], answer: 1, explain: "nvm (Node Version Manager) memudahkan berpindah versi Node." },
+    { q: "Perintah memasang Nest CLI secara global adalah:", options: ["npm i @nestjs/cli", "npm i -g @nestjs/cli", "nest install cli", "npx nest new"], answer: 1, explain: "Bendera -g memasang CLI global untuk seluruh sistem." },
+    { q: "Untuk memverifikasi Node.js sudah terpasang, kita menjalankan:", options: ["node -v", "nest -v saja", "npm start", "node install"], answer: 0, explain: "node -v (dan npm -v) menampilkan versi yang terpasang." },
+  ],
+  "nest-proj-crud": [
+    { q: "Pada proyek CRUD in-memory, data catatan disimpan di:", options: ["database PostgreSQL", "sebuah array di dalam service", "file .env", "localStorage browser"], answer: 1, explain: "Data disimpan sementara di array in-memory dalam service." },
+    { q: "Yang membuat body request otomatis divalidasi sesuai DTO adalah:", options: ["ParseIntPipe", "ValidationPipe global", "AuthGuard", "LoggerMiddleware"], answer: 1, explain: "ValidationPipe global memicu pengecekan aturan class-validator pada DTO." },
+    { q: "Decorator class-validator agar field tidak boleh kosong adalah:", options: ["@IsEmpty()", "@IsNotEmpty()", "@Required()", "@NotNull()"], answer: 1, explain: "@IsNotEmpty() memastikan nilai tidak kosong; @IsString() memastikan bertipe string." },
+  ],
+  "nest-proj-ideas": [
+    { q: "Proyek yang paling cocok untuk pemula memulai belajar CRUD adalah:", options: ["Chat real-time", "E-commerce API", "API To-Do List", "API Kanban tim"], answer: 2, explain: "To-Do List melatih alur Controller-Service dan CRUD dasar." },
+    { q: "Konsep Nest yang paling dilatih pada proyek chat real-time adalah:", options: ["WebSocket Gateway", "ParseIntPipe", "Swagger", "ConfigModule"], answer: 0, explain: "Chat real-time memakai WebSocket Gateway (@WebSocketGateway)." },
+    { q: "Fitur autentikasi berbasis token pada proyek Blog API dilatih dengan:", options: ["Middleware logging", "Guards + JWT", "Interceptor map", "DefaultValuePipe"], answer: 1, explain: "Blog API dengan login melatih Guards dan JWT untuk autentikasi/otorisasi." },
   ],
 };

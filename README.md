@@ -37,19 +37,20 @@ Saat ini tersedia lima jalur belajar:
 - 🎤 Kalkulator konversi skor & dashboard progres.
 
 ### Jalur Flutter
-- 📚 **29 pelajaran** bertahap: setup, Dart (variabel, fungsi, class, null safety, koleksi), widget & layout, state (setState, siklus hidup, berbagi state/Provider, Riverpod), form & validasi, GridView, animasi, gambar/aset, tampilan responsif, dialog/SnackBar, navigasi (named routes/go_router), ambil data API, simpan data lokal, debugging, dan penggunaan paket.
+- 📚 **32 pelajaran** bertahap: setup, Dart (variabel, fungsi, class, null safety, koleksi), widget & layout, state (setState, siklus hidup, berbagi state/Provider, Riverpod), form & validasi, GridView, animasi, gambar/aset, tampilan responsif, dialog/SnackBar, navigasi (named routes/go_router), ambil data API, simpan data lokal, debugging, dan penggunaan paket.
+- 🛠️ **Instalasi lengkap per OS** + **proyek terpandu** (aplikasi To-Do end-to-end) & **daftar ide proyek**.
 - 💻 Contoh **kode Dart** di setiap materi + **mini-quiz** + **Perdalam dengan AI**.
 - ✦ **Tutor Flutter AI** — menjawab dengan contoh kode.
 - ⌨️ **Latihan koding** — tulis kode Dart, AI menilai, menemukan bug, dan memberi versi perbaikan.
 
 ### Jalur NestJS
-- 📚 **Materi bertahap** dalam 7 kategori: mulai dari nol (Nest CLI, struktur), fondasi TS/Node (tipe, decorator, async, generics), konsep inti (Module, Controller, Provider, Dependency Injection), menangani request (routing, DTO & validasi, Pipes), database (TypeORM, Entity, Repository, CRUD), fitur lanjutan (Middleware, Guards & JWT, Interceptors, Exception filters, Config), serta praktik & alat (testing Jest, Swagger, deploy).
+- 📚 **29 pelajaran** dalam 8 kategori: mulai dari nol (Nest CLI, struktur), fondasi TS/Node (tipe, decorator, async, generics), konsep inti (Module, Controller, Provider, Dependency Injection), menangani request (routing, DTO & validasi, Pipes), database (TypeORM, Entity, Repository, CRUD), fitur lanjutan (Middleware, Guards & JWT, Interceptors, Exception filters, Config), praktik & alat (testing Jest, Swagger, deploy), serta **proyek** (instalasi lengkap per OS, REST API CRUD terpandu, daftar ide proyek).
 - 💻 Contoh **kode TypeScript/NestJS** di setiap materi + **mini-quiz** + **Perdalam dengan AI**.
 - ✦ **Tutor NestJS AI** — menjawab dengan contoh kode.
 - ⌨️ **Latihan koding** — tulis kode NestJS, AI menilai, menemukan bug, dan memberi versi perbaikan.
 
 ### Jalur Golang
-- 📚 **41 pelajaran** dalam 10 kategori: mulai dari nol (setup, go mod), dasar bahasa (variabel, const/iota, operator), kontrol alur (if/switch, for), fungsi (multiple return, variadic, closure, defer), struktur data (slice, map, struct, pointer), method & interface & generics, konkurensi (goroutine, channel, select, sync, context, worker pool), pustaka standar (strings, time, json, file I/O, regexp, sort), web & modul (net/http, REST API, middleware, database/sql, package), serta praktik & alat (testing, debugging, konfigurasi flag/env, tooling idiomatis).
+- 📚 **44 pelajaran** dalam 11 kategori: mulai dari nol (setup, go mod), dasar bahasa (variabel, const/iota, operator), kontrol alur (if/switch, for), fungsi (multiple return, variadic, closure, defer), struktur data (slice, map, struct, pointer), method & interface & generics, konkurensi (goroutine, channel, select, sync, context, worker pool), pustaka standar (strings, time, json, file I/O, regexp, sort), web & modul (net/http, REST API, middleware, database/sql, package), praktik & alat (testing, debugging, konfigurasi flag/env, tooling idiomatis), serta **proyek** (instalasi lengkap per OS, REST API terpandu, daftar ide proyek).
 - 💻 Contoh **kode Go** di setiap materi + **mini-quiz** + **Perdalam dengan AI**.
 - ✦ **Tutor Golang AI** — menjawab dengan contoh kode idiomatis.
 - ⌨️ **Latihan koding** — tulis kode Go, AI menilai, menemukan bug, dan memberi versi perbaikan.
