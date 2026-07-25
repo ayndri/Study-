@@ -23,7 +23,7 @@ Saat ini tersedia tiga jalur belajar:
 - 🧭 **Pemilih pembelajaran** ("Mau belajar apa hari ini?") dengan sidebar yang menyesuaikan jalur.
 
 ### Jalur TOEFL ITP & LPDP
-- 📚 **Materi lengkap** (38+ pelajaran, 8 kategori) dari dasar bahasa Inggris hingga strategi tes & wawancara beasiswa.
+- 📚 **Materi lengkap** (45+ pelajaran, 8 kategori) dari dasar bahasa Inggris, grammar, listening, reading, writing, kosakata, hingga strategi tes & wawancara beasiswa.
 - ✦ **Perdalam dengan AI** di setiap materi — penjelasan mendalam dari dasar untuk pemula.
 - 📝 **Latihan berlevel** (Listening, Structure, Reading) dengan filter kesulitan + pembahasan.
 - ⏱️ **Simulasi tes lengkap** berwaktu 3 bagian dengan skor konversi (310–677).
@@ -33,13 +33,13 @@ Saat ini tersedia tiga jalur belajar:
 - 🎤 Kalkulator konversi skor & dashboard progres.
 
 ### Jalur Flutter
-- 📚 **21 pelajaran** bertahap: setup, Dart (variabel, fungsi, class, null safety, koleksi), widget & layout, state (setState, siklus hidup, berbagi state/Provider), navigasi, ambil data API, simpan data lokal, debugging, dan penggunaan paket.
+- 📚 **29 pelajaran** bertahap: setup, Dart (variabel, fungsi, class, null safety, koleksi), widget & layout, state (setState, siklus hidup, berbagi state/Provider, Riverpod), form & validasi, GridView, animasi, gambar/aset, tampilan responsif, dialog/SnackBar, navigasi (named routes/go_router), ambil data API, simpan data lokal, debugging, dan penggunaan paket.
 - 💻 Contoh **kode Dart** di setiap materi + **mini-quiz** + **Perdalam dengan AI**.
 - ✦ **Tutor Flutter AI** — menjawab dengan contoh kode.
 - ⌨️ **Latihan koding** — tulis kode Dart, AI menilai, menemukan bug, dan memberi versi perbaikan.
 
 ### Jalur Golang
-- 📚 **32 pelajaran** dalam 10 kategori: mulai dari nol (setup, go mod), dasar bahasa (variabel, const/iota, operator), kontrol alur (if/switch, for), fungsi (multiple return, variadic, closure, defer), struktur data (slice, map, struct, pointer), method & interface, konkurensi (goroutine, channel, select, sync), pustaka standar (strings, time, json, file I/O), web & modul (net/http, REST API, package), serta praktik & alat (testing, debugging, tooling idiomatis).
+- 📚 **41 pelajaran** dalam 10 kategori: mulai dari nol (setup, go mod), dasar bahasa (variabel, const/iota, operator), kontrol alur (if/switch, for), fungsi (multiple return, variadic, closure, defer), struktur data (slice, map, struct, pointer), method & interface & generics, konkurensi (goroutine, channel, select, sync, context, worker pool), pustaka standar (strings, time, json, file I/O, regexp, sort), web & modul (net/http, REST API, middleware, database/sql, package), serta praktik & alat (testing, debugging, konfigurasi flag/env, tooling idiomatis).
 - 💻 Contoh **kode Go** di setiap materi + **mini-quiz** + **Perdalam dengan AI**.
 - ✦ **Tutor Golang AI** — menjawab dengan contoh kode idiomatis.
 - ⌨️ **Latihan koding** — tulis kode Go, AI menilai, menemukan bug, dan memberi versi perbaikan.

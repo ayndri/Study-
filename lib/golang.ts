@@ -1209,6 +1209,419 @@ go test -cover         # lihat cakupan (coverage)</code></pre>
       <div class="callout">Baca <b>"Effective Go"</b> dan <b>"Go Code Review Comments"</b> di go.dev untuk memahami gaya idiomatis. Menulis kode "seperti orang Go" membuatnya mudah dibaca siapa pun.</div>
     `,
   },
+
+  // ===================== MATERI LANJUTAN =====================
+  {
+    id: "go-generics",
+    cat: "oop",
+    title: "Generics (Tipe Generik)",
+    minutes: 9,
+    summary: "Menulis satu fungsi/tipe yang bekerja untuk banyak tipe data sekaligus.",
+    body: `
+      <p>Sejak <b>Go 1.18</b>, kita bisa menulis <b>generics</b>: satu fungsi atau tipe yang bekerja untuk <b>banyak tipe data</b> tanpa menyalin kode. Ini menghindari duplikasi seperti <code>JumlahInt</code>, <code>JumlahFloat</code>, dan seterusnya.</p>
+      <h4>Fungsi generik</h4>
+      <p>Parameter tipe ditulis di dalam <b>kurung siku</b> <code>[T ...]</code> setelah nama fungsi. Kata <code>any</code> berarti "tipe apa pun".</p>
+      <pre><code>func Pertama[T any](s []T) T {
+    return s[0]
+}
+
+func main() {
+    fmt.Println(Pertama([]int{10, 20}))        // 10
+    fmt.Println(Pertama([]string{"a", "b"}))   // a
+}</code></pre>
+      <h4>Batasan tipe (constraint)</h4>
+      <p>Kadang kita butuh operasi seperti <code>+</code> atau <code>&gt;</code> yang tidak berlaku untuk semua tipe. Batasi tipe yang boleh dipakai lewat <b>constraint</b> (sebuah interface berisi daftar tipe).</p>
+      <pre><code>type Angka interface {
+    ~int | ~float64
+}
+
+func Jumlah[T Angka](data []T) T {
+    var total T
+    for _, a := range data {
+        total += a
+    }
+    return total
+}
+
+func main() {
+    fmt.Println(Jumlah([]int{1, 2, 3}))        // 6
+    fmt.Println(Jumlah([]float64{1.5, 2.5}))   // 4
+}</code></pre>
+      <p>Untuk perbandingan, gunakan constraint bawaan dari paket <code>cmp</code> atau tulis sendiri:</p>
+      <pre><code>func Maks[T int | float64 | string](a, b T) T {
+    if a &gt; b {
+        return a
+    }
+    return b
+}</code></pre>
+      <ul>
+        <li><b>[T any]</b> → T bisa tipe apa pun.</li>
+        <li>Tanda <code>~int</code> berarti "int dan tipe turunannya".</li>
+        <li>Go sering bisa <b>menebak</b> tipe T dari argumen, jadi <code>Jumlah([]int{...})</code> cukup — tak perlu <code>Jumlah[int](...)</code>.</li>
+      </ul>
+      <div class="callout">Pakai generics hanya bila benar-benar mengurangi duplikasi. Untuk banyak kasus, <b>interface</b> masih lebih sederhana dan idiomatis.</div>
+    `,
+  },
+  {
+    id: "go-context",
+    cat: "concurrency",
+    title: "context.Context (Pembatalan & Timeout)",
+    minutes: 9,
+    summary: "Membatalkan operasi dan memberi batas waktu pada goroutine lewat context.",
+    body: `
+      <p><b>context.Context</b> adalah cara standar Go untuk <b>membatalkan</b> pekerjaan dan memberi <b>batas waktu (timeout)</b> — terutama pada operasi jaringan, database, atau goroutine yang berjalan lama.</p>
+      <h4>Membuat context dengan timeout</h4>
+      <p><code>context.Background()</code> adalah context akar (kosong). Dari situ kita turunkan context lain dengan batas waktu.</p>
+      <pre><code>import (
+    "context"
+    "time"
+)
+
+func main() {
+    ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+    defer cancel()   // selalu panggil cancel untuk melepas sumber daya
+
+    select {
+    case &lt;-kerjaLama():
+        fmt.Println("selesai tepat waktu")
+    case &lt;-ctx.Done():
+        fmt.Println("dibatalkan:", ctx.Err())  // context deadline exceeded
+    }
+}</code></pre>
+      <h4>Meneruskan context ke fungsi</h4>
+      <p>Konvensi Go: context selalu jadi <b>parameter pertama</b>, bernama <code>ctx</code>. Fungsi memeriksa <code>ctx.Done()</code> untuk berhenti lebih awal.</p>
+      <pre><code>func proses(ctx context.Context, n int) error {
+    for i := 0; i &lt; n; i++ {
+        select {
+        case &lt;-ctx.Done():
+            return ctx.Err()   // hentikan bila context dibatalkan
+        default:
+            // lakukan satu langkah kerja
+        }
+    }
+    return nil
+}</code></pre>
+      <p>Pada web server, setiap request sudah membawa context: <code>ctx := r.Context()</code> — otomatis dibatalkan bila klien menutup koneksi.</p>
+      <ul>
+        <li><b>WithTimeout</b> / <b>WithDeadline</b> → batalkan otomatis setelah waktu tertentu.</li>
+        <li><b>WithCancel</b> → batalkan secara manual lewat fungsi <code>cancel()</code>.</li>
+        <li>Selalu <code>defer cancel()</code> agar tidak bocor sumber daya.</li>
+      </ul>
+      <div class="callout">Jangan simpan context di dalam struct; <b>oper</b> sebagai argumen. Context adalah "tiket" per-operasi, bukan data yang disimpan lama.</div>
+    `,
+  },
+  {
+    id: "go-worker-pool",
+    cat: "concurrency",
+    title: "Pola Worker Pool",
+    minutes: 10,
+    summary: "Membatasi jumlah goroutine dengan sekumpulan worker yang berbagi antrian tugas.",
+    body: `
+      <p>Membuat ribuan goroutine memang murah, tapi kadang kita ingin <b>membatasi</b> berapa banyak tugas berjalan bersamaan (mis. agar tidak membanjiri database). Solusinya: <b>worker pool</b> — sejumlah tetap goroutine yang mengambil tugas dari satu channel.</p>
+      <h4>Struktur dasar</h4>
+      <p>Perhatikan arah channel: <code>&lt;-chan</code> hanya-terima, <code>chan&lt;-</code> hanya-kirim. Ini membuat maksud kode lebih jelas.</p>
+      <pre><code>func worker(id int, tugas &lt;-chan int, hasil chan&lt;- int) {
+    for t := range tugas {           // ambil tugas sampai channel ditutup
+        hasil &lt;- t * 2               // kirim hasil
+    }
+}
+
+func main() {
+    tugas := make(chan int, 100)
+    hasil := make(chan int, 100)
+
+    // jalankan 3 worker saja
+    for w := 1; w &lt;= 3; w++ {
+        go worker(w, tugas, hasil)
+    }
+
+    // kirim 9 pekerjaan
+    for j := 1; j &lt;= 9; j++ {
+        tugas &lt;- j
+    }
+    close(tugas)   // beri tahu worker: tak ada tugas lagi
+
+    // ambil 9 hasil
+    for a := 1; a &lt;= 9; a++ {
+        fmt.Println(&lt;-hasil)
+    }
+}</code></pre>
+      <h4>Menunggu semua worker dengan WaitGroup</h4>
+      <p>Bila hasil tak perlu dihitung satu per satu, gunakan <b>sync.WaitGroup</b> untuk menunggu semua worker selesai lalu menutup channel hasil.</p>
+      <pre><code>var wg sync.WaitGroup
+for w := 1; w &lt;= 3; w++ {
+    wg.Add(1)
+    go func(id int) {
+        defer wg.Done()
+        for t := range tugas {
+            hasil &lt;- t * 2
+        }
+    }(w)
+}
+
+go func() {
+    wg.Wait()      // tunggu semua worker
+    close(hasil)   // baru tutup channel hasil
+}()
+
+for h := range hasil {
+    fmt.Println(h)
+}</code></pre>
+      <ul>
+        <li>Jumlah worker = tingkat konkurensi yang kita izinkan.</li>
+        <li><b>close(tugas)</b> membuat semua <code>for range tugas</code> berhenti dengan rapi.</li>
+        <li>Tutup channel hasil <b>setelah</b> semua worker selesai (pakai WaitGroup).</li>
+      </ul>
+      <div class="callout">Worker pool cocok untuk mengunduh banyak URL, memproses banyak file, atau memanggil API secara paralel dengan batas aman.</div>
+    `,
+  },
+  {
+    id: "go-database",
+    cat: "web",
+    title: "Akses Database (database/sql & Postgres)",
+    minutes: 11,
+    summary: "Menghubungkan Go ke database SQL dan menjalankan query dengan aman.",
+    body: `
+      <p>Paket standar <b>database/sql</b> menyediakan cara seragam mengakses database SQL. Kita hanya perlu menambah <b>driver</b> sesuai databasenya, mis. <code>github.com/lib/pq</code> untuk PostgreSQL.</p>
+      <h4>Membuka koneksi</h4>
+      <p>Driver di-import "kosong" (dengan <code>_</code>) hanya agar ia mendaftarkan dirinya. <code>sql.Open</code> tidak langsung menyambung — panggil <code>db.Ping()</code> untuk memastikan koneksi hidup.</p>
+      <pre><code>import (
+    "database/sql"
+    "log"
+
+    _ "github.com/lib/pq"
+)
+
+func main() {
+    dsn := "postgres://user:sandi@localhost/toko?sslmode=disable"
+    db, err := sql.Open("postgres", dsn)
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer db.Close()
+
+    if err := db.Ping(); err != nil {
+        log.Fatal("gagal menyambung:", err)
+    }
+}</code></pre>
+      <h4>Query banyak baris</h4>
+      <p>Selalu gunakan <b>placeholder</b> (<code>$1</code>, <code>$2</code> di Postgres) — jangan menempel nilai langsung ke string SQL, agar aman dari <b>SQL injection</b>.</p>
+      <pre><code>type Produk struct {
+    ID   int
+    Nama string
+}
+
+rows, err := db.Query("SELECT id, nama FROM produk WHERE harga &gt; $1", 10000)
+if err != nil {
+    log.Fatal(err)
+}
+defer rows.Close()
+
+for rows.Next() {
+    var p Produk
+    if err := rows.Scan(&amp;p.ID, &amp;p.Nama); err != nil {
+        log.Fatal(err)
+    }
+    fmt.Println(p.Nama)
+}</code></pre>
+      <h4>Satu baris & perintah tulis</h4>
+      <pre><code>// ambil satu baris
+var nama string
+err = db.QueryRow("SELECT nama FROM produk WHERE id = $1", 1).Scan(&amp;nama)
+if err == sql.ErrNoRows {
+    fmt.Println("data tidak ditemukan")
+}
+
+// INSERT / UPDATE / DELETE memakai Exec
+_, err = db.Exec("INSERT INTO produk(nama, harga) VALUES($1, $2)", "Kopi", 15000)</code></pre>
+      <ul>
+        <li><b>Query</b> untuk banyak baris, <b>QueryRow</b> untuk satu baris, <b>Exec</b> untuk tulis.</li>
+        <li>Selalu <code>defer rows.Close()</code> dan periksa <code>rows.Err()</code> setelah loop.</li>
+        <li>Cek <code>sql.ErrNoRows</code> untuk membedakan "tidak ada data" dari error sungguhan.</li>
+      </ul>
+      <div class="callout">Untuk proyek besar banyak yang memakai pustaka seperti <b>sqlx</b> atau <b>pgx</b>, tetapi memahami <code>database/sql</code> dulu membuat semuanya lebih mudah dipahami.</div>
+    `,
+  },
+  {
+    id: "go-middleware",
+    cat: "web",
+    title: "HTTP Middleware",
+    minutes: 9,
+    summary: "Membungkus handler untuk logging, autentikasi, dan tugas lintas-endpoint.",
+    body: `
+      <p><b>Middleware</b> adalah fungsi yang "membungkus" sebuah handler HTTP untuk menambah perilaku bersama — mis. mencatat log, memeriksa autentikasi, atau menambah header — tanpa mengubah handler aslinya.</p>
+      <h4>Bentuk dasar middleware</h4>
+      <p>Middleware menerima sebuah <code>http.Handler</code> dan mengembalikan <code>http.Handler</code> baru yang membungkusnya.</p>
+      <pre><code>import (
+    "log"
+    "net/http"
+    "time"
+)
+
+func logging(next http.Handler) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        mulai := time.Now()
+        next.ServeHTTP(w, r)   // jalankan handler asli
+        log.Printf("%s %s %v", r.Method, r.URL.Path, time.Since(mulai))
+    })
+}</code></pre>
+      <h4>Middleware autentikasi</h4>
+      <p>Middleware bisa <b>menghentikan</b> permintaan lebih awal — cukup jangan panggil <code>next.ServeHTTP</code>.</p>
+      <pre><code>func auth(next http.Handler) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        if r.Header.Get("Authorization") == "" {
+            http.Error(w, "tidak diizinkan", http.StatusUnauthorized)
+            return   // berhenti — handler asli tidak dijalankan
+        }
+        next.ServeHTTP(w, r)
+    })
+}</code></pre>
+      <h4>Merangkai beberapa middleware</h4>
+      <p>Karena tiap middleware menghasilkan handler, kita bisa membungkusnya bertumpuk. Yang terluar dijalankan lebih dulu.</p>
+      <pre><code>func main() {
+    mux := http.NewServeMux()
+    mux.HandleFunc("/", beranda)
+
+    // urutan eksekusi: logging → auth → mux
+    handler := logging(auth(mux))
+    http.ListenAndServe(":8080", handler)
+}</code></pre>
+      <ul>
+        <li>Panggil <code>next.ServeHTTP(w, r)</code> untuk melanjutkan ke handler berikutnya.</li>
+        <li>Untuk menghentikan permintaan, tulis balasan lalu <code>return</code>.</li>
+        <li>Router populer seperti <b>chi</b> punya <code>r.Use(middleware)</code> agar lebih ringkas.</li>
+      </ul>
+      <div class="callout">Middleware adalah cara rapi menerapkan aturan yang berlaku untuk banyak endpoint sekaligus (log, CORS, rate-limit, autentikasi) di satu tempat.</div>
+    `,
+  },
+  {
+    id: "go-regexp",
+    cat: "stdlib",
+    title: "Regular Expression (regexp)",
+    minutes: 8,
+    summary: "Mencari, mencocokkan, dan mengganti pola teks dengan paket regexp.",
+    body: `
+      <p><b>Regular expression</b> (regex) adalah pola untuk mencari teks. Paket <b>regexp</b> menyediakannya di Go. Tulis pola dalam <b>raw string</b> (backtick) agar backslash tidak perlu digandakan.</p>
+      <h4>Mencocokkan & mencari</h4>
+      <p><code>MustCompile</code> menyusun pola sekali (panic bila polanya salah) — pola sebaiknya disusun sekali lalu dipakai ulang.</p>
+      <pre><code>import "regexp"
+
+re := regexp.MustCompile(\`[0-9]+\`)   // satu digit atau lebih
+fmt.Println(re.MatchString("ada 42 apel"))   // true
+fmt.Println(re.FindString("ada 42 apel"))    // 42
+fmt.Println(re.FindAllString("1 lalu 2", -1)) // [1 2]</code></pre>
+      <h4>Grup tangkapan & mengganti</h4>
+      <p>Tanda kurung <code>(...)</code> membuat <b>grup</b>. <code>FindStringSubmatch</code> mengembalikan seluruh kecocokan di indeks 0, lalu tiap grup di indeks berikutnya.</p>
+      <pre><code>re := regexp.MustCompile(\`(\\w+)@(\\w+)\`)
+m := re.FindStringSubmatch("dewi@mail")
+fmt.Println(m[0])   // dewi@mail (seluruh kecocokan)
+fmt.Println(m[1])   // dewi      (grup 1)
+fmt.Println(m[2])   // mail      (grup 2)
+
+// mengganti: rapikan spasi berlebih
+spasi := regexp.MustCompile(\`\\s+\`)
+fmt.Println(spasi.ReplaceAllString("a   b    c", " ")) // a b c</code></pre>
+      <ul>
+        <li><code>\\d</code> = digit, <code>\\w</code> = huruf/angka, <code>\\s</code> = spasi.</li>
+        <li><code>+</code> = satu atau lebih, <code>*</code> = nol atau lebih, <code>?</code> = opsional.</li>
+        <li>Angka <code>-1</code> pada <code>FindAll...</code> berarti "ambil semua kecocokan".</li>
+      </ul>
+      <div class="callout">Untuk pencarian sederhana seperti "mengandung kata", <code>strings.Contains</code> jauh lebih cepat dan jelas. Pakai regex hanya bila polanya memang rumit.</div>
+    `,
+  },
+  {
+    id: "go-sort",
+    cat: "stdlib",
+    title: "Mengurutkan Data (sort & slices)",
+    minutes: 8,
+    summary: "Mengurutkan slice angka, teks, dan struct dengan aturan sendiri.",
+    body: `
+      <p>Mengurutkan data sangat sering dibutuhkan. Paket <b>sort</b> (klasik) dan <b>slices</b> (lebih baru, Go 1.21) menyediakannya.</p>
+      <h4>Mengurutkan tipe dasar</h4>
+      <pre><code>import "sort"
+
+angka := []int{5, 2, 8, 1}
+sort.Ints(angka)
+fmt.Println(angka)   // [1 2 5 8]
+
+kata := []string{"ceri", "apel", "buah"}
+sort.Strings(kata)
+fmt.Println(kata)    // [apel buah ceri]</code></pre>
+      <h4>Mengurutkan struct dengan aturan sendiri</h4>
+      <p><code>sort.Slice</code> menerima fungsi pembanding: kembalikan <code>true</code> bila elemen <code>i</code> harus berada <b>sebelum</b> elemen <code>j</code>.</p>
+      <pre><code>type Orang struct {
+    Nama string
+    Umur int
+}
+
+orang := []Orang{{"Dewi", 22}, {"Andi", 20}, {"Budi", 25}}
+
+// urut dari termuda ke tertua
+sort.Slice(orang, func(i, j int) bool {
+    return orang[i].Umur &lt; orang[j].Umur
+})
+fmt.Println(orang)   // [{Andi 20} {Dewi 22} {Budi 25}]</code></pre>
+      <h4>Paket slices (lebih ringkas)</h4>
+      <pre><code>import "slices"
+
+s := []int{3, 1, 2}
+slices.Sort(s)                      // [1 2 3]
+fmt.Println(slices.Contains(s, 2))  // true
+fmt.Println(slices.Max(s))          // 3
+fmt.Println(slices.Index(s, 2))     // 1</code></pre>
+      <ul>
+        <li><b>sort.Ints / sort.Strings / sort.Float64s</b> untuk tipe dasar.</li>
+        <li><b>sort.Slice</b> untuk aturan urut bebas (mis. berdasarkan field).</li>
+        <li>Ganti <code>&lt;</code> menjadi <code>&gt;</code> pada pembanding untuk urutan menurun.</li>
+      </ul>
+      <div class="callout">Butuh urutan map yang stabil? Kumpulkan kuncinya ke slice, urutkan dengan <code>sort.Strings</code>, lalu telusuri berdasarkan slice itu.</div>
+    `,
+  },
+  {
+    id: "go-config",
+    cat: "praktik",
+    title: "Konfigurasi: flag & Environment Variable",
+    minutes: 8,
+    summary: "Mengatur perilaku program lewat argumen baris perintah dan variabel lingkungan.",
+    body: `
+      <p>Program yang baik tidak menuliskan nilai penting (port, mode, URL database) langsung di kode. Dua cara umum mengaturnya dari luar: <b>flag</b> (argumen baris perintah) dan <b>environment variable</b>.</p>
+      <h4>Flag baris perintah</h4>
+      <p>Paket <b>flag</b> membaca argumen seperti <code>-nama=Dewi</code>. Fungsi seperti <code>flag.String</code> mengembalikan <b>pointer</b>, jadi ambil nilainya dengan <code>*</code> setelah <code>flag.Parse()</code>.</p>
+      <pre><code>import "flag"
+
+func main() {
+    nama := flag.String("nama", "tamu", "nama pengguna")
+    umur := flag.Int("umur", 0, "umur pengguna")
+    flag.Parse()
+
+    fmt.Printf("Halo %s (%d)\\n", *nama, *umur)
+}</code></pre>
+      <p>Menjalankannya: <code>go run . -nama=Dewi -umur=20</code>. Tanpa flag, dipakai nilai bawaan (<code>tamu</code> dan <code>0</code>).</p>
+      <h4>Environment variable</h4>
+      <p>Cocok untuk rahasia (kata sandi, token) dan konfigurasi server. Baca dengan <code>os.Getenv</code>; beri nilai bawaan bila kosong.</p>
+      <pre><code>import "os"
+
+func main() {
+    port := os.Getenv("PORT")
+    if port == "" {
+        port = "8080"   // nilai bawaan bila belum diset
+    }
+    fmt.Println("server jalan di :" + port)
+}</code></pre>
+      <p>Untuk membedakan "belum diset" dari "diset tapi kosong", pakai <code>os.LookupEnv</code>:</p>
+      <pre><code>if val, ada := os.LookupEnv("DATABASE_URL"); ada {
+    fmt.Println("pakai:", val)
+} else {
+    fmt.Println("DATABASE_URL belum diset")
+}</code></pre>
+      <ul>
+        <li><b>flag</b> → cocok untuk opsi CLI yang berubah tiap dijalankan.</li>
+        <li><b>env var</b> → cocok untuk rahasia &amp; konfigurasi lingkungan (dev/prod).</li>
+        <li>Jangan pernah menaruh kata sandi langsung di dalam kode sumber.</li>
+      </ul>
+      <div class="callout">Di produksi, env var biasanya diatur lewat sistem deploy (Docker, systemd, atau panel hosting), bukan diketik manual tiap kali.</div>
+    `,
+  },
 ];
 
 export const GO_QUIZZES: Record<string, Question[]> = {
@@ -1356,5 +1769,45 @@ export const GO_QUIZZES: Record<string, Question[]> = {
   "go-tooling": [
     { q: "Merapikan format kode secara otomatis memakai:", options: ["go fmt", "go style", "go clean", "go pretty"], answer: 0, explain: "go fmt ./... (gofmt)." },
     { q: "Konvensi penamaan di Go adalah:", options: ["snake_case", "camelCase", "kebab-case", "SCREAMING_CASE"], answer: 1, explain: "camelCase; kapital di awal = publik." },
+  ],
+  "go-generics": [
+    { q: "Generics mulai tersedia sejak versi:", options: ["Go 1.11", "Go 1.16", "Go 1.18", "Go 1.21"], answer: 2, explain: "Generics diperkenalkan di Go 1.18." },
+    { q: "Parameter tipe generik ditulis di dalam:", options: ["kurung biasa ( )", "kurung siku [ ]", "kurung kurawal { }", "tanda kurang-dari"], answer: 1, explain: "Mis. func Pertama[T any](s []T) T." },
+    { q: "Kata kunci constraint yang berarti 'tipe apa pun' adalah:", options: ["all", "any", "type", "var"], answer: 1, explain: "[T any] menerima tipe apa pun." },
+  ],
+  "go-context": [
+    { q: "context.Context terutama dipakai untuk:", options: ["menyimpan data permanen", "pembatalan & timeout operasi", "membuat struct", "mengurutkan slice"], answer: 1, explain: "Untuk membatalkan dan memberi batas waktu operasi." },
+    { q: "Konvensi Go, context diletakkan sebagai:", options: ["parameter terakhir", "parameter pertama (ctx)", "field struct", "variabel global"], answer: 1, explain: "ctx selalu jadi parameter pertama." },
+    { q: "Setelah membuat context dengan WithTimeout, sebaiknya:", options: ["abaikan cancel", "defer cancel()", "panggil ctx.Close()", "simpan ke global"], answer: 1, explain: "defer cancel() agar sumber daya dilepas." },
+  ],
+  "go-worker-pool": [
+    { q: "Tujuan utama worker pool adalah:", options: ["mempercepat kompilasi", "membatasi jumlah tugas berjalan bersamaan", "menghapus goroutine", "mengganti channel"], answer: 1, explain: "Membatasi tingkat konkurensi dengan sejumlah worker tetap." },
+    { q: "Tipe channel hanya-terima ditulis:", options: ["chan<- int", "<-chan int", "chan int", "recv chan int"], answer: 1, explain: "<-chan int = hanya menerima; chan<- int = hanya mengirim." },
+    { q: "Agar worker (for range tugas) berhenti dengan rapi, channel tugas perlu:", options: ["di-close", "diisi nil", "dihapus", "dikunci mutex"], answer: 0, explain: "close(tugas) membuat for range berhenti." },
+  ],
+  "go-database": [
+    { q: "Paket standar untuk akses SQL di Go adalah:", options: ["net/sql", "database/sql", "sql/db", "go/sql"], answer: 1, explain: "database/sql + driver seperti lib/pq." },
+    { q: "Agar aman dari SQL injection, nilai dimasukkan lewat:", options: ["penggabungan string", "placeholder ($1, $2)", "fmt.Sprintf", "regex"], answer: 1, explain: "Gunakan placeholder, jangan tempel nilai ke string SQL." },
+    { q: "Perintah INSERT/UPDATE/DELETE dijalankan dengan:", options: ["db.Query", "db.Exec", "db.Scan", "db.Ping"], answer: 1, explain: "Exec untuk perintah tulis; Query/QueryRow untuk baca." },
+  ],
+  "go-middleware": [
+    { q: "Middleware HTTP pada dasarnya adalah fungsi yang:", options: ["mengubah struct", "membungkus sebuah handler", "menutup channel", "memformat tanggal"], answer: 1, explain: "Menerima http.Handler dan mengembalikan http.Handler baru." },
+    { q: "Untuk melanjutkan ke handler berikutnya, middleware memanggil:", options: ["next.ServeHTTP(w, r)", "return", "http.Next()", "handler.Run()"], answer: 0, explain: "next.ServeHTTP menjalankan handler yang dibungkus." },
+    { q: "Untuk menghentikan permintaan lebih awal, middleware cukup:", options: ["memanggil next dua kali", "menulis balasan lalu return", "close(w)", "panic"], answer: 1, explain: "Tulis balasan (mis. http.Error) lalu return tanpa memanggil next." },
+  ],
+  "go-regexp": [
+    { q: "Menyusun pola regex sekali (dan panic bila salah) memakai:", options: ["regexp.Compile", "regexp.MustCompile", "regexp.New", "regexp.Parse"], answer: 1, explain: "MustCompile menyusun pola sekali di awal." },
+    { q: "Menuliskan pola regex sebaiknya memakai:", options: ["string biasa \"...\"", "raw string (backtick)", "[]byte", "map"], answer: 1, explain: "Raw string agar backslash tidak perlu digandakan." },
+    { q: "Untuk sekadar mengecek 'mengandung kata', lebih baik pakai:", options: ["regexp selalu", "strings.Contains", "sort", "reflect"], answer: 1, explain: "strings.Contains lebih cepat & jelas untuk kasus sederhana." },
+  ],
+  "go-sort": [
+    { q: "Mengurutkan slice []int memakai:", options: ["sort.Ints", "sort.Number", "sort.Sort", "sort.Int"], answer: 0, explain: "sort.Ints(s) untuk slice int." },
+    { q: "Mengurutkan struct dengan aturan sendiri memakai:", options: ["sort.Custom", "sort.Slice", "sort.By", "sort.Struct"], answer: 1, explain: "sort.Slice(s, func(i,j int) bool { ... })." },
+    { q: "Pada pembanding sort.Slice, mengembalikan i < j menghasilkan urutan:", options: ["menurun", "menaik (kecil ke besar)", "acak", "terbalik"], answer: 1, explain: "true bila i harus sebelum j; i<j = menaik." },
+  ],
+  "go-config": [
+    { q: "Membaca argumen baris perintah seperti -nama=Dewi memakai paket:", options: ["os", "flag", "args", "cli"], answer: 1, explain: "Paket flag membaca argumen CLI." },
+    { q: "flag.String mengembalikan sebuah:", options: ["string", "pointer ke string", "error", "bool"], answer: 1, explain: "Ambil nilainya dengan * setelah flag.Parse()." },
+    { q: "Membaca environment variable memakai:", options: ["os.Getenv", "flag.Env", "env.Read", "os.Args"], answer: 0, explain: "os.Getenv(nama); os.LookupEnv untuk cek keberadaan." },
   ],
 };

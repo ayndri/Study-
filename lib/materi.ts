@@ -981,6 +981,298 @@ export const LESSONS: Lesson[] = [
       <div class="callout">Simulasikan tanya-jawab dengan <b>Tutor AI</b>, dan siapkan berkas di menu <b>Beasiswa</b>.</div>
     `,
   },
+
+  // ===================== TAMBAHAN LISTENING =====================
+  {
+    id: "listen-short",
+    cat: "listening",
+    title: "Part A: Dialog Pendek — Strategi & Jebakan",
+    minutes: 8,
+    summary: "Cara menaklukkan 30 dialog pendek: fokus pembicara kedua, waspadai kata jebakan.",
+    body: `
+      <p>Di <b>Part A</b> kamu mendengar 30 percakapan pendek (dua baris) dan menjawab satu soal per dialog. Karena tidak bisa mengulang audio, kuncinya adalah tahu <b>di mana jawaban biasanya berada</b> dan pola jebakan yang sering muncul.</p>
+      <h4>Aturan emas</h4>
+      <ul>
+        <li><b>Jawaban hampir selalu ada pada kalimat pembicara kedua.</b> Kalimat pertama hanya membangun konteks.</li>
+        <li>Pilihan yang benar biasanya <b>memparafrase</b> (memakai sinonim), bukan mengulang kata yang persis kamu dengar.</li>
+        <li><b>Baca keempat pilihan saat jeda</b> untuk memprediksi topik dialog berikutnya.</li>
+      </ul>
+      <h4>Pola jebakan yang sering</h4>
+      <table>
+        <tr><th>Jebakan</th><th>Penjelasan</th></tr>
+        <tr><td>Bunyi mirip</td><td>Pilihan memakai kata yang mirip bunyinya, mis. <i>desert</i> vs <i>dessert</i>, <i>quite</i> vs <i>quiet</i>.</td></tr>
+        <tr><td>Kata diulang persis</td><td>Pilihan yang mengulang kata dari audio sering sengaja dipasang untuk menyesatkan.</td></tr>
+        <tr><td>Negasi tersembunyi</td><td>Kata seperti <i>hardly, no longer, neither</i> membalik makna — mudah terlewat.</td></tr>
+        <tr><td>Makna kiasan/idiom</td><td>"You can say that again" bukan minta diulang, tapi tanda <b>setuju</b>.</td></tr>
+      </table>
+      <h4>Kata kunci penanda makna</h4>
+      <ul>
+        <li><b>Kontras / koreksi:</b> <i>but, however, actually, on the contrary</i> → info penting biasanya sesudahnya.</li>
+        <li><b>Penyesalan / seharusnya:</b> <i>should have, wish, if only</i> → pekerjaan belum/ tidak dilakukan.</li>
+        <li><b>Saran:</b> <i>Why don't you..., How about..., You'd better...</i></li>
+      </ul>
+      <h4>Contoh transkrip singkat</h4>
+      <p><b>Man:</b> "I thought the biology exam was really tough."<br/>
+      <b>Woman:</b> "You can say that again!"<br/>
+      <i>Pertanyaan:</i> What does the woman mean? → Dia <b>setuju</b> ujian itu sulit (bukan meminta pengulangan). Pilihan benar akan berbunyi seperti "She agrees the exam was difficult."</p>
+      <div class="callout"><b>Tips:</b> jika ragu, coret pilihan yang hanya mengulang kata persis dari audio; jawaban yang memparafrase lebih mungkin benar. Klik <b>Perdalam dengan AI</b> untuk latihan dialog lain.</div>
+    `,
+  },
+  {
+    id: "listen-long",
+    cat: "listening",
+    title: "Part B & C: Percakapan Panjang & Kuliah",
+    minutes: 9,
+    summary: "Strategi mencatat topik, tujuan, dan detail pada percakapan panjang dan kuliah akademik.",
+    body: `
+      <p><b>Part B</b> berisi percakapan panjang (mis. mahasiswa dan dosen) dan <b>Part C</b> berisi kuliah atau pengumuman singkat, masing-masing diikuti beberapa soal. Karena durasinya lebih panjang, kamu harus <b>menyimak aktif</b> dan menangkap kerangka besar, bukan setiap kata.</p>
+      <h4>Yang wajib kamu tangkap di awal</h4>
+      <ul>
+        <li><b>Topik utama</b> — hampir selalu disebut pada satu-dua kalimat pertama.</li>
+        <li><b>Tujuan / situasi</b> — mengapa mereka berbicara? (mis. mahasiswa minta perpanjangan tenggat).</li>
+        <li><b>Nada / sikap pembicara</b> — antusias, ragu, atau mengeluh?</li>
+      </ul>
+      <h4>Jenis soal yang muncul</h4>
+      <table>
+        <tr><th>Jenis</th><th>Cara menjawab</th></tr>
+        <tr><td>Topik / tujuan utama</td><td>Pilih yang paling umum mencakup seluruh pembicaraan, bukan satu detail kecil.</td></tr>
+        <tr><td>Detail</td><td>Catat angka, nama, tanggal, urutan saat mendengar.</td></tr>
+        <tr><td>Inferensi</td><td>Simpulkan dari nada &amp; pilihan kata (mis. "I'm not sure that will work" = ragu).</td></tr>
+        <tr><td>Organisasi</td><td>Perhatikan urutan: <i>first, next, finally</i> menandai struktur.</td></tr>
+      </table>
+      <h4>Kata kunci penanda struktur kuliah</h4>
+      <ul>
+        <li><b>Definisi:</b> <i>is defined as, refers to, means</i>.</li>
+        <li><b>Contoh:</b> <i>for example, such as, to illustrate</i>.</li>
+        <li><b>Urutan / proses:</b> <i>first, second, then, after that, finally</i>.</li>
+        <li><b>Penekanan:</b> <i>the key point, most importantly, remember that</i> → sering jadi bahan soal.</li>
+      </ul>
+      <h4>Cara mencatat cepat</h4>
+      <ol>
+        <li>Tulis <b>topik</b> di satu kata setelah kalimat pembuka.</li>
+        <li>Buat singkatan untuk angka &amp; nama (jangan menulis kalimat penuh).</li>
+        <li>Tandai tiap pergantian sub-topik dengan garis miring.</li>
+      </ol>
+      <div class="callout"><b>Ingat:</b> soal diberikan sesuai urutan informasi dalam audio, jadi bila kamu melewatkan satu, jangan panik — pindah ke soal berikutnya mengikuti alur pembicaraan.</div>
+    `,
+  },
+
+  // ===================== TAMBAHAN READING =====================
+  {
+    id: "read-inference",
+    cat: "reading",
+    title: "Reading: Soal Inferensi & Tujuan Penulis",
+    minutes: 8,
+    summary: "Menyimpulkan yang tersirat dan mengenali maksud penulis tanpa asumsi berlebihan.",
+    body: `
+      <p>Soal <b>inferensi</b> menanyakan sesuatu yang <b>tidak tertulis eksplisit</b> tetapi dapat disimpulkan secara logis dari teks. Soal <b>tujuan penulis</b> menanyakan mengapa penulis menulis bagian tertentu. Keduanya menguji pemahaman, bukan sekadar mencocokkan kata.</p>
+      <h4>Ciri pertanyaannya</h4>
+      <ul>
+        <li>Inferensi: "It can be <b>inferred</b> from the passage that...", "The passage <b>suggests / implies</b> that..."</li>
+        <li>Tujuan: "The author <b>mentions</b> X in order to...", "Why does the author...?", "The purpose of paragraph 2 is to..."</li>
+      </ul>
+      <h4>Prinsip menjawab inferensi</h4>
+      <ol>
+        <li>Jawaban harus <b>didukung teks</b> — hanya selangkah dari yang tertulis, bukan pengetahuan luar.</li>
+        <li>Hindari pilihan yang <b>terlalu ekstrem</b>: kata <i>always, never, all, only, impossible</i> sering menandai jawaban salah.</li>
+        <li>Waspadai pilihan yang <b>benar secara umum</b> tetapi tidak didukung bacaan ini.</li>
+      </ol>
+      <h4>Kata kerja tujuan penulis</h4>
+      <table>
+        <tr><th>Maksud</th><th>Kata kerja yang cocok</th></tr>
+        <tr><td>Menjelaskan</td><td>to explain, to describe, to illustrate</td></tr>
+        <tr><td>Membandingkan</td><td>to compare, to contrast</td></tr>
+        <tr><td>Memberi contoh</td><td>to give an example, to support a claim</td></tr>
+        <tr><td>Membantah</td><td>to refute, to challenge, to criticize</td></tr>
+      </table>
+      <h4>Contoh singkat</h4>
+      <p>Teks: "Although early telephones were bulky and expensive, they quickly became a household necessity."<br/>
+      <i>Inferensi:</i> Meski awalnya mahal, banyak orang tetap membelinya → dapat disimpulkan bahwa <b>orang menganggapnya sangat berguna</b>. Pilihan "telephones were useless" jelas salah; pilihan "no one could afford them" bertentangan dengan "became a household necessity".</p>
+      <div class="callout"><b>Uji cepat:</b> tanyakan "apakah teks benar-benar mendukung ini?" Jika kamu harus menambah asumsi dari luar, pilihan itu kemungkinan salah.</div>
+    `,
+  },
+  {
+    id: "read-reference",
+    cat: "reading",
+    title: "Reading: Reference & Vocabulary-in-Context",
+    minutes: 7,
+    summary: "Melacak kata acuan (it/they/this) dan menebak makna kata dari konteks kalimat.",
+    body: `
+      <p>Dua tipe soal Reading ini sering muncul dan cepat dikerjakan bila kamu tahu tekniknya: <b>reference</b> (kata acuan) dan <b>vocabulary-in-context</b> (makna kata dalam konteks).</p>
+      <h4>1. Reference — apa yang dirujuk?</h4>
+      <p>Kata seperti <i>it, they, this, these, that, such, former, latter</i> menggantikan kata benda yang <b>sudah disebut sebelumnya</b> (biasanya yang terdekat).</p>
+      <ul>
+        <li>Cari <b>kata benda terdekat</b> sebelum kata acuan yang cocok jumlah (tunggal/jamak).</li>
+        <li><b>Uji substitusi:</b> ganti kata acuan dengan kandidat — apakah kalimat tetap logis?</li>
+        <li>Cocokkan bentuk: <i>it/this</i> → benda tunggal; <i>they/these</i> → jamak.</li>
+      </ul>
+      <p><i>Contoh:</i> "Scientists studied the coral reefs because <b>they</b> were dying rapidly." → <b>they = the coral reefs</b> (jamak, terdekat, logis), bukan "scientists".</p>
+      <h4>2. Vocabulary-in-context</h4>
+      <p>Soal menanyakan kata yang <b>paling dekat maknanya</b> dengan kata bergaris bawah <b>dalam kalimat itu</b> — bukan makna kamus yang paling umum.</p>
+      <ol>
+        <li>Baca <b>seluruh kalimat</b>, bukan hanya kata itu.</li>
+        <li>Manfaatkan <b>petunjuk konteks</b>: definisi/aposisi, kontras (<i>however, unlike</i>), atau contoh (<i>such as</i>).</li>
+        <li>Ganti kata bergaris bawah dengan tiap pilihan; pilih yang <b>tidak mengubah makna</b> kalimat.</li>
+        <li>Bongkar imbuhan bila perlu: prefiks <i>un-, in-</i> (negasi), sufiks <i>-less</i> (tanpa).</li>
+      </ol>
+      <p><i>Contoh:</i> "The medicine had an <b>adverse</b> effect, worsening the patient's condition." Petunjuk "worsening" → <b>adverse</b> bermakna <i>harmful / negatif</i>, bukan "helpful".</p>
+      <div class="callout"><b>Tips:</b> untuk vocabulary-in-context, jangan langsung pilih makna kamus yang kamu hafal — konteks kalimat yang menentukan.</div>
+    `,
+  },
+
+  // ===================== TAMBAHAN VOCAB =====================
+  {
+    id: "vocab-akademik",
+    cat: "vocab",
+    title: "Kosakata Akademik yang Sering Muncul",
+    minutes: 8,
+    summary: "Daftar kata akademik frekuensi tinggi di teks ITP beserta arti dan contoh.",
+    body: `
+      <p>Teks Reading dan kuliah Listening ITP memakai <b>kosakata akademik</b> yang berulang lintas topik. Menguasainya membuatmu membaca lebih cepat dan menjawab vocabulary-in-context dengan percaya diri.</p>
+      <h4>Kata kerja &amp; kata benda inti</h4>
+      <table>
+        <tr><th>Kata</th><th>Arti</th><th>Contoh</th></tr>
+        <tr><td>significant</td><td>penting / bermakna</td><td>a significant increase</td></tr>
+        <tr><td>establish</td><td>menetapkan / mendirikan</td><td>to establish a theory</td></tr>
+        <tr><td>demonstrate</td><td>menunjukkan / membuktikan</td><td>the data demonstrate a trend</td></tr>
+        <tr><td>hypothesis</td><td>hipotesis / dugaan awal</td><td>to test a hypothesis</td></tr>
+        <tr><td>phenomenon</td><td>fenomena / gejala</td><td>a natural phenomenon</td></tr>
+        <tr><td>consequently</td><td>akibatnya</td><td>Prices rose; consequently, demand fell.</td></tr>
+        <tr><td>diverse</td><td>beragam</td><td>a diverse population</td></tr>
+        <tr><td>subsequent</td><td>berikutnya / setelahnya</td><td>in subsequent years</td></tr>
+      </table>
+      <h4>Kata sifat penilaian</h4>
+      <table>
+        <tr><th>Kata</th><th>Arti</th></tr>
+        <tr><td>crucial / vital</td><td>sangat penting</td></tr>
+        <tr><td>abundant</td><td>melimpah</td></tr>
+        <tr><td>scarce</td><td>langka</td></tr>
+        <tr><td>feasible</td><td>dapat dilakukan / layak</td></tr>
+        <tr><td>ambiguous</td><td>bermakna ganda / kabur</td></tr>
+        <tr><td>controversial</td><td>kontroversial / diperdebatkan</td></tr>
+      </table>
+      <h4>Sinonim yang sering dipertukarkan di soal</h4>
+      <ul>
+        <li><b>increase</b> = rise, grow, expand · <b>decrease</b> = decline, drop, diminish.</li>
+        <li><b>important</b> = significant, crucial, vital, essential.</li>
+        <li><b>cause</b> = lead to, result in, bring about · <b>show</b> = demonstrate, reveal, indicate.</li>
+      </ul>
+      <div class="callout"><b>Cara belajar:</b> hafalkan kata dalam <b>frasa</b>, bukan sendiri-sendiri ("a significant increase"), agar langsung tahu pemakaiannya. Latih di menu <b>Vocabulary</b>.</div>
+    `,
+  },
+  {
+    id: "vocab-akar",
+    cat: "vocab",
+    title: "Akar Kata Latin & Yunani (menebak arti)",
+    minutes: 8,
+    summary: "Kenali akar kata umum untuk menebak makna kata sulit yang belum pernah dilihat.",
+    body: `
+      <p>Banyak kata akademik dalam bahasa Inggris dibangun dari <b>akar Latin dan Yunani</b>. Bila kamu tahu akarnya, kamu bisa <b>menebak makna kata baru</b> tanpa kamus — kemampuan yang sangat berguna untuk vocabulary-in-context.</p>
+      <h4>Akar yang sering muncul</h4>
+      <table>
+        <tr><th>Akar</th><th>Arti</th><th>Contoh</th></tr>
+        <tr><td>aud</td><td>dengar</td><td>audible, audience, auditorium</td></tr>
+        <tr><td>vid / vis</td><td>lihat</td><td>video, visible, revise</td></tr>
+        <tr><td>scrib / script</td><td>tulis</td><td>describe, manuscript, prescription</td></tr>
+        <tr><td>tele</td><td>jauh</td><td>telephone, telescope, television</td></tr>
+        <tr><td>chron</td><td>waktu</td><td>chronology, synchronize, chronic</td></tr>
+        <tr><td>terr</td><td>tanah / bumi</td><td>territory, terrain, terrestrial</td></tr>
+        <tr><td>bene</td><td>baik</td><td>benefit, benevolent, beneficial</td></tr>
+        <tr><td>mal</td><td>buruk</td><td>malfunction, malnutrition</td></tr>
+        <tr><td>vac</td><td>kosong</td><td>vacant, vacuum, evacuate</td></tr>
+        <tr><td>ject</td><td>lempar</td><td>reject, project, inject</td></tr>
+      </table>
+      <h4>Gabungkan akar + imbuhan</h4>
+      <ul>
+        <li><b>tele</b> (jauh) + <b>vis</b> (lihat) → <i>television</i> = melihat dari jauh.</li>
+        <li><b>bene</b> (baik) + <b>dict</b> (ucap) → <i>benediction</i> = ucapan baik / berkat.</li>
+        <li><b>mal</b> (buruk) + <b>funct</b> (kerja) → <i>malfunction</i> = tidak berfungsi baik.</li>
+      </ul>
+      <h4>Latihan menebak</h4>
+      <p>Kata <i>terrestrial</i> memuat <b>terr</b> (tanah/bumi) → kemungkinan berhubungan dengan <b>bumi/daratan</b>. Kata <i>audible</i> memuat <b>aud</b> (dengar) + <i>-ible</i> (dapat) → <b>dapat didengar</b>.</p>
+      <div class="callout"><b>Tips ujian:</b> saat menemui kata asing, pisahkan prefiks–akar–sufiks. Sering kali potongan itu sudah cukup untuk mengeliminasi pilihan yang jelas keliru.</div>
+    `,
+  },
+
+  // ===================== TAMBAHAN WRITING =====================
+  {
+    id: "essay-transisi",
+    cat: "writing",
+    title: "Kata Transisi & Koherensi Paragraf",
+    minutes: 8,
+    summary: "Menghubungkan ide dengan kata transisi tepat agar esai mengalir dan padu.",
+    body: `
+      <p>Esai yang baik bukan sekadar kumpulan kalimat benar, tetapi ide yang <b>mengalir dan terhubung</b>. <b>Kata transisi</b> (transition words) adalah rambu yang memberi tahu pembaca hubungan antar-ide: menambah, membandingkan, atau menyimpulkan.</p>
+      <h4>Daftar transisi menurut fungsi</h4>
+      <table>
+        <tr><th>Fungsi</th><th>Kata transisi</th></tr>
+        <tr><td>Menambah</td><td>Furthermore, Moreover, In addition, Besides</td></tr>
+        <tr><td>Kontras</td><td>However, Nevertheless, On the other hand, In contrast</td></tr>
+        <tr><td>Sebab</td><td>Because, Since, Due to, Owing to</td></tr>
+        <tr><td>Akibat</td><td>Therefore, Consequently, As a result, Thus</td></tr>
+        <tr><td>Contoh</td><td>For example, For instance, To illustrate</td></tr>
+        <tr><td>Urutan</td><td>First, Next, Then, Finally</td></tr>
+        <tr><td>Menyimpulkan</td><td>In conclusion, To sum up, Overall</td></tr>
+      </table>
+      <h4>Koherensi: satu paragraf, satu ide</h4>
+      <ul>
+        <li>Mulai paragraf dengan <b>kalimat topik</b> yang menyatakan ide utamanya.</li>
+        <li>Kalimat berikutnya <b>mendukung</b> kalimat topik (alasan, contoh, penjelasan).</li>
+        <li>Jangan mencampur dua ide besar dalam satu paragraf.</li>
+      </ul>
+      <h4>Kohesi: rujuk balik ide sebelumnya</h4>
+      <ul>
+        <li>Gunakan kata ganti (<i>this, these, such</i>) untuk menautkan kalimat: "This approach has two benefits."</li>
+        <li>Ulangi kata kunci atau sinonimnya alih-alih memulai topik baru mendadak.</li>
+      </ul>
+      <h4>Kesalahan umum</h4>
+      <ul>
+        <li>❌ Menaruh transisi yang salah fungsi: "It rained. <u>Therefore</u>, we went out." (harusnya kontras: <i>However</i>).</li>
+        <li>❌ Menumpuk transisi berlebihan di setiap kalimat sehingga terasa kaku.</li>
+        <li>❌ Koma setelah transisi di awal kalimat sering terlupa: "However<b>,</b> the results differ."</li>
+      </ul>
+      <div class="callout"><b>Tips:</b> setelah menulis, baca ulang dan tanyakan di tiap kalimat, "apa hubungannya dengan kalimat sebelumnya?" Bila tidak jelas, tambahkan transisi yang tepat. Minta koreksi di menu <b>Tutor AI</b>.</div>
+    `,
+  },
+
+  // ===================== TAMBAHAN BEASISWA =====================
+  {
+    id: "lpdp-rencana",
+    cat: "beasiswa",
+    title: "Menyusun Rencana Studi & Kontribusi (LPDP)",
+    minutes: 9,
+    summary: "Membuat rencana studi dan rencana kontribusi yang konkret, logis, dan terukur.",
+    body: `
+      <p><b>Rencana studi</b> dan <b>rencana kontribusi</b> adalah dokumen kunci LPDP. Keduanya menunjukkan bahwa kamu <b>tahu persis apa yang akan dipelajari</b> dan <b>bagaimana ilmu itu bermanfaat bagi Indonesia</b>. Pewawancara sering menggali dari sini.</p>
+      <h4>Isi rencana studi yang kuat</h4>
+      <ol>
+        <li><b>Program &amp; kampus tujuan:</b> sebut S2 Teknik Informatika ITS dan alasan spesifik (laboratorium, bidang riset, dosen relevan).</li>
+        <li><b>Mata kuliah inti:</b> daftar mata kuliah yang mendukung fokusmu (mis. machine learning, keamanan jaringan, rekayasa perangkat lunak).</li>
+        <li><b>Topik tesis:</b> rumuskan masalah nyata + pendekatan yang akan kamu teliti.</li>
+        <li><b>Timeline:</b> perkiraan durasi tiap semester hingga lulus (mis. 4 semester, tesis mulai semester 3).</li>
+      </ol>
+      <h4>Rencana kontribusi: pola masalah → solusi → dampak</h4>
+      <table>
+        <tr><th>Komponen</th><th>Pertanyaan yang dijawab</th></tr>
+        <tr><td>Masalah</td><td>Isu nyata apa di Indonesia yang ingin kamu atasi?</td></tr>
+        <tr><td>Solusi</td><td>Bagaimana keahlian dari studimu menjawab masalah itu?</td></tr>
+        <tr><td>Dampak terukur</td><td>Siapa yang terbantu, berapa banyak, dalam berapa lama?</td></tr>
+      </table>
+      <p><i>Contoh:</i> "Banyak pemerintah daerah belum punya sistem layanan publik digital yang aman. Dengan keahlian rekayasa perangkat lunak &amp; keamanan siber, saya akan membangun platform layanan terpadu, menargetkan 10 kabupaten dalam 5 tahun pertama."</p>
+      <h4>Kontribusi jangka pendek vs jangka panjang</h4>
+      <ul>
+        <li><b>Jangka pendek (0–2 tahun):</b> mengajar, riset terapan, atau bergabung dengan lembaga/perusahaan strategis.</li>
+        <li><b>Jangka panjang (5–10 tahun):</b> membangun sistem/kebijakan, mengembangkan SDM, menciptakan dampak berkelanjutan.</li>
+      </ul>
+      <h4>Yang membuat rencana lemah</h4>
+      <ul>
+        <li>Terlalu umum ("ingin memajukan teknologi Indonesia") tanpa langkah konkret.</li>
+        <li>Tidak nyambung antara jurusan, tesis, dan kontribusi.</li>
+        <li>Target tanpa angka atau tenggat waktu.</li>
+      </ul>
+      <div class="callout"><b>Kunci:</b> jaga <b>satu benang merah</b> dari minat → studi → tesis → kontribusi. Konsistenkan dengan esai dan formulirmu. Susun checklist dokumen di menu <b>Beasiswa</b> dan latih penyampaiannya lewat <b>Tutor AI</b>.</div>
+    `,
+  },
 ];
 
 // ===================== MINI-QUIZ PER PELAJARAN =====================
@@ -1141,6 +1433,46 @@ export const LESSON_QUIZZES: Record<string, Question[]> = {
   "wwc-lgd": [
     { q: "In an LGD, evaluators value:", options: ["dominating the talk", "quality contribution and cooperation", "staying silent", "criticizing everyone"], answer: 1, explain: "Kontribusi berkualitas + kerja sama." },
     { q: "A fatal interview mistake is:", options: ["being specific", "a story that contradicts your essay", "arriving early", "knowing your study plan"], answer: 1, explain: "Cerita yang bertentangan dengan esai." },
+  ],
+  "listen-short": [
+    { q: "In a Part A short dialog, the answer usually lies in:", options: ["the first speaker's line", "the second speaker's response", "background noise", "the question wording only"], answer: 1, explain: "Jawaban hampir selalu di respons pembicara kedua." },
+    { q: "\"You can say that again!\" most likely expresses:", options: ["a request to repeat", "strong agreement", "confusion", "disagreement"], answer: 1, explain: "Idiom ini berarti setuju kuat, bukan minta diulang." },
+    { q: "An answer choice that repeats the exact words from the audio is often:", options: ["always correct", "a trap / distractor", "the main idea", "a synonym"], answer: 1, explain: "Pengulangan kata persis sering jebakan; jawaban benar memparafrase." },
+  ],
+  "listen-long": [
+    { q: "In Part C lectures, the main topic is usually stated:", options: ["in the last sentence", "in the first one or two sentences", "never", "only in the questions"], answer: 1, explain: "Topik utama biasanya disebut di awal." },
+    { q: "Words like \"first, next, finally\" signal:", options: ["a definition", "the organization / sequence", "a contrast", "the speaker's name"], answer: 1, explain: "Penanda urutan/organisasi pembicaraan." },
+    { q: "For a main-purpose question, the best answer is:", options: ["one small detail", "the most general idea covering the whole talk", "a repeated number", "the last word"], answer: 1, explain: "Pilih yang mencakup keseluruhan, bukan detail kecil." },
+  ],
+  "read-inference": [
+    { q: "A good inference answer must be:", options: ["based on outside knowledge", "supported by the text", "the most extreme option", "unrelated to the passage"], answer: 1, explain: "Inferensi harus didukung teks, hanya selangkah dari yang tertulis." },
+    { q: "Which word often signals a WRONG inference choice?", options: ["some", "always / never", "may", "often"], answer: 1, explain: "Kata ekstrem seperti always/never sering menandai jawaban salah." },
+    { q: "\"The author mentions X in order to...\" is asking about the author's:", options: ["favorite topic", "purpose", "nationality", "vocabulary"], answer: 1, explain: "Ini soal tujuan penulis." },
+  ],
+  "read-reference": [
+    { q: "\"Scientists studied the reefs because they were dying.\" The word 'they' refers to:", options: ["scientists", "the reefs", "the study", "the ocean"], answer: 1, explain: "Kata benda terdekat yang logis dan cocok jumlah: the reefs." },
+    { q: "For a vocabulary-in-context question, choose the meaning that:", options: ["is the most common dictionary meaning", "fits the meaning of that sentence", "is the longest word", "sounds similar"], answer: 1, explain: "Makna ditentukan konteks kalimat, bukan kamus umum." },
+    { q: "In \"an adverse effect, worsening the condition\", 'adverse' means:", options: ["helpful", "harmful / negative", "expensive", "temporary"], answer: 1, explain: "Petunjuk 'worsening' → adverse = merugikan." },
+  ],
+  "vocab-akademik": [
+    { q: "\"Consequently\" is closest in meaning to:", options: ["however", "as a result", "for example", "meanwhile"], answer: 1, explain: "Consequently = akibatnya." },
+    { q: "Which word means 'scarce'?", options: ["abundant", "rare / in short supply", "important", "diverse"], answer: 1, explain: "Scarce = langka." },
+    { q: "A synonym for 'demonstrate' is:", options: ["hide", "show / reveal", "delay", "reduce"], answer: 1, explain: "Demonstrate = menunjukkan/membuktikan." },
+  ],
+  "vocab-akar": [
+    { q: "The root 'aud' means:", options: ["see", "hear", "write", "time"], answer: 1, explain: "aud = dengar (audible, audience)." },
+    { q: "\"Terrestrial\" contains 'terr', so it relates to:", options: ["water", "earth / land", "fire", "air"], answer: 1, explain: "terr = tanah/bumi." },
+    { q: "The prefix 'mal-' (as in malfunction) means:", options: ["good", "bad", "many", "before"], answer: 1, explain: "mal = buruk." },
+  ],
+  "essay-transisi": [
+    { q: "\"It rained. ___, we stayed home.\" Best transition:", options: ["However", "Therefore", "For example", "In contrast"], answer: 1, explain: "Hubungan sebab-akibat → Therefore." },
+    { q: "Which transition shows contrast?", options: ["Furthermore", "Nevertheless", "As a result", "For instance"], answer: 1, explain: "Nevertheless menandai kontras." },
+    { q: "A well-structured paragraph should focus on:", options: ["many ideas at once", "one main idea", "no main idea", "only examples"], answer: 1, explain: "Satu paragraf, satu ide utama." },
+  ],
+  "lpdp-rencana": [
+    { q: "A strong contribution plan follows the pattern:", options: ["problem → solution → measurable impact", "impact → hobby → salary", "solution only", "random points"], answer: 0, explain: "Masalah → solusi → dampak terukur." },
+    { q: "A study plan should include all EXCEPT:", options: ["core courses", "thesis topic", "timeline to graduate", "your favorite food"], answer: 3, explain: "Makanan favorit tidak relevan dengan rencana studi." },
+    { q: "Which makes a plan WEAK?", options: ["specific target numbers", "clear timeline", "vague goals with no concrete steps", "link between major and contribution"], answer: 2, explain: "Tujuan terlalu umum tanpa langkah konkret melemahkan rencana." },
   ],
 };
 

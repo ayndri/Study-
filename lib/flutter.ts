@@ -743,6 +743,404 @@ Future&lt;String&gt; bacaNama() async {
       <div class="callout">Cek jumlah "likes", "pub points", dan tanggal update di pub.dev untuk menilai kualitas sebuah paket.</div>
     `,
   },
+
+  // ===================== MATERI MENENGAH (LANJUTAN) =====================
+  {
+    id: "fl-forms",
+    cat: "state",
+    title: "Form & Validasi Input (TextFormField)",
+    minutes: 9,
+    summary: "Membuat form yang rapi dengan Form, TextFormField, dan validasi masukan.",
+    body: `
+      <p>Untuk masukan yang butuh <b>validasi</b> (mis. email tidak boleh kosong), gunakan gabungan <b>Form</b> + <b>TextFormField</b> + <b>GlobalKey&lt;FormState&gt;</b>. Ini lebih rapi daripada mengecek satu per satu secara manual.</p>
+      <h4>1. Kerangka form dengan kunci</h4>
+      <pre><code>class FormLogin extends StatefulWidget {
+  const FormLogin({super.key});
+  @override
+  State&lt;FormLogin&gt; createState() =&gt; _FormLoginState();
+}
+
+class _FormLoginState extends State&lt;FormLogin&gt; {
+  final _formKey = GlobalKey&lt;FormState&gt;();
+  final _emailC = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailC.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          TextFormField(
+            controller: _emailC,
+            decoration: const InputDecoration(labelText: 'Email'),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Email wajib diisi';
+              }
+              if (!value.contains('@')) {
+                return 'Format email tidak valid';
+              }
+              return null; // null = valid
+            },
+          ),
+          ElevatedButton(
+            onPressed: _kirim,
+            child: const Text('Masuk'),
+          ),
+        ],
+      ),
+    );
+  }
+}</code></pre>
+      <h4>2. Menjalankan validasi saat tombol ditekan</h4>
+      <pre><code>void _kirim() {
+  if (_formKey.currentState!.validate()) {
+    // semua validator mengembalikan null =&gt; data valid
+    final email = _emailC.text;
+    debugPrint('Login sebagai: \${email}');
+  }
+}</code></pre>
+      <ul>
+        <li><b>validator</b> mengembalikan <b>String pesan error</b> bila salah, atau <b>null</b> bila valid.</li>
+        <li><b>_formKey.currentState!.validate()</b> menjalankan semua validator sekaligus.</li>
+        <li>Gunakan <b>TextFormField</b> (bukan TextField biasa) agar bisa memakai validator di dalam Form.</li>
+      </ul>
+      <div class="callout">Ingin menyimpan nilai otomatis? Tambahkan <code>onSaved</code> pada tiap field lalu panggil <code>_formKey.currentState!.save()</code> setelah validasi berhasil.</div>
+    `,
+  },
+  {
+    id: "fl-gridview",
+    cat: "widget",
+    title: "Menampilkan Grid dengan GridView",
+    minutes: 8,
+    summary: "Menyusun item dalam kotak-kotak (grid) memakai GridView.builder.",
+    body: `
+      <p>Bila daftar lebih cocok ditampilkan sebagai <b>kotak-kotak</b> (galeri foto, katalog produk), gunakan <b>GridView</b> alih-alih ListView.</p>
+      <h4>GridView.count — jumlah kolom tetap</h4>
+      <pre><code>GridView.count(
+  crossAxisCount: 2,       // 2 kolom
+  mainAxisSpacing: 8,      // jarak antar baris
+  crossAxisSpacing: 8,     // jarak antar kolom
+  children: const [
+    Card(child: Center(child: Text('A'))),
+    Card(child: Center(child: Text('B'))),
+    Card(child: Center(child: Text('C'))),
+  ],
+)</code></pre>
+      <h4>GridView.builder — untuk data dinamis</h4>
+      <pre><code>final produk = ['Baju', 'Celana', 'Topi', 'Sepatu'];
+
+GridView.builder(
+  itemCount: produk.length,
+  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+    crossAxisCount: 2,
+    childAspectRatio: 3 / 2,  // lebar : tinggi tiap sel
+  ),
+  itemBuilder: (context, index) {
+    return Card(
+      child: Center(child: Text(produk[index])),
+    );
+  },
+)</code></pre>
+      <ul>
+        <li><b>crossAxisCount</b> = jumlah kolom.</li>
+        <li><b>childAspectRatio</b> mengatur bentuk sel (rasio lebar : tinggi).</li>
+        <li>Sama seperti ListView, pakai <b>.builder</b> untuk data panjang agar efisien.</li>
+      </ul>
+      <div class="callout">Untuk jumlah kolom yang menyesuaikan lebar layar, pakai <code>SliverGridDelegateWithMaxCrossAxisExtent</code> dengan <code>maxCrossAxisExtent</code>.</div>
+    `,
+  },
+  {
+    id: "fl-animation",
+    cat: "widget",
+    title: "Animasi Dasar (Implicit Animation)",
+    minutes: 8,
+    summary: "Membuat animasi halus tanpa ribet memakai widget AnimatedContainer & AnimatedOpacity.",
+    body: `
+      <p>Flutter menyediakan <b>implicit animation</b> — widget yang <b>otomatis menganimasikan</b> perubahan nilainya. Kamu cukup mengubah nilai di dalam setState, sisanya diurus Flutter.</p>
+      <h4>AnimatedContainer</h4>
+      <pre><code>class KotakAnimasi extends StatefulWidget {
+  const KotakAnimasi({super.key});
+  @override
+  State&lt;KotakAnimasi&gt; createState() =&gt; _KotakAnimasiState();
+}
+
+class _KotakAnimasiState extends State&lt;KotakAnimasi&gt; {
+  bool besar = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () =&gt; setState(() =&gt; besar = !besar),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeInOut,
+        width: besar ? 200 : 100,
+        height: besar ? 200 : 100,
+        color: besar ? Colors.indigo : Colors.amber,
+      ),
+    );
+  }
+}</code></pre>
+      <p>Saat kotak ditekan, ukuran dan warnanya <b>berubah mulus</b> selama 400 milidetik — tanpa menulis kode animasi manual.</p>
+      <h4>AnimatedOpacity — memudarkan tampilan</h4>
+      <pre><code>AnimatedOpacity(
+  opacity: terlihat ? 1.0 : 0.0,   // 1 = jelas, 0 = transparan
+  duration: const Duration(milliseconds: 300),
+  child: const Text('Halo, aku memudar!'),
+)</code></pre>
+      <ul>
+        <li><b>duration</b> = lama animasi.</li>
+        <li><b>curve</b> = pola gerak (mis. <code>Curves.easeInOut</code>).</li>
+        <li>Cukup ubah nilai lewat <b>setState</b>; Flutter menganimasikan transisinya.</li>
+      </ul>
+      <div class="callout">Untuk animasi lebih kompleks (dikontrol manual), pelajari <b>AnimationController</b> + <b>AnimatedBuilder</b>. Tapi untuk kebanyakan kebutuhan, implicit animation sudah cukup.</div>
+    `,
+  },
+  {
+    id: "fl-images",
+    cat: "layout",
+    title: "Gambar & Aset Lokal (pubspec assets)",
+    minutes: 7,
+    summary: "Menambahkan gambar dari file lokal dan mendaftarkannya di pubspec.yaml.",
+    body: `
+      <p>Selain <code>Image.network</code>, kamu bisa menampilkan gambar yang <b>disimpan di dalam aplikasi</b> (aset lokal) memakai <code>Image.asset</code>. Aset harus didaftarkan dulu di <b>pubspec.yaml</b>.</p>
+      <h4>1. Simpan file &amp; daftarkan di pubspec.yaml</h4>
+      <p>Buat folder <b>assets/images/</b> lalu taruh gambarnya. Kemudian daftarkan (perhatikan indentasi 2 spasi, sangat penting di YAML):</p>
+      <pre><code>flutter:
+  assets:
+    - assets/images/logo.png
+    - assets/images/    # atau daftarkan seluruh folder</code></pre>
+      <h4>2. Tampilkan dengan Image.asset</h4>
+      <pre><code>Image.asset(
+  'assets/images/logo.png',
+  width: 120,
+  height: 120,
+  fit: BoxFit.cover,   // cara gambar mengisi ruang
+)</code></pre>
+      <h4>3. Gambar jaringan dengan penanganan loading</h4>
+      <pre><code>Image.network(
+  'https://contoh.com/foto.jpg',
+  loadingBuilder: (context, child, progress) {
+    if (progress == null) return child;   // selesai memuat
+    return const Center(child: CircularProgressIndicator());
+  },
+  errorBuilder: (context, error, stack) =&gt;
+      const Icon(Icons.broken_image),
+)</code></pre>
+      <ul>
+        <li><b>fit</b>: <code>BoxFit.cover</code> (penuh, mungkin terpotong), <code>BoxFit.contain</code> (utuh, mungkin ada ruang kosong).</li>
+        <li>Setelah mengubah pubspec.yaml, jalankan <b>flutter pub get</b> dan <b>hot restart</b>.</li>
+        <li>Aset yang salah indentasi/tidak terdaftar akan memunculkan error "Unable to load asset".</li>
+      </ul>
+      <div class="callout">Untuk ikon aplikasi &amp; splash screen, ada paket khusus seperti <b>flutter_launcher_icons</b> — lebih mudah daripada mengatur manual.</div>
+    `,
+  },
+  {
+    id: "fl-responsive",
+    cat: "layout",
+    title: "Tampilan Responsif (MediaQuery & LayoutBuilder)",
+    minutes: 9,
+    summary: "Membuat UI menyesuaikan ukuran layar ponsel, tablet, dan web.",
+    body: `
+      <p>Layar HP kecil dan tablet/web besar. Agar tampilan tetap enak dilihat di semua ukuran, kita buat <b>responsif</b> memakai <b>MediaQuery</b> dan <b>LayoutBuilder</b>.</p>
+      <h4>MediaQuery — mengetahui ukuran layar</h4>
+      <pre><code>Widget build(BuildContext context) {
+  final lebar = MediaQuery.of(context).size.width;
+
+  return Text(
+    lebar &gt; 600 ? 'Mode Tablet' : 'Mode Ponsel',
+  );
+}</code></pre>
+      <h4>LayoutBuilder — menyesuaikan ruang yang tersedia</h4>
+      <p><b>LayoutBuilder</b> memberi tahu ukuran ruang tempat widget berada, jadi kita bisa mengganti tata letak:</p>
+      <pre><code>LayoutBuilder(
+  builder: (context, constraints) {
+    if (constraints.maxWidth &gt; 600) {
+      // layar lebar: dua kolom bersebelahan
+      return Row(
+        children: const [
+          Expanded(child: Menu()),
+          Expanded(child: Konten()),
+        ],
+      );
+    }
+    // layar sempit: tumpuk ke bawah
+    return Column(
+      children: const [Menu(), Konten()],
+    );
+  },
+)</code></pre>
+      <ul>
+        <li><b>MediaQuery</b> = ukuran seluruh layar (dan info seperti orientasi, padding aman).</li>
+        <li><b>LayoutBuilder</b> = ukuran ruang lokal tempat widget dipasang.</li>
+        <li>Ambang <b>600</b> px sering dipakai sebagai batas ponsel vs tablet.</li>
+      </ul>
+      <div class="callout">Bungkus konten utama dengan <b>SafeArea</b> agar tidak tertutup notch/kamera atau bilah status di ponsel modern.</div>
+    `,
+  },
+  {
+    id: "fl-dialog",
+    cat: "widget",
+    title: "Dialog, SnackBar & BottomSheet",
+    minutes: 8,
+    summary: "Menampilkan pesan, konfirmasi, dan menu sementara ke pengguna.",
+    body: `
+      <p>Aplikasi sering perlu memberi <b>umpan balik</b>: pemberitahuan singkat, konfirmasi, atau panel pilihan. Flutter menyediakan tiga cara umum.</p>
+      <h4>SnackBar — pesan singkat di bawah layar</h4>
+      <pre><code>ScaffoldMessenger.of(context).showSnackBar(
+  const SnackBar(content: Text('Data tersimpan!')),
+);</code></pre>
+      <h4>AlertDialog — konfirmasi</h4>
+      <pre><code>showDialog(
+  context: context,
+  builder: (context) =&gt; AlertDialog(
+    title: const Text('Hapus data?'),
+    content: const Text('Tindakan ini tidak bisa dibatalkan.'),
+    actions: [
+      TextButton(
+        onPressed: () =&gt; Navigator.pop(context, false),
+        child: const Text('Batal'),
+      ),
+      TextButton(
+        onPressed: () =&gt; Navigator.pop(context, true),
+        child: const Text('Hapus'),
+      ),
+    ],
+  ),
+);</code></pre>
+      <p>Karena <code>showDialog</code> mengembalikan Future, kita bisa menunggu hasil pilihan:</p>
+      <pre><code>final setuju = await showDialog&lt;bool&gt;(/* ... */);
+if (setuju == true) {
+  // lakukan penghapusan
+}</code></pre>
+      <h4>BottomSheet — panel dari bawah</h4>
+      <pre><code>showModalBottomSheet(
+  context: context,
+  builder: (context) =&gt; const Padding(
+    padding: EdgeInsets.all(16),
+    child: Text('Pilih opsi di sini'),
+  ),
+);</code></pre>
+      <ul>
+        <li><b>SnackBar</b> lewat <code>ScaffoldMessenger</code>, bukan langsung Scaffold.</li>
+        <li><b>Navigator.pop(context, nilai)</b> menutup dialog sekaligus mengembalikan nilai.</li>
+        <li>Ketiganya butuh <b>BuildContext</b> yang berada di bawah MaterialApp.</li>
+      </ul>
+      <div class="callout">Gunakan <b>SnackBar</b> untuk info ringan, <b>AlertDialog</b> untuk keputusan penting, dan <b>BottomSheet</b> untuk daftar aksi/pilihan.</div>
+    `,
+  },
+  {
+    id: "fl-gorouter",
+    cat: "data",
+    title: "Navigasi Rapi dengan Named Routes / go_router",
+    minutes: 9,
+    summary: "Menata rute aplikasi secara terpusat agar mudah dikelola saat aplikasi membesar.",
+    body: `
+      <p>Untuk aplikasi kecil, <code>Navigator.push</code> sudah cukup. Tapi saat halaman makin banyak, mengelola navigasi terpusat lebih rapi. Ada dua cara: <b>named routes</b> bawaan dan paket <b>go_router</b>.</p>
+      <h4>Cara 1: Named routes (bawaan)</h4>
+      <pre><code>MaterialApp(
+  initialRoute: '/',
+  routes: {
+    '/': (context) =&gt; const BerandaPage(),
+    '/detail': (context) =&gt; const DetailPage(),
+    '/profil': (context) =&gt; const ProfilPage(),
+  },
+)</code></pre>
+      <p>Berpindah cukup dengan menyebut nama rute:</p>
+      <pre><code>Navigator.pushNamed(context, '/detail');</code></pre>
+      <h4>Cara 2: go_router (disarankan untuk aplikasi besar/web)</h4>
+      <pre><code>flutter pub add go_router</code></pre>
+      <pre><code>final router = GoRouter(
+  routes: [
+    GoRoute(
+      path: '/',
+      builder: (context, state) =&gt; const BerandaPage(),
+    ),
+    GoRoute(
+      path: '/produk/:id',   // parameter di URL
+      builder: (context, state) {
+        final id = state.pathParameters['id'];
+        return ProdukPage(id: id!);
+      },
+    ),
+  ],
+);
+
+MaterialApp.router(routerConfig: router);</code></pre>
+      <p>Berpindah halaman:</p>
+      <pre><code>context.go('/produk/42');   // menuju produk dengan id 42</code></pre>
+      <ul>
+        <li><b>Named routes</b> = tanpa paket tambahan, cocok aplikasi sedang.</li>
+        <li><b>go_router</b> = mendukung <b>parameter URL</b>, deep link, dan navigasi web yang rapi.</li>
+        <li><code>:id</code> pada path adalah parameter yang dibaca lewat <code>state.pathParameters</code>.</li>
+      </ul>
+      <div class="callout">Kalau aplikasimu menargetkan <b>web</b> atau butuh <b>deep link</b> (buka halaman tertentu dari luar), go_router jauh lebih nyaman daripada Navigator manual.</div>
+    `,
+  },
+  {
+    id: "fl-riverpod",
+    cat: "state",
+    title: "Manajemen State dengan Riverpod (Pengantar)",
+    minutes: 10,
+    summary: "Mengenal Riverpod sebagai cara modern berbagi state tanpa lifting manual.",
+    body: `
+      <p>Saat state dipakai di banyak layar, mengoper lewat konstruktor jadi merepotkan. <b>Riverpod</b> adalah pustaka manajemen state populer yang membuat data bisa diakses dari mana saja dengan aman dan teruji.</p>
+      <h4>1. Pasang &amp; bungkus aplikasi</h4>
+      <pre><code>flutter pub add flutter_riverpod</code></pre>
+      <pre><code>void main() {
+  runApp(
+    const ProviderScope(   // wajib: membungkus seluruh aplikasi
+      child: MyApp(),
+    ),
+  );
+}</code></pre>
+      <h4>2. Membuat provider sederhana</h4>
+      <pre><code>// nilai yang bisa dibaca banyak widget
+final salamProvider = Provider&lt;String&gt;((ref) =&gt; 'Halo dari Riverpod');</code></pre>
+      <h4>3. Provider yang bisa berubah (Notifier)</h4>
+      <pre><code>class Penghitung extends Notifier&lt;int&gt; {
+  @override
+  int build() =&gt; 0;          // nilai awal
+
+  void tambah() =&gt; state++;   // ubah state, UI ikut diperbarui
+}
+
+final penghitungProvider =
+    NotifierProvider&lt;Penghitung, int&gt;(Penghitung.new);</code></pre>
+      <h4>4. Membaca di UI dengan ConsumerWidget</h4>
+      <pre><code>class LayarHitung extends ConsumerWidget {
+  const LayarHitung({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final angka = ref.watch(penghitungProvider);   // dengarkan perubahan
+
+    return Column(
+      children: [
+        Text('Angka: \${angka}'),
+        ElevatedButton(
+          onPressed: () =&gt; ref.read(penghitungProvider.notifier).tambah(),
+          child: const Text('+1'),
+        ),
+      ],
+    );
+  }
+}</code></pre>
+      <ul>
+        <li><b>ref.watch</b> = mendengarkan nilai; widget dibangun ulang saat nilai berubah.</li>
+        <li><b>ref.read(...notifier)</b> = memanggil aksi (mengubah state) tanpa mendengarkan.</li>
+        <li><b>ProviderScope</b> wajib membungkus aplikasi di <code>main()</code>.</li>
+      </ul>
+      <div class="callout">Riverpod vs Provider: keduanya baik. Riverpod lebih modern, tidak bergantung pada BuildContext, dan lebih mudah diuji. Mulailah dari <b>setState</b>, naik ke <b>Provider/Riverpod</b> saat aplikasi membesar.</div>
+    `,
+  },
 ];
 
 export const FLUTTER_QUIZZES: Record<string, Question[]> = {
@@ -830,5 +1228,45 @@ export const FLUTTER_QUIZZES: Record<string, Question[]> = {
   "fl-packages": [
     { q: "Daftar dependensi paket ditulis di file:", options: ["main.dart", "pubspec.yaml", "index.html", "config.dart"], answer: 1, explain: "pubspec.yaml." },
     { q: "Perintah menambah paket http adalah:", options: ["flutter add http", "flutter pub add http", "npm install http", "dart get http"], answer: 1, explain: "flutter pub add http." },
+  ],
+  "fl-forms": [
+    { q: "Agar bisa memakai validator di dalam Form, gunakan widget:", options: ["TextField", "TextFormField", "Text", "InputField"], answer: 1, explain: "TextFormField mendukung properti validator." },
+    { q: "Sebuah validator dianggap VALID bila mengembalikan:", options: ["true", "String kosong", "null", "0"], answer: 2, explain: "null berarti tidak ada error (valid)." },
+    { q: "Menjalankan semua validator sekaligus dilakukan dengan:", options: ["form.check()", "_formKey.currentState!.validate()", "setState()", "Form.submit()"], answer: 1, explain: "validate() pada FormState." },
+  ],
+  "fl-gridview": [
+    { q: "Properti yang menentukan jumlah kolom pada GridView.count adalah:", options: ["columns", "crossAxisCount", "itemCount", "gridSize"], answer: 1, explain: "crossAxisCount = jumlah kolom." },
+    { q: "Mengatur rasio bentuk (lebar : tinggi) tiap sel memakai:", options: ["childAspectRatio", "boxFit", "flex", "ratio"], answer: 0, explain: "childAspectRatio." },
+    { q: "Untuk grid dengan data panjang/dinamis sebaiknya pakai:", options: ["GridView statis", "GridView.builder", "Column", "Wrap"], answer: 1, explain: "builder efisien untuk data banyak." },
+  ],
+  "fl-animation": [
+    { q: "Widget yang otomatis menganimasikan perubahan ukuran/warna adalah:", options: ["Container", "AnimatedContainer", "SizedBox", "Transform"], answer: 1, explain: "AnimatedContainer = implicit animation." },
+    { q: "Properti yang menentukan lama animasi adalah:", options: ["curve", "duration", "speed", "delay"], answer: 1, explain: "duration mengatur durasi animasi." },
+    { q: "Untuk memudarkan (transparansi) widget secara halus, pakai:", options: ["AnimatedOpacity", "Visibility", "Opacity", "FadeOut"], answer: 0, explain: "AnimatedOpacity menganimasikan opacity." },
+  ],
+  "fl-images": [
+    { q: "Menampilkan gambar dari file lokal aplikasi memakai:", options: ["Image.network", "Image.asset", "Image.file", "Image.memory"], answer: 1, explain: "Image.asset untuk aset lokal." },
+    { q: "Aset gambar lokal wajib didaftarkan di file:", options: ["main.dart", "pubspec.yaml", "assets.json", "config.dart"], answer: 1, explain: "Bagian flutter/assets di pubspec.yaml." },
+    { q: "Properti yang mengatur cara gambar mengisi ruang adalah:", options: ["fit", "align", "scale", "size"], answer: 0, explain: "fit (mis. BoxFit.cover / contain)." },
+  ],
+  "fl-responsive": [
+    { q: "Mengetahui lebar seluruh layar memakai:", options: ["LayoutBuilder", "MediaQuery.of(context).size", "context.width", "Screen.size"], answer: 1, explain: "MediaQuery memberi ukuran layar." },
+    { q: "Widget yang memberi tahu ukuran ruang lokal tempat widget dipasang:", options: ["MediaQuery", "LayoutBuilder", "SafeArea", "Expanded"], answer: 1, explain: "LayoutBuilder menyediakan constraints." },
+    { q: "Agar konten tidak tertutup notch/bilah status, bungkus dengan:", options: ["Padding", "SafeArea", "Container", "Center"], answer: 1, explain: "SafeArea menghindari area sistem." },
+  ],
+  "fl-dialog": [
+    { q: "Menampilkan pesan singkat di bawah layar memakai:", options: ["AlertDialog", "SnackBar", "BottomSheet", "Toast"], answer: 1, explain: "SnackBar untuk pesan singkat." },
+    { q: "SnackBar ditampilkan melalui:", options: ["Scaffold.of", "ScaffoldMessenger.of(context)", "Navigator.of", "showDialog"], answer: 1, explain: "ScaffoldMessenger.of(context).showSnackBar(...)." },
+    { q: "Menutup dialog sekaligus mengembalikan nilai pilihan memakai:", options: ["Navigator.push", "Navigator.pop(context, nilai)", "close()", "setState()"], answer: 1, explain: "pop dengan argumen kedua mengembalikan hasil." },
+  ],
+  "fl-gorouter": [
+    { q: "Berpindah halaman dengan named routes bawaan memakai:", options: ["Navigator.push", "Navigator.pushNamed", "context.go", "router.push"], answer: 1, explain: "pushNamed memakai nama rute." },
+    { q: "Keunggulan utama go_router dibanding Navigator manual adalah:", options: ["lebih lambat", "mendukung parameter URL & deep link", "tanpa widget", "hanya untuk Android"], answer: 1, explain: "go_router unggul untuk URL/web/deep link." },
+    { q: "Pada go_router, path '/produk/:id' menandakan bahwa id adalah:", options: ["konstanta", "parameter rute", "nama widget", "komentar"], answer: 1, explain: "':id' adalah path parameter." },
+  ],
+  "fl-riverpod": [
+    { q: "Widget yang wajib membungkus aplikasi agar Riverpod berfungsi adalah:", options: ["MaterialApp", "ProviderScope", "Consumer", "ChangeNotifier"], answer: 1, explain: "ProviderScope di main()." },
+    { q: "Untuk MENDENGARKAN nilai provider dan rebuild saat berubah, pakai:", options: ["ref.read", "ref.watch", "ref.get", "ref.listen"], answer: 1, explain: "ref.watch mendengarkan perubahan." },
+    { q: "Untuk memanggil aksi (mengubah state) tanpa mendengarkan, pakai:", options: ["ref.watch", "ref.read(...notifier)", "setState", "notifyListeners"], answer: 1, explain: "ref.read pada .notifier untuk memicu aksi." },
   ],
 };
