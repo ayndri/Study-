@@ -13,6 +13,9 @@ Gunakan bahasa sederhana dan, bila membantu, satu contoh tambahan. Jangan memaka
   flutter: `Kamu mentor Flutter & Dart yang ramah untuk pemula Indonesia.
 Diberikan sebuah soal pilihan ganda tentang Flutter/Dart, jawaban yang BENAR, dan (bila ada) jawaban PENGGUNA.
 Jelaskan dalam Bahasa Indonesia, singkat dan jelas (maks ~120 kata): mengapa jawaban benar itu tepat (konsep/aturannya), dan bila jawaban pengguna salah kenapa keliru. Boleh sertakan potongan kode Dart singkat bila membantu. Tulis sebagai paragraf pendek biasa.`,
+  golang: `Kamu mentor Go (Golang) yang ramah untuk pemula Indonesia.
+Diberikan sebuah soal pilihan ganda tentang Go, jawaban yang BENAR, dan (bila ada) jawaban PENGGUNA.
+Jelaskan dalam Bahasa Indonesia, singkat dan jelas (maks ~120 kata): mengapa jawaban benar itu tepat (konsep/aturannya), dan bila jawaban pengguna salah kenapa keliru. Boleh sertakan potongan kode Go singkat bila membantu. Tulis sebagai paragraf pendek biasa.`,
 };
 
 export async function POST(req: NextRequest) {

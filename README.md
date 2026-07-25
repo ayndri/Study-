@@ -2,10 +2,11 @@
 
 Aplikasi web **Next.js** untuk belajar mandiri yang menggabungkan beberapa jalur pembelajaran dalam satu tempat, ditenagai **AI (Gemini)** dan disimpan di **Neon Postgres**, dengan **login** dan **panel admin** untuk mengelola akun pengguna.
 
-Saat ini tersedia dua jalur belajar:
+Saat ini tersedia tiga jalur belajar:
 
 - 🎓 **TOEFL ITP & Beasiswa LPDP** — persiapan tes TOEFL ITP dan seleksi beasiswa LPDP menuju S2 Teknik Informatika ITS.
 - 📱 **Mobile dengan Flutter** — belajar membangun aplikasi mobile dengan Dart & Flutter dari nol.
+- 🐹 **Golang (Go)** — belajar bahasa Go dari dasar hingga konkurensi & REST API.
 
 > Platform ini dirancang agar mudah ditambah jalur belajar baru: konten & materi terpisah, sedangkan komponen dan endpoint AI dipakai bersama (sadar-subjek).
 
@@ -36,6 +37,12 @@ Saat ini tersedia dua jalur belajar:
 - 💻 Contoh **kode Dart** di setiap materi + **mini-quiz** + **Perdalam dengan AI**.
 - ✦ **Tutor Flutter AI** — menjawab dengan contoh kode.
 - ⌨️ **Latihan koding** — tulis kode Dart, AI menilai, menemukan bug, dan memberi versi perbaikan.
+
+### Jalur Golang
+- 📚 **32 pelajaran** dalam 10 kategori: mulai dari nol (setup, go mod), dasar bahasa (variabel, const/iota, operator), kontrol alur (if/switch, for), fungsi (multiple return, variadic, closure, defer), struktur data (slice, map, struct, pointer), method & interface, konkurensi (goroutine, channel, select, sync), pustaka standar (strings, time, json, file I/O), web & modul (net/http, REST API, package), serta praktik & alat (testing, debugging, tooling idiomatis).
+- 💻 Contoh **kode Go** di setiap materi + **mini-quiz** + **Perdalam dengan AI**.
+- ✦ **Tutor Golang AI** — menjawab dengan contoh kode idiomatis.
+- ⌨️ **Latihan koding** — tulis kode Go, AI menilai, menemukan bug, dan memberi versi perbaikan.
 
 ---
 
@@ -97,13 +104,14 @@ app/
   (halaman jalur TOEFL: /, /materi, /listening, /structure, /reading,
    /writing, /vocabulary, /simulasi, /tutor, /wawancara, /beasiswa, /riwayat-esai)
   flutter/           jalur Flutter (beranda, materi, tutor, latihan)
+  golang/            jalur Golang (beranda, materi, tutor, latihan)
   pilih/             pemilih jalur pembelajaran
   login/  admin/     autentikasi & manajemen akun
   api/               endpoint: auth, admin, progress, sync, feedback,
                      tutor, perdalam, jelaskan, wawancara, review-kode
 components/          Shell (navigasi), Quiz, Materi, Tutor, Simulasi, dll.
-lib/                 content.ts (TOEFL), materi.ts, flutter.ts, db.ts,
-                     gemini.ts, auth.ts, auth-token.ts, store.ts
+lib/                 content.ts (TOEFL), materi.ts, flutter.ts, golang.ts,
+                     db.ts, gemini.ts, auth.ts, auth-token.ts, store.ts
 middleware.ts        gerbang autentikasi seluruh rute
 ```
 
@@ -111,7 +119,7 @@ middleware.ts        gerbang autentikasi seluruh rute
 
 ## ⚠️ Catatan
 
-Materi, angka skor, tahapan beasiswa, dan contoh kode dalam aplikasi ini bersifat **panduan belajar** dan dapat berubah. Selalu verifikasi ketentuan resmi di **lpdp.kemenkeu.go.id** dan **its.ac.id**, serta dokumentasi resmi di **flutter.dev**, sebelum mengambil keputusan.
+Materi, angka skor, tahapan beasiswa, dan contoh kode dalam aplikasi ini bersifat **panduan belajar** dan dapat berubah. Selalu verifikasi ketentuan resmi di **lpdp.kemenkeu.go.id** dan **its.ac.id**, serta dokumentasi resmi di **flutter.dev** dan **go.dev**, sebelum mengambil keputusan.
 
 ---
 

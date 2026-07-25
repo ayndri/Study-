@@ -18,6 +18,14 @@ const TRACKS = [
     ready: true,
   },
   {
+    href: "/golang",
+    ic: "🐹",
+    title: "Belajar Golang (Go)",
+    desc: "Kuasai Go dari dasar hingga konkurensi & REST API: sintaks, struct & interface, goroutine & channel. Materi bertahap, tutor AI, kuis, dan review kode oleh AI.",
+    tags: ["Materi + AI", "Tutor AI", "Review Kode AI"],
+    ready: true,
+  },
+  {
     href: "#",
     ic: "✨",
     title: "Pembelajaran lain",

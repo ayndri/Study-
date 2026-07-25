@@ -3,14 +3,14 @@
 import { useEffect, useState } from "react";
 import { get, set } from "@/lib/store";
 
-const TASKS = [
+const FLUTTER_TASKS = [
   "Buat fungsi Dart bernama luasPersegi(sisi) yang mengembalikan luas.",
   "Buat StatefulWidget penghitung (counter) dengan tombol +1.",
   "Buat Column berisi 3 Text dan sebuah ElevatedButton.",
   "Ambil data judul dari API lalu tampilkan dengan FutureBuilder.",
 ];
 
-const STARTER = `void main() {
+const FLUTTER_STARTER = `void main() {
   print(luasPersegi(5));
 }
 
@@ -18,21 +18,33 @@ int luasPersegi(int sisi) {
   return sisi * sisi;
 }`;
 
-export default function CodeReview() {
-  const [task, setTask] = useState(TASKS[0]);
-  const [code, setCode] = useState(STARTER);
+export default function CodeReview({
+  subject = "flutter",
+  lang = "Dart",
+  tasks = FLUTTER_TASKS,
+  starter = FLUTTER_STARTER,
+  storeKey = "flCode",
+}: {
+  subject?: string;
+  lang?: string;
+  tasks?: string[];
+  starter?: string;
+  storeKey?: string;
+}) {
+  const [task, setTask] = useState(tasks[0]);
+  const [code, setCode] = useState(starter);
   const [loading, setLoading] = useState(false);
   const [html, setHtml] = useState<string | null>(null);
   const [err, setErr] = useState<string | null>(null);
 
   useEffect(() => {
-    const saved = get<string>("flCode", "");
+    const saved = get<string>(storeKey, "");
     if (saved) setCode(saved);
-  }, []);
+  }, [storeKey]);
 
   function onCode(v: string) {
     setCode(v);
-    set("flCode", v);
+    set(storeKey, v);
   }
 
   async function review() {
@@ -43,7 +55,7 @@ export default function CodeReview() {
       const res = await fetch("/api/review-kode", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code, task }),
+        body: JSON.stringify({ code, task, subject }),
       });
       const data = await res.json();
       if (!res.ok || !data.ok) setErr(data.error || "Gagal mereview.");
@@ -60,14 +72,14 @@ export default function CodeReview() {
       <div className="card pad">
         <div className="eyebrow">Tantangan</div>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap", margin: "10px 0 12px" }}>
-          {TASKS.map((t, i) => (
+          {tasks.map((t, i) => (
             <button key={i} className={"btn sm " + (t === task ? "gold" : "ghost")} onClick={() => setTask(t)}>
               #{i + 1}
             </button>
           ))}
         </div>
         <div className="prompt-box">{task}</div>
-        <label className="auth-label" style={{ marginTop: 14 }}>Kode Dart-mu</label>
+        <label className="auth-label" style={{ marginTop: 14 }}>Kode {lang}-mu</label>
         <textarea
           className="essay code"
           value={code}
@@ -95,9 +107,9 @@ export default function CodeReview() {
             <div style={{ color: "var(--muted)" }}>
               <div className="eyebrow">Cara pakai</div>
               <ul className="tips" style={{ marginTop: 10 }}>
-                <li>Pilih salah satu tantangan, atau tulis kode Dart apa pun.</li>
+                <li>Pilih salah satu tantangan, atau tulis kode {lang} apa pun.</li>
                 <li>Klik <b>Minta review AI</b> — AI menilai, menemukan bug, dan memberi versi perbaikan.</li>
-                <li>Bisa juga tempel kode dari proyek Flutter-mu untuk dicek.</li>
+                <li>Bisa juga tempel kode dari proyekmu untuk dicek.</li>
               </ul>
             </div>
           )

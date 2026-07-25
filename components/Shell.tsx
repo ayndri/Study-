@@ -49,6 +49,30 @@ const FLUTTER_NAV: NavGroup[] = [
   },
 ];
 
+const GO_NAV: NavGroup[] = [
+  {
+    group: "Belajar Golang",
+    items: [
+      { href: "/golang", label: "Beranda Go", ic: "◈" },
+      { href: "/golang/materi", label: "Materi", ic: "▥" },
+      { href: "/golang/tutor", label: "Tutor AI", ic: "✦", badge: "AI" },
+      { href: "/golang/latihan", label: "Latihan Koding", ic: "⌨", badge: "AI" },
+    ],
+  },
+];
+
+type Track = { key: string; mark: string; name: string; tagline: string; nav: NavGroup[] };
+
+const TRACKS: Track[] = [
+  { key: "/golang", mark: "G", name: "Belajar Golang", tagline: "Backend · Bahasa Go", nav: GO_NAV },
+  { key: "/flutter", mark: "F", name: "Belajar Flutter", tagline: "Mobile · Dart & Flutter", nav: FLUTTER_NAV },
+];
+
+function trackFor(pathname: string): Track {
+  const t = TRACKS.find((t) => pathname.startsWith(t.key));
+  return t || { key: "/", mark: "J", name: "Jalur ITS", tagline: "TOEFL ITP · Beasiswa LPDP", nav: TOEFL_NAV };
+}
+
 function ThemeToggle() {
   const [theme, setTheme] = useState<string | null>(null);
   useEffect(() => {
@@ -96,18 +120,18 @@ export default function Shell({ children }: { children: React.ReactNode }) {
   // Halaman login tampil tanpa kerangka (sidebar/topbar).
   if (pathname === "/login") return <>{children}</>;
 
-  const isFlutter = pathname.startsWith("/flutter");
-  const NAV = isFlutter ? FLUTTER_NAV : TOEFL_NAV;
+  const track = trackFor(pathname);
+  const NAV = track.nav;
 
   return (
     <div className="app">
       <div className={"scrim" + (open ? " show" : "")} onClick={() => setOpen(false)} />
       <aside className={"sidebar" + (open ? " open" : "")}>
         <div className="brand">
-          <div className="mark">{isFlutter ? "F" : "J"}</div>
+          <div className="mark">{track.mark}</div>
           <div>
-            <span className="name">{isFlutter ? "Belajar Flutter" : "Jalur ITS"}</span>
-            <small>{isFlutter ? "Mobile · Dart & Flutter" : "TOEFL ITP · Beasiswa LPDP"}</small>
+            <span className="name">{track.name}</span>
+            <small>{track.tagline}</small>
           </div>
         </div>
 
@@ -164,9 +188,9 @@ export default function Shell({ children }: { children: React.ReactNode }) {
           </button>
           <div className="brand" style={{ padding: 0 }}>
             <div className="mark" style={{ width: 30, height: 30, fontSize: 16 }}>
-              J
+              {track.mark}
             </div>
-            <span className="name">Jalur ITS</span>
+            <span className="name">{track.name}</span>
           </div>
         </div>
         <div className="page">{children}</div>
